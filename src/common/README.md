@@ -9,3 +9,6 @@ common represents common knowledge about the game.
 Above is the design for the common directory. Since the common directory represents the common knowledge about the game this includes the GameState and everything it makes up, along with the Rules.
 
 # Directory 
+| File or Folder | About |
+| ---            | ---   |
+| [gamepiece.py](gamepiece.py) | GamePiece
