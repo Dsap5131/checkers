@@ -33,3 +33,4 @@ The Strategy object will be used to determine the next move for the player. I.e 
 |   Location     |   About   |
 |   :---         |   :---     |
 | [resources](./resources/README.md) | Represents information about the project.
+| [src](./src/README.md) | source code for the project |
