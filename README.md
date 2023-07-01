@@ -9,3 +9,10 @@ The specific goals of this project are to create checkers using Python and Flask
 ## TODO
 
 1. Plan out design for project
+
+
+## Directories
+
+|   Location     |   About   |
+|   :---         |   :---     |
+| [resources](./resources/README.md) | Represents information about the project.
