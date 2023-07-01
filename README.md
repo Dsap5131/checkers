@@ -8,4 +8,4 @@ The specific goals of this project are to create checkers using Python and Flask
 
 ## TODO
 
-1. Start :)
+1. Plan out design for project
