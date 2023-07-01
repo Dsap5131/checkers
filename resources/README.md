@@ -1,10 +1,8 @@
 # resources
 
-## About
-
 This directory represents files and information about the project. Especially information that is referenced elsewhere in the project.
 
-## Directory
+# Directory
 
 | File or Folder | About |
 | ---            |  ---  |
