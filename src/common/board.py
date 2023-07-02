@@ -43,9 +43,23 @@ class Board():
     
 
     def get_piece(self, position: Position) -> GamePiece:
+        '''
+        Get GamePiece at a given Position
+
+        @param: position: Position
+        
+        @returns: GamePiece
+        '''
+
         return self.__board[position.get_row()][position.get_column()]
     
     def move_piece(self, move: Move) -> None:
+        '''
+        Move a GamePiece 
+
+        @param: move: Move
+        '''
+
         current_position = move.get_current_position()
         new_position = move.get_new_position()
         gamepiece = self.get_piece(current_position)
