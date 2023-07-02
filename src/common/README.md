@@ -12,3 +12,5 @@ Above is the design for the common directory. Since the common directory represe
 | File or Folder | About |
 | ---            | ---   |
 | [gamepiece.py](gamepiece.py) | GamePiece
+| [position.py](position.py) | Position
+| [board.py](board.py) | Board

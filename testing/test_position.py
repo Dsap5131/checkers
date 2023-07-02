@@ -1,5 +1,3 @@
-import sys
-
 from src.common.position import Position
 
 def test_constructor() -> None:
