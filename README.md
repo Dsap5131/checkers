@@ -8,8 +8,9 @@ The specific goals of this project are to create checkers using Python and Flask
 # TODO
 
 1. Implement the common directory design
-2. Should Move return copies of the Position? Is this a vulnerability if not.
-3. (Optional) Research and implement optional typing for the use of GamePiece
+2. Instance checking on parameters? What is the best practice
+3. Should Move return copies of the Position? Is this a vulnerability if not.
+4. (Optional) Research and implement optional typing for the use of GamePiece
 
 # Project Design
 
