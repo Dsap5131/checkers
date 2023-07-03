@@ -14,3 +14,6 @@ Above is the design for the common directory. Since the common directory represe
 | [gamepiece.py](gamepiece.py) | GamePiece
 | [position.py](position.py) | Position
 | [board.py](board.py) | Board
+| [move.py](move.py) | Move
+| [player.py](player.py) | Player
+| [gamestate.py](gamestate.py) | GameState
