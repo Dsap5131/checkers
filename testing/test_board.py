@@ -1,7 +1,10 @@
+from collections import deque
+
 from src.common.board import Board
 from src.common.gamepiece import GamePiece
 from src.common.position import Position
 from src.common.move import Move
+from src.common.leap import Leap
 
 
 def test_constructor() -> None:
@@ -76,7 +79,8 @@ def test_place_piece() -> None:
     assert board.get_piece(Position(0,1)) == GamePiece.BLANK, \
         "Board.get_piece(position) failed and ruins integration testing."
     
-    move = Move(Position(1,1), Position(0,1))
+
+    move = Move(deque([Leap(Position(1,1), Position(0,1))]))
     board.move_piece(move)
 
     assert board.get_piece(Position(0,1)) == GamePiece.RED, \

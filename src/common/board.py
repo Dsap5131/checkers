@@ -3,6 +3,7 @@ from typing import List
 from src.common.gamepiece import GamePiece
 from src.common.position import Position
 from src.common.move import Move
+from src.common.leap import Leap
 
 class Board():
     '''
@@ -60,11 +61,24 @@ class Board():
         @param: move: Move
         '''
 
-        current_position = move.get_current_position()
-        new_position = move.get_new_position()
-        gamepiece = self.get_piece(current_position)
+        while move.leaps_remaining() > 0:
+            self.__leap_piece(move.get_next_leap())
+
+
+    def __leap_piece(self, leap: Leap) -> None:
+        '''
+        Perform a leap with a piece
         
-        self.__board[current_position.get_row()][current_position.get_column()] = GamePiece.BLANK
-        self.__board[new_position.get_row()][new_position.get_column()] = gamepiece
+        @param: leap: Leap
+        '''
+
+        start_position = leap.get_start_position()
+        end_position = leap.get_end_position()
+        gamepiece = self.get_piece(start_position)
+
+        self.__board[start_position.get_row()][start_position.get_column()] \
+            = GamePiece.BLANK
+        self.__board[end_position.get_row()][end_position.get_column()] \
+            = gamepiece
 
 

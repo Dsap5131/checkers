@@ -1,35 +1,48 @@
-from src.common.position import Position
+from collections import deque
+
+from src.common.leap import Leap
 
 class Move(): 
     '''
     Represents a move in checkers. A move in checkers is characterized by 
-    2 Positions. The first representing the current position of a GamePiece and 
-    the second representing the new position to move the GamePiece.
+    as a list of leaps.
     '''
 
-    def __init__(self, current_position: Position, new_position: Position) -> None:
-        self.__current_position = current_position
-        self.__new_position = new_position
+    def __init__(self, leaps: deque[Leap]) -> None:
+        self.__next_leaps = leaps
+        self.__previous_leaps = deque()
 
     
-    def get_current_position(self) -> Position:
+    def leaps_remaining(self) -> int:
         '''
-        Get the current position of the GamePiece to be moved.
+        Gets the number of leaps remaining.
 
-        @returns: Position
+        @return: int
+        '''
+        return len(self.__next_leaps)
+
+
+    def get_next_leap(self) -> Leap:
+        '''
+        Get the next leap to be performed during this move. 
+        It is expected to only call this method while a positive number 
+        of leaps remain. Otherwise this will error.
+
+        @returns: Leap
         '''
 
-        return self.__current_position
+        next_leap = self.__next_leaps.popleft()
+        self.__previous_leaps.append(next_leap)
+        return next_leap
     
 
-    def get_new_position(self) -> Position:
+    def reset(self) -> None:
         '''
-        Get the new position of the GamePiece to be moved.
-
-        @returns: Position
+        Resets the Move so that get_next_leap will return the first leap.
         '''
-
-        return self.__new_position
+        self.__next_leaps = self.__previous_leaps + self.__next_leaps
+        self.__previous_leaps = deque()
     
+
     
     
