@@ -19,3 +19,4 @@ Above is the design for the common directory. Since the common directory represe
 | [rulesstandard.py](rulesstandard.py) | RulesStandard
 | [player.py](player.py) | Player
 | [gamestate.py](gamestate.py) | GameState
+| [playergamestate.py] (playergamestate.py) | PlayerGameState
