@@ -66,7 +66,7 @@ def test_get_piece() -> None:
         "Board.get_piece(position) not working."
     
 
-def test_place_piece() -> None:
+def test_move_piece() -> None:
     row_size = 2
     column_size = 3
     board_setup = [[GamePiece.BLANK, GamePiece.BLANK, GamePiece.BLANK],
@@ -85,6 +85,9 @@ def test_place_piece() -> None:
 
     assert board.get_piece(Position(0,1)) == GamePiece.RED, \
         "Board.move_piece(move) not working."
+    
+
+
 
 
 
