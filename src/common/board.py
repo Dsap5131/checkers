@@ -1,3 +1,4 @@
+from __future__ import annotations
 from typing import List
 
 from src.common.gamepiece import GamePiece
@@ -22,6 +23,30 @@ class Board():
         self.__row_size = row_size
         self.__column_size = column_size
         self.__board = board
+
+    
+    @classmethod
+    def from_board(self, board: Board) -> Board:
+        '''
+        Copy Constructor
+
+        @param: board: Board: Board to create a copy of.
+        '''
+
+        copied_row_size = board.get_row_size()
+        copied_column_size = board.get_column_size()
+
+        copied_board_list = []
+        for r in range(copied_row_size):
+            copied_row = []
+            for c in range(copied_row_size):
+                copied_row.append(board.get_piece(Position(r,c)))
+            copied_board_list.append(copied_row)
+
+
+        return Board(row_size=copied_row_size,
+                     column_size=copied_column_size,
+                     board=copied_board_list)
 
     
     def get_row_size(self) -> int:

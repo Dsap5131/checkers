@@ -87,7 +87,29 @@ def test_move_piece() -> None:
         "Board.move_piece(move) not working."
     
 
+def test_copy_constructor() -> None:
+    row_size = 2
+    column_size = 2
+    board_setup = [[GamePiece.BLANK, GamePiece.RED],
+                   [GamePiece.BLANK, GamePiece.BLANK]]
+    board_one = Board(row_size, column_size, board_setup)
+    board_two = Board.from_board(board_one)
 
+    assert board_one.get_piece(Position(0,0)) == GamePiece.BLANK, \
+        "Board.from_board(Board) setup failed."
+    
+    assert board_two.get_piece(Position(0,0)) == GamePiece.BLANK, \
+        "Board.from_board(Board) setup failed."
+    
+    move = Move(deque([Leap(Position(0,1), Position(0,0))]))
+    board_two.move_piece(move)
+
+    assert board_one.get_piece(Position(0,0)) == GamePiece.BLANK, \
+        "Board.from_board(Board) failed."
+    
+    assert board_two.get_piece(Position(0,0)) == GamePiece.RED, \
+        "Board.from_board(Board) failed."
+    
 
 
 
