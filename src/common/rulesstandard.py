@@ -51,42 +51,80 @@ class RulesStandard(Rules):
         start_position = leap.get_start_position()
         end_position = leap.get_end_position()
 
-        # Check to see if the leap is on the board
-        if not (self.check_position(start_position, board) and 
-                self.check_position(end_position, board)):
+        onboard = (self.check_position(start_position, board) and 
+                   self.check_position(end_position, board))  
+        if not onboard:
             return False
         
-        # Check to see if the leap is using the correct players piece
-        if (player.get_gamepiece() != board.get_piece(start_position)):
-            return False
-        
-        # Check to see if the leap is a valid 1 space move
-        one_leap = ((abs(end_position.get_row()
-                        - start_position.get_row()) == 1) and
-                    (abs(end_position.get_column()
-                        - start_position.get_column()) == 1) and
-                    board.get_piece(end_position) == GamePiece.BLANK)
-
-        # Check to see if the leap is a valid capture
-        if not ((abs(end_position.get_row()
-                    - start_position.get_row()) == 2) and
-                (abs(end_position.get_column()
-                    - start_position.get_column()) == 2)):
-            capture = False
-        elif not one_leap:
-            middle_position_row = int((end_position.get_row()-start_position.get_row())/2) + start_position.get_row()
-
-            middle_position_column = int((end_position.get_column()-start_position.get_column())/2) + start_position.get_column()
-            middle_position = Position(middle_position_row, middle_position_column)
-
-            capture = (board.get_piece(end_position) == GamePiece.BLANK and
-                       (board.get_piece(middle_position) != player.get_gamepiece() 
-                        and board.get_piece(middle_position) != GamePiece.BLANK))
+        players_piece = player.get_gamepiece()==board.get_piece(start_position)  
+        one_leap = self.__check_single_leap(leap, board)
+        capture = self.__check_capture_leap(leap, board)
             
-        if (one_leap or capture):
-            return True
+        return players_piece and (one_leap or capture)
+        
+
+    def __check_capture_leap(self, leap: Leap, board: Board) \
+        -> bool:
+        '''
+        Checks to see if a leap moves a piece 2 spaces diagonally capturing
+        an opponents piece.
+
+        @param: leap: Leap
+        @param: board: Board
+
+        @returns: bool: True if the leap is a capture leap.
+        '''
+
+        start_position = leap.get_start_position()
+        end_position = leap.get_end_position()
+
+        two_space_leap = ((abs(end_position.get_row()
+                              - start_position.get_row()) == 2) and
+                          (abs(end_position.get_column()
+                              - start_position.get_column()) == 2))
+        
+        if not two_space_leap:
+            capture = False
         else:
-            return False
+            start_row = start_position.get_row()
+            end_row = end_position.get_row()
+            start_column = start_position.get_column()
+            end_column = end_position.get_column()
+
+            middle_row = int((end_row-start_row)/2) + start_row
+            middle_column= int((end_column-start_column)/2) + start_column
+            middle_position = Position(middle_row, middle_column)
+
+            to_blank = board.get_piece(end_position) == GamePiece.BLANK
+            over_opponent = board.get_piece(middle_position) \
+                            != board.get_piece(start_position)
+            not_over_blank = board.get_piece(middle_position) != GamePiece.BLANK
+        
+            capture = to_blank and over_opponent and not_over_blank
+    
+        return capture
+        
+
+    def __check_single_leap(self, leap: Leap, board: Board) -> bool:
+        '''
+        Checks to see if a leap moves a piece 1 space diagonally
+        onto a blank space
+
+        @param: leap: Leap
+        @param: board: Board
+
+        @returns: bool: True if the leap is a 1 space diagonal leap.
+        '''
+        
+        start_position = leap.get_start_position()
+        end_position = leap.get_end_position()
+
+        within_rows = (abs(end_position.get_row()-start_position.get_row())==1)
+        within_cols = (abs(end_position.get_column()
+                           -start_position.get_column())==1)
+        to_blank_space = board.get_piece(end_position) == GamePiece.BLANK
+        
+        return within_rows and within_cols and to_blank_space
 
 
     def check_position(self, position: Position, board: Board) -> bool:
