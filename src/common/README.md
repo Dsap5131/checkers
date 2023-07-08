@@ -15,5 +15,7 @@ Above is the design for the common directory. Since the common directory represe
 | [position.py](position.py) | Position
 | [board.py](board.py) | Board
 | [move.py](move.py) | Move
+| [rules.py](rules.py) | Rules
+| [rulesstandard.py](rulesstandard.py) | RulesStandard
 | [player.py](player.py) | Player
 | [gamestate.py](gamestate.py) | GameState
