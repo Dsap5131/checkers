@@ -21,11 +21,13 @@ class Player():
         return self.__gamepiece
     
 
-    def get_move(self) -> Move:
+    def get_move(self, gamestate: 'PlayerGameState') -> Move:
         '''
         Get the next move of a player.
 
-        @returns Move
+        @param: gamestate: PlayerGameState
+
+        @returns: Move
         '''
 
-        raise NotImplemented('MUST OVERRIDE THIS CLASS')
+        raise NotImplementedError('MUST OVERRIDE THIS CLASS')
