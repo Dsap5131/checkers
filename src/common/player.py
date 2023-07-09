@@ -5,7 +5,8 @@ class Player():
     ''' 
     Interface that represents the knowledge the game knows about a player
     '''
-    
+
+
     def get_gamepiece(self) -> GamePiece:
         '''
         Get the gamepiece of the player.

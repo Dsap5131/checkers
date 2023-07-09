@@ -3,7 +3,8 @@ from collections import deque
 from src.common.rulesstandard import RulesStandard
 from src.common.move import Move
 from src.common.board import Board
-from src.common.player import Player
+from src.player.localplayer import LocalPlayer
+from src.player.dumbstrategy import DumbStrategy
 from src.common.gamepiece import GamePiece
 from src.common.position import Position
 from src.common.leap import Leap
@@ -16,7 +17,8 @@ def test_constructor() -> None:
 def test_check_move() -> None:
     rules_standard = RulesStandard()
 
-    player = Player(GamePiece.RED)
+    strategy = DumbStrategy()
+    player = LocalPlayer(GamePiece.RED, strategy)
 
     # Test an valid move where a piece is not jumped
     board_list_1 = [[GamePiece.BLANK, GamePiece.RED],

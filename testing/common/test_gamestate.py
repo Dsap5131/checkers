@@ -2,7 +2,8 @@ from src.common.rulesstandard import RulesStandard
 from src.common.gamestate import GameState
 from src.common.board import Board
 from src.common.gamepiece import GamePiece
-from src.common.player import Player
+from src.player.localplayer import LocalPlayer
+from src.player.dumbstrategy import DumbStrategy
 
 def test_constructor() -> None:
     row_size=2
@@ -11,15 +12,17 @@ def test_constructor() -> None:
                 [GamePiece.BLANK, GamePiece.BLANK]]
     board=Board(row_size,column_size,board_list)
     rules = RulesStandard()
-    player_one = Player(GamePiece.RED)
+    strategy = DumbStrategy()
+    player_one = LocalPlayer(GamePiece.RED, strategy)
     players = [player_one]
     gamestate = GameState(board, rules, players)
 
 
 def test_is_game_over() -> None:
     rules = RulesStandard()
-    red_player = Player(GamePiece.RED)
-    black_player = Player(GamePiece.BLACK)
+    strategy = DumbStrategy()
+    red_player = LocalPlayer(GamePiece.RED, strategy)
+    black_player = LocalPlayer(GamePiece.BLACK, strategy)
     
     # Game with 1 player
     row_size_1=2

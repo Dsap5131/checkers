@@ -6,13 +6,10 @@ from src.common.playergamestate import PlayerGameState
 from src.common.board import Board
 from src.common.rulesstandard import RulesStandard
 
-def test_constructor() -> None:
-    player_one = Player(GamePiece.RED)
-
 
 def test_get_gamepiece() -> None:
-    player_one = Player(GamePiece.RED)
-    player_two = Player(GamePiece.BLACK)
+    player_one = Player()
+    player_two = Player()
     with pytest.raises(NotImplementedError):
         player_one.get_gamepiece()
     with pytest.raises(NotImplementedError):
@@ -20,7 +17,7 @@ def test_get_gamepiece() -> None:
 
 
 def test_get_move() -> None:
-    player = Player(GamePiece.RED)
+    player = Player()
 
     row_size=2
     column_size=2
