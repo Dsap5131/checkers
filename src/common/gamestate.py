@@ -1,8 +1,9 @@
-from typing import List
+from collections import deque
 
 from src.common.board import Board
 from src.common.rules import Rules
 from src.common.player import Player
+from src.common.playergamestate import PlayerGameState
 
 class GameState():
     '''
@@ -10,10 +11,10 @@ class GameState():
 
     @param: board: Board: current board state
     @param: rules: Rules: Rules for dictating this game.
-    @param: players: List[Player]: list of players in the game
+    @param: players: deque[Player]: queue of players in the game
     '''
 
-    def __init__(self, board: Board, rules: Rules, players: List[Player]) \
+    def __init__(self, board: Board, rules: Rules, players: deque[Player]) \
             -> None:
         self.__board = board
         self.__rules = rules
@@ -34,4 +35,21 @@ class GameState():
         '''
         Go through one turn of the game.
         '''
-        ...
+        current_player = self.__players.popleft()
+        move = current_player.get_move(self.__make_playergamestate())
+        if self.__rules.check_move(move, self.__board, current_player):
+            self.__board.move_piece(move)
+            self.__players.append(current_player)
+        elif not self.__rules.kickable():
+            self.__players.append(current_player)
+
+
+    def __make_playergamestate(self) -> None:
+        '''
+        Create PlayerGameState from current gamestate.
+        '''
+        return PlayerGameState(Board.from_board(self.__board), self.__rules)
+
+
+
+    
