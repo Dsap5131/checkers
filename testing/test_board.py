@@ -111,5 +111,36 @@ def test_copy_constructor() -> None:
         "Board.from_board(Board) failed."
     
 
+def test_unique_piece_count() -> None:
+    # Test with only blank pieces
+    row_size_1=2
+    column_size_1=2
+    board_list_1=[[GamePiece.BLANK, GamePiece.BLANK],
+                [GamePiece.BLANK, GamePiece.BLANK]]
+    board_1 = Board(row_size_1, column_size_1, board_list_1)
+
+    assert board_1.unique_piece_count() == 0, \
+        "Board.unique_piece_count() failing with only blank pieces."
+
+    # Test with 1 type of piece
+    row_size_2=2
+    column_size_2=2
+    board_list_2=[[GamePiece.BLANK, GamePiece.RED],
+                  [GamePiece.RED, GamePiece.BLANK]]
+    board_2 = Board(row_size_2, column_size_2, board_list_2)
+
+    assert board_2.unique_piece_count() == 1, \
+        "Board.unique_piece_count() failing with only 1 type of piece."
+
+    # Test with 2 types of pieces
+    row_size_3=2
+    column_size_3=2
+    board_list_3=[[GamePiece.BLANK, GamePiece.RED],
+                  [GamePiece.BLANK, GamePiece.BLACK]]
+    board_3 = Board(row_size_3, column_size_3, board_list_3)
+
+    assert board_3.unique_piece_count() == 2, \
+        "Board.unique_piece_count() failing with 2 types of pieces."
+
 
 

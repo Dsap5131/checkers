@@ -107,3 +107,24 @@ class Board():
             = gamepiece
 
 
+    def unique_piece_count(self) -> int:
+        '''
+        Return the number of unique pieces on the board.
+        Does not include blank pieces.
+
+        @returns: int
+        '''
+
+        unique_piece_count = 0
+        seen = []
+        for r in range(self.get_row_size()):
+            for c in range(self.get_column_size()):
+                current_piece = self.get_piece(Position(r,c))
+                if (current_piece != GamePiece.BLANK 
+                        and not current_piece in seen):
+                    unique_piece_count += 1
+                    seen.append(current_piece)
+        return unique_piece_count
+                    
+
+
