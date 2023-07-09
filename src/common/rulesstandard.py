@@ -141,4 +141,18 @@ class RulesStandard(Rules):
                 (position.get_row() >= 0) and
                 (position.get_column() < board.get_column_size()) and
                 (position.get_column() >= 0))
+    
+
+    def is_game_over(self, board: Board, num_players: int) -> bool:
+        '''
+        Check to see if the game is over.
+
+        @param: board: Board
+        @param: num_players: int: Number of players in the game
+
+        @returns: bool: True if the game is over.
+        '''
+
+        return num_players <= 1 or board.unique_piece_count() <= 1
+
 

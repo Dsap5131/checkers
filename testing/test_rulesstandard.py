@@ -244,4 +244,43 @@ def test_check_position():
         off the left of the board."
     
 
+def test_is_game_over() -> None:
+    rules = RulesStandard()
+
+    # Test a non-game over state
+    row_size_1=2
+    column_size_1=2
+    board_list_1=[[GamePiece.BLANK, GamePiece.RED],
+                  [GamePiece.BLACK, GamePiece.BLANK]]
+    board_1 = Board(row_size_1, column_size_1, board_list_1)
+    num_players_1 = 2
+
+    assert rules.is_game_over(board_1, num_players_1) == False, \
+        "RulesStandard.is_game_over(Board, int) failling to identify an active \
+        game."
+    
+
+    # Test a game over with only 1 player
+    row_size_2=2
+    column_size_2=2
+    board_list_2=[[GamePiece.BLANK, GamePiece.RED],
+                  [GamePiece.BLACK, GamePiece.BLANK]]
+    board_2 = Board(row_size_2, column_size_2, board_list_2)
+    num_players_2 = 1
+    
+    assert rules.is_game_over(board_2, num_players_2), \
+        "RulesStandard.is_game_over(Board, int) allowing a game with 1 player."
+
+    # Test a game over where there are one type of piece
+    row_size_3=2
+    column_size_3=2
+    board_list_3=[[GamePiece.BLANK, GamePiece.RED],
+                  [GamePiece.BLANK, GamePiece.BLANK]]
+    board_3 = Board(row_size_3, column_size_3, board_list_3)
+    num_players_3 = 2
+
+    assert rules.is_game_over(board_3, num_players_3), \
+        "RulesStandard.is_game_over(Board, int) allowing a game with only 1 \
+        type of piece left."
+
 
