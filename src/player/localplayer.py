@@ -6,7 +6,9 @@ from src.common.move import Move
 
 class LocalPlayer(Player):
     '''
-    LocalPlayer is a player that is run on the gameserver. 
+    LocalPlayer is a player that is run on the gameserver. These are likely
+    to be AI setup by the server and players used for testing. The server has
+    greater control over these players.
     
     @param: gamepiece: GamePiece
     @param: startegy: Strategy
