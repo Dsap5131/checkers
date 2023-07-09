@@ -7,11 +7,12 @@ The specific goals of this project are to create checkers using Python and Flask
 
 # TODO
 
-1. Implement the common directory design
-2. Instance checking on parameters? What is the best practice
-3. Should Move return copies of the Position? Is this a vulnerability if not.
-4. (Optional) Research and implement optional typing for the use of GamePiece
-5. Should typing be done through strings and not imports (this can help with circular imports?)
+1. Implement the player directory design
+2. implement taketurn in gamestate
+3. Instance checking on parameters? What is the best practice
+4. Should Move return copies of the Position? Is this a vulnerability if not.
+5. (Optional) Research and implement optional typing for the use of GamePiece
+6. Should typing be done through strings and not imports (this can help with circular imports?)
 
 # Project Design
 
