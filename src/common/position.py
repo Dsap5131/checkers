@@ -26,3 +26,15 @@ class Position():
         @returns int
         '''
         return self.__column
+    
+
+    def __eq__(self, obj) -> bool:
+        '''
+        Positions are equal if their rows and columns are equals to each other.
+        
+        @returns: bool
+        '''
+
+        return (isinstance(obj, Position) and
+                obj.get_row() == self.get_row() and
+                obj.get_column() == self.get_column())
