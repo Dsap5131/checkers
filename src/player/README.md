@@ -13,3 +13,4 @@ Above is the design for the player directory.
 | ---            | ---   |
 | [strategy.py](./strategy.py) | [Strategy](./strategy.py) |
 | [dumbstrategy.py](./dumbstrategy.py) | [DumbStrategy](./dumbstrategy.py) |
+| [localplayer.py](./localplayer.py) | [LocalPlayer](./localplayer.py) |
