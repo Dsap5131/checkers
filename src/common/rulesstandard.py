@@ -156,3 +156,12 @@ class RulesStandard(Rules):
         return num_players <= 1 or board.unique_piece_count() <= 1
 
 
+    def kickable(self) -> bool:
+        '''
+        Check to see if players are kicked from the game for invalid
+        inputs.
+
+        @returns: bool: True if they are kicked.
+        '''
+
+        return True

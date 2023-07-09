@@ -286,3 +286,8 @@ def test_is_game_over() -> None:
         type of piece left."
 
 
+def test_kickable() -> None:
+    rules = RulesStandard()
+
+    assert rules.kickable(), \
+        "RulesStandard.kickable() not working as expected."

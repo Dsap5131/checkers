@@ -51,4 +51,16 @@ class Rules():
 
         raise NotImplementedError(
             "THIS IS NOT IMPLEMENTED AND SHOULD NEVER BE CALLED.")
+    
+
+    def kickable(self) -> bool:
+        '''
+        Check to see if players are kicked from the game for invalid
+        inputs.
+
+        @returns: bool: True if they are kicked.
+        '''
+
+        raise NotImplementedError(
+            "THIS IS NOT IMPLEMENTED AND SHOULD NEVER BE CALLED.")
 
