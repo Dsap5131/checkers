@@ -1,6 +1,6 @@
 from collections import deque
 
-from src.player.simplestrategy import SimpleStrategy
+from src.player.dumbstrategy import DumbStrategy
 from src.common.playergamestate import PlayerGameState
 from src.common.board import Board
 from src.common.rulesstandard import RulesStandard
@@ -11,11 +11,11 @@ from src.common.position import Position
 
 
 def test_constructor() -> None:
-    strategy = SimpleStrategy()
+    strategy = DumbStrategy()
 
 
 def test_make_move() -> None:
-    strategy = SimpleStrategy()
+    strategy = DumbStrategy()
 
     row_size=2
     column_size=2
@@ -28,4 +28,4 @@ def test_make_move() -> None:
     expected_move = Move(deque([Leap(Position(0,0), Position(0,0))]))
 
     assert strategy.make_move(playergamestate) == expected_move, \
-        "SimpleStrategy.make_move(Board, Rules) not working as expected."
+        "DumbStrategy.make_move(Board, Rules) not working as expected."

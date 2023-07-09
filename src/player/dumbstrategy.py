@@ -6,9 +6,9 @@ from src.common.leap import Leap
 from src.common.position import Position
 
 
-class SimpleStrategy():
+class DumbStrategy():
     '''
-    SimpleStrategy just does moves that leaps from top left position to 
+    DumbStrategy just does moves that leaps from top left position to 
     top left position.
     '''
 

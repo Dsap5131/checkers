@@ -7,4 +7,4 @@ Testing for the src/player
 |   File or Folder | About |
 |   ---            | ---   |
 | [test_strategy.py](./test_strategy.py) | Tests for [Strategy](../../src/player/strategy.py) |
-| [test_simplestrategy.py](./test_simplestrategy.py) | Tests for [SimpleStrategy](../../src/player/simplestrategy.py) |
+| [test_simplestrategy.py](./test_dumbstrategy.py) | Tests for [DumbStrategy](../../src/player/dumbstrategy.py) |

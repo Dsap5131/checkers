@@ -12,4 +12,4 @@ Above is the design for the player directory.
 | File or Folder | About |
 | ---            | ---   |
 | [strategy.py](./strategy.py) | [Strategy](./strategy.py) |
-| [simplestrategy.py](./simplestrategy.py) | [SimpleStrategy](./simplestrategy.py) |
+| [dumbstrategy.py](./dumbstrategy.py) | [DumbStrategy](./dumbstrategy.py) |
