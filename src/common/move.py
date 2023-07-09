@@ -42,6 +42,25 @@ class Move():
         '''
         self.__next_leaps = self.__previous_leaps + self.__next_leaps
         self.__previous_leaps = deque()
+
+
+    def __eq__(self, obj) -> None:
+        '''
+        Moves are equal if they have the same number of leaps that are in the 
+        same order and equal to each other.
+        '''
+
+        if not (isinstance(obj, Move) and
+                obj.leaps_remaining() == self.leaps_remaining()):
+            return False
+
+        leaps_equal = True
+        for idx in range(self.leaps_remaining()):
+            leaps_equal = leaps_equal and \
+                          self.get_next_leap() == obj.get_next_leap()
+        self.reset()
+        obj.reset()
+        return leaps_equal
     
 
     
