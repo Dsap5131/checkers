@@ -4,9 +4,10 @@ from src.common.playergamestate import PlayerGameState
 from src.common.move import Move
 from src.common.leap import Leap
 from src.common.position import Position
+from src.player.strategy import Strategy
 
 
-class DumbStrategy():
+class DumbStrategy(Strategy):
     '''
     DumbStrategy just does moves that leaps from top left position to 
     top left position.
