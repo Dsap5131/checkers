@@ -8,11 +8,12 @@ The specific goals of this project are to create checkers using Python and Flask
 # TODO
 
 1. implement taketurn in gamestate
-2. Implement online player
-3. Instance checking on parameters? What is the best practice
-4. Should Move return copies of the Position? Is this a vulnerability if not.
-5. (Optional) Research and implement optional typing for the use of GamePiece
-6. Should typing be done through strings and not imports (this can help with circular imports?)
+2. improve and learn testing for taketurn in gamestate
+3. Implement online player
+4. Instance checking on parameters? What is the best practice
+5. Should Move return copies of the Position? Is this a vulnerability if not.
+6. (Optional) Research and implement optional typing for the use of GamePiece
+7. Should typing be done through strings and not imports (this can help with circular imports?)
 
 # Project Design
 
