@@ -11,3 +11,4 @@ Above is the design for the player directory.
 # Directory 
 | File or Folder | About |
 | ---            | ---   |
+| [strategy.py](./strategy.py) | [Strategy](./strategy.py)
