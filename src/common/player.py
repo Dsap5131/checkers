@@ -3,14 +3,8 @@ from src.common.move import Move
 
 class Player():
     ''' 
-    Abstract class that represents the knowledge the game knows about a player
-    
-    @param: gamepiece: GamePiece: gamepiece of a player.
+    Interface that represents the knowledge the game knows about a player
     '''
-
-    def __init__(self, gamepiece: GamePiece) -> None:
-        self.__gamepiece = gamepiece
-
     
     def get_gamepiece(self) -> GamePiece:
         '''
@@ -18,7 +12,8 @@ class Player():
 
         @returns GamePiece
         '''
-        return self.__gamepiece
+        raise NotImplementedError(
+            "THIS IS NOT IMPLEMENTED AND SHOULD NEVER BE CALLED.")
     
 
     def get_move(self, gamestate: 'PlayerGameState') -> Move:
@@ -30,4 +25,5 @@ class Player():
         @returns: Move
         '''
 
-        raise NotImplementedError('MUST OVERRIDE THIS CLASS')
+        raise NotImplementedError(
+            "THIS IS NOT IMPLEMENTED AND SHOULD NEVER BE CALLED.")

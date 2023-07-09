@@ -12,12 +12,11 @@ def test_constructor() -> None:
 
 def test_get_gamepiece() -> None:
     player_one = Player(GamePiece.RED)
-    assert player_one.get_gamepiece() == GamePiece.RED, \
-        "Player.get_gamepiece() not working."
-
     player_two = Player(GamePiece.BLACK)
-    assert player_two.get_gamepiece() == GamePiece.BLACK, \
-        "Player.get_gamepiece() not working."
+    with pytest.raises(NotImplementedError):
+        player_one.get_gamepiece()
+    with pytest.raises(NotImplementedError):
+        player_two.get_gamepiece()
 
 
 def test_get_move() -> None:
