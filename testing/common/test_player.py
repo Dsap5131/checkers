@@ -29,4 +29,11 @@ def test_get_move() -> None:
 
     with pytest.raises(NotImplementedError):
         player.get_move(playergamestate)
+
+
+def test_won() -> None:
+    player = Player()
+
+    with pytest.raises(NotImplementedError):
+        player.won(False)
     

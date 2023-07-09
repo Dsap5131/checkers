@@ -15,6 +15,7 @@ class LocalPlayer(Player):
     def __init__(self, gamepiece: GamePiece, strategy: Strategy) -> None:
         self.__gamepiece = gamepiece
         self.__strategy = strategy
+        self.__is_winner = False
 
     
     def get_gamepiece(self) -> GamePiece:
@@ -35,3 +36,25 @@ class LocalPlayer(Player):
         '''
 
         return self.__strategy.make_move(playergamestate)
+    
+
+    def won(self, winner: bool) -> None:
+        '''
+        Tell the player whether they won the game or not
+
+        @param: winner: True if the player won the game 
+        '''
+
+        self.__is_winner = winner
+
+
+    def get_is_winner(self) -> bool:
+        '''
+        Checks to see if this player won the game.
+        
+        This function is primarily used for testing
+
+        @returns: bool
+        '''
+
+        return self.__is_winner

@@ -28,3 +28,14 @@ class Player():
 
         raise NotImplementedError(
             "THIS IS NOT IMPLEMENTED AND SHOULD NEVER BE CALLED.")
+    
+
+    def won(self, winner: bool) -> None:
+        '''
+        Tell the player whether they won the game or not
+
+        @param: winner: True if the player won the game 
+        '''
+
+        raise NotImplementedError(
+            "THIS IS NOT IMPLEMENTED AND SHOULD NEVER BE CALLED.")

@@ -37,3 +37,20 @@ def test_get_move() -> None:
 
     assert isinstance(localplayer.get_move(playergamestate), Move)
 
+
+def test_won() -> None:
+    player = LocalPlayer(GamePiece.BLACK, DumbStrategy())
+    player.won(True)
+
+
+def test_get_is_winner() -> None:
+    player = LocalPlayer(GamePiece.BLACK, DumbStrategy())
+
+    assert player.get_is_winner() == False, \
+        "Player.get_is_winner() setup failed."
+    
+    player.won(True)
+
+    assert player.get_is_winner(), \
+        "Player.get_is_winner() not working correctly."
+
