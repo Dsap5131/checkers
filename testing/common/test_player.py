@@ -1,7 +1,7 @@
 import pytest
 
 from src.common.player import Player
-from src.common.gamepiece import GamePiece
+from src.common.gamepiece import Piece
 from src.common.playergamestate import PlayerGameState
 from src.common.board import Board
 from src.common.rulesstandard import RulesStandard
@@ -21,8 +21,8 @@ def test_get_move() -> None:
 
     row_size=2
     column_size=2
-    board_list = [[GamePiece.BLANK, GamePiece.BLANK],
-                  [GamePiece.BLANK, GamePiece.BLANK]]
+    board_list = [[Piece.BLANK, Piece.BLANK],
+                  [Piece.BLANK, Piece.BLANK]]
     board = Board(row_size, column_size, board_list)
     rules = RulesStandard()
     playergamestate = PlayerGameState(board, rules)
@@ -36,4 +36,3 @@ def test_won() -> None:
 
     with pytest.raises(NotImplementedError):
         player.won(False)
-    

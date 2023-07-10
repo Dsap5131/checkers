@@ -6,6 +6,7 @@ from src.common.board import Board
 from src.player.localplayer import LocalPlayer
 from src.player.dumbstrategy import DumbStrategy
 from src.common.gamepiece import GamePiece
+from src.common.piece import Piece
 from src.common.position import Position
 from src.common.leap import Leap
 
@@ -18,11 +19,13 @@ def test_check_move() -> None:
     rules_standard = RulesStandard()
 
     strategy = DumbStrategy()
-    player = LocalPlayer(GamePiece.RED, strategy)
+    red_piece = GamePiece(Piece.RED, False)
+    player = LocalPlayer(red_piece, strategy)
 
     # Test an valid move where a piece is not jumped
-    board_list_1 = [[GamePiece.BLANK, GamePiece.RED],
-                  [GamePiece.BLANK, GamePiece.BLANK]]
+    blank_piece = GamePiece(Piece.BLANK, False)
+    board_list_1 = [[blank_piece, red_piece],
+                  [blank_piece, blank_piece]]
     board_1 = Board(row_size=2, column_size=2, board=board_list_1)
     leaps_1 = deque([Leap(Position(0,1), Position(1,0))])
     move_1 = Move(leaps_1)
@@ -31,9 +34,10 @@ def test_check_move() -> None:
         "RulesStandard.check_move(Move, Board, Player) failing clean move."
     
     # Test an valid move where a piece is jumped
-    board_list_2 = [[GamePiece.BLANK, GamePiece.BLANK, GamePiece.RED],
-                    [GamePiece.BLANK, GamePiece.BLACK, GamePiece.BLANK],
-                    [GamePiece.BLANK, GamePiece.BLANK, GamePiece.BLANK]]
+    black_piece = GamePiece(Piece.BLACK, False)
+    board_list_2 = [[blank_piece, blank_piece, red_piece],
+                    [blank_piece, black_piece, blank_piece],
+                    [blank_piece, blank_piece, blank_piece]]
     board_2 = Board(row_size=3, column_size=3, board=board_list_2)
     leaps_2 = deque([Leap(Position(0,2), Position(2,0))])
     move_2 = Move(leaps_2)
@@ -42,8 +46,8 @@ def test_check_move() -> None:
         "RulesStandard.check_move(Move, Board, Player) failing capture move."
     
     # Test an invalid move where you move horizontal 
-    board_list_3 = [[GamePiece.BLANK, GamePiece.RED],
-                    [GamePiece.BLANK, GamePiece.BLANK]]
+    board_list_3 = [[blank_piece, red_piece],
+                    [blank_piece, blank_piece]]
     board_3 = Board(row_size=2, column_size=2, board=board_list_3)
     leaps_3 = deque([Leap(Position(0,1), Position(0,0))])
     move_3 = Move(leaps_3)
@@ -52,8 +56,8 @@ def test_check_move() -> None:
         "RulesStandard.check_move(Move, Board, Player) allows horizontal moves."
     
     # Test an invalid move where you move vertical
-    board_list_4 = [[GamePiece.BLANK, GamePiece.RED],
-                    [GamePiece.BLANK, GamePiece.BLANK]]
+    board_list_4 = [[blank_piece, red_piece],
+                    [blank_piece, blank_piece]]
     board_4 = Board(row_size=2, column_size=2, board=board_list_4)
     leaps_4 = deque([Leap(Position(0,1), Position(1,1))])
     move_4 = Move(leaps_4)
@@ -62,9 +66,9 @@ def test_check_move() -> None:
         "RulesStandard.check_move(Move, Board, Player) allows vertical moves."
     
     # Test an invalid capture move over a players own piece
-    board_list_5 = [[GamePiece.BLANK, GamePiece.BLANK, GamePiece.RED],
-                    [GamePiece.BLANK, GamePiece.RED, GamePiece.BLANK],
-                    [GamePiece.BLANK, GamePiece.BLANK, GamePiece.BLANK]]
+    board_list_5 = [[blank_piece, blank_piece, red_piece],
+                    [blank_piece, red_piece, blank_piece],
+                    [blank_piece, blank_piece, blank_piece]]
     board_5 = Board(row_size=3, column_size=3, board=board_list_5)
     leaps_5 = deque([Leap(Position(0,2), Position(2,0))])
     move_5 = Move(leaps_5)
@@ -74,9 +78,9 @@ def test_check_move() -> None:
         capturing a players own piece."
     
     # Test an invalid capture move over a blank gamepiece
-    board_list_6 = [[GamePiece.BLANK, GamePiece.BLANK, GamePiece.RED],
-                    [GamePiece.BLANK, GamePiece.BLANK, GamePiece.BLANK],
-                    [GamePiece.BLANK, GamePiece.BLANK, GamePiece.BLANK]]
+    board_list_6 = [[blank_piece, blank_piece, red_piece],
+                    [blank_piece, blank_piece, blank_piece],
+                    [blank_piece, blank_piece, blank_piece]]
     board_6 = Board(row_size=3, column_size=3, board=board_list_6)
     leaps_6 = deque([Leap(Position(0,2), Position(2,0))])
     move_6 = Move(leaps_6)
@@ -86,8 +90,8 @@ def test_check_move() -> None:
         a blank gamepiece."
 
     # Test invalid move that is off the top of the board.
-    board_list_7 = [[GamePiece.BLANK, GamePiece.RED],
-                    [GamePiece.BLANK, GamePiece.BLANK]]
+    board_list_7 = [[blank_piece, red_piece],
+                    [blank_piece, blank_piece]]
     board_7 = Board(row_size=2, column_size=2, board=board_list_7)
     leaps_7 = deque([Leap(Position(0,1), Position(-1, 0))])
     move_7 = Move(leaps_7)
@@ -97,8 +101,8 @@ def test_check_move() -> None:
         top of the Board."
 
     # Test invalid move that is off the right of the board.
-    board_list_8 = [[GamePiece.BLANK, GamePiece.RED],
-                    [GamePiece.BLANK, GamePiece.BLANK]]
+    board_list_8 = [[blank_piece, red_piece],
+                    [blank_piece, blank_piece]]
     board_8 = Board(row_size=2, column_size=2, board=board_list_8)
     leaps_8 = deque([Leap(Position(0,1), Position(1,2))])
     move_8 = Move(leaps_8)
@@ -108,8 +112,8 @@ def test_check_move() -> None:
         right side of the Board."
     
     # Test invalid move that is off the left of the board.
-    board_list_9 = [[GamePiece.BLANK, GamePiece.BLANK],
-                    [GamePiece.RED, GamePiece.BLANK]]
+    board_list_9 = [[blank_piece, blank_piece],
+                    [red_piece, blank_piece]]
     board_9 = Board(row_size=2, column_size=2, board=board_list_9)
     leaps_9 = deque([Leap(Position(1,0), Position(0,-1))])
     move_9 = Move(leaps_9)
@@ -119,8 +123,8 @@ def test_check_move() -> None:
         left side of the Board."
     
     # Test invalid move that is off the bottom of the board.
-    board_list_10 = [[GamePiece.BLANK, GamePiece.BLANK],
-                     [GamePiece.RED, GamePiece.BLANK]]
+    board_list_10 = [[blank_piece, blank_piece],
+                     [red_piece, blank_piece]]
     board_10 = Board(row_size=2, column_size=2, board=board_list_10)
     leaps_10 = deque([Leap(Position(1,0), Position(2,1))])
     move_10 = Move(leaps_10)
@@ -130,8 +134,8 @@ def test_check_move() -> None:
         bottom of the Board."
     
     # Test invalid move of a different players piece.
-    board_list_11 = [[GamePiece.BLANK, GamePiece.BLACK],
-                     [GamePiece.BLANK, GamePiece.BLANK]]
+    board_list_11 = [[blank_piece, black_piece],
+                     [blank_piece, blank_piece]]
     board_11 = Board(row_size=2, column_size=2, board=board_list_11)
     leaps_11 = deque([Leap(Position(0,1), Position(1,0))])
     move_11 = Move(leaps_11)
@@ -141,8 +145,8 @@ def test_check_move() -> None:
         Players GamePieces."
     
     # Test invalid move of a blank piece.
-    board_list_12 = [[GamePiece.BLANK, GamePiece.BLANK],
-                     [GamePiece.BLANK, GamePiece.BLANK]]
+    board_list_12 = [[blank_piece, blank_piece],
+                     [blank_piece, blank_piece]]
     board_12 = Board(row_size=2, column_size=2, board=board_list_12)
     leaps_12 = deque([Leap(Position(0,1), Position(1,0))])
     move_12 = Move(leaps_12)
@@ -152,8 +156,8 @@ def test_check_move() -> None:
         Blank GamePieces."
     
     # Test invalid move on top of another piece.
-    board_list_13 = [[GamePiece.BLANK, GamePiece.RED],
-                     [GamePiece.RED, GamePiece.BLANK]]
+    board_list_13 = [[blank_piece, red_piece],
+                     [red_piece, blank_piece]]
     board_13 = Board(row_size=2, column_size=2, board=board_list_13)
     leaps_13 = deque([Leap(Position(0,1), Position(1,0))])
     move_13 = Move(leaps_13)
@@ -164,8 +168,8 @@ def test_check_move() -> None:
     
     # Test invalid move where the player is moving from off the top of the
     # board.
-    board_list_14 = [[GamePiece.BLANK, GamePiece.BLANK],
-                     [GamePiece.BLANK, GamePiece.BLANK]]
+    board_list_14 = [[blank_piece, blank_piece],
+                     [blank_piece, blank_piece]]
     board_14 = Board(row_size=2, column_size=2, board=board_list_14)
     leaps_14 = deque([Leap(Position(-1,0), Position(0,1))])
     move_14 = Move(leaps_14)
@@ -175,8 +179,8 @@ def test_check_move() -> None:
         above the top of the board."
     
     # Test invalid move starting from off the left of the board.
-    board_list_15 = [[GamePiece.BLANK, GamePiece.BLANK],
-                     [GamePiece.BLANK, GamePiece.BLANK]]
+    board_list_15 = [[blank_piece, blank_piece],
+                     [blank_piece, blank_piece]]
     board_15 = Board(row_size=2, column_size=2, board=board_list_15)
     leaps_15 = deque([Leap(Position(0,-1), Position(1,0))])
     move_15 = Move(leaps_15)
@@ -186,8 +190,8 @@ def test_check_move() -> None:
         off the left of the board."
     
     # Test invalid move starting from off the right of the board.
-    board_list_16 = [[GamePiece.BLANK, GamePiece.BLANK],
-                     [GamePiece.BLANK, GamePiece.BLANK]]
+    board_list_16 = [[blank_piece, blank_piece],
+                     [blank_piece, blank_piece]]
     board_16 = Board(row_size=2, column_size=2, board=board_list_16)
     leaps_16 = deque([Leap(Position(0,2), Position(1,1))])
     move_16 = Move(leaps_16)
@@ -197,8 +201,8 @@ def test_check_move() -> None:
         the right side of the board."
     
     # Test invalid move starting from off the bottom of the board.
-    board_list_17 = [[GamePiece.BLANK, GamePiece.BLANK],
-                     [GamePiece.BLANK, GamePiece.BLANK]]
+    board_list_17 = [[blank_piece, blank_piece],
+                     [blank_piece, blank_piece]]
     board_17 = Board(row_size=2, column_size=2, board=board_list_17)
     leaps_17 = deque([Leap(Position(2,0), Position(1,1))])
     move_17 = Move(leaps_17)
@@ -210,8 +214,9 @@ def test_check_move() -> None:
 
 def test_check_position():
     rules_standard = RulesStandard()
-    board_list = [[GamePiece.BLANK, GamePiece.BLANK],
-                [GamePiece.BLANK, GamePiece.BLANK]]
+    blank_piece = GamePiece(Piece.BLANK, False)
+    board_list = [[blank_piece, blank_piece],
+                  [blank_piece, blank_piece]]
     board = Board(row_size=2, column_size=2, board=board_list)
 
     # Test a valid position
@@ -252,8 +257,11 @@ def test_is_game_over() -> None:
     # Test a non-game over state
     row_size_1=2
     column_size_1=2
-    board_list_1=[[GamePiece.BLANK, GamePiece.RED],
-                  [GamePiece.BLACK, GamePiece.BLANK]]
+    blank_piece = GamePiece(Piece.BLANK, False)
+    red_piece = GamePiece(Piece.RED, False)
+    black_piece = GamePiece(Piece.BLACK, False)
+    board_list_1=[[blank_piece, red_piece],
+                  [black_piece, blank_piece]]
     board_1 = Board(row_size_1, column_size_1, board_list_1)
     num_players_1 = 2
 
@@ -265,8 +273,8 @@ def test_is_game_over() -> None:
     # Test a game over with only 1 player
     row_size_2=2
     column_size_2=2
-    board_list_2=[[GamePiece.BLANK, GamePiece.RED],
-                  [GamePiece.BLACK, GamePiece.BLANK]]
+    board_list_2=[[blank_piece, red_piece],
+                  [black_piece, blank_piece]]
     board_2 = Board(row_size_2, column_size_2, board_list_2)
     num_players_2 = 1
     
@@ -276,8 +284,8 @@ def test_is_game_over() -> None:
     # Test a game over where there are one type of piece
     row_size_3=2
     column_size_3=2
-    board_list_3=[[GamePiece.BLANK, GamePiece.RED],
-                  [GamePiece.BLANK, GamePiece.BLANK]]
+    board_list_3=[[blank_piece, red_piece],
+                  [blank_piece, blank_piece]]
     board_3 = Board(row_size_3, column_size_3, board_list_3)
     num_players_3 = 2
 

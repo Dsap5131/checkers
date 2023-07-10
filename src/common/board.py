@@ -2,6 +2,7 @@ from __future__ import annotations
 from typing import List
 
 from src.common.gamepiece import GamePiece
+from src.common.piece import Piece
 from src.common.position import Position
 from src.common.move import Move
 from src.common.leap import Leap
@@ -102,7 +103,7 @@ class Board():
         gamepiece = self.get_piece(start_position)
 
         self.__board[start_position.get_row()][start_position.get_column()] \
-            = GamePiece.BLANK
+            = GamePiece(Piece.BLANK, False)
         self.__board[end_position.get_row()][end_position.get_column()] \
             = gamepiece
 
@@ -120,10 +121,10 @@ class Board():
         for r in range(self.get_row_size()):
             for c in range(self.get_column_size()):
                 current_piece = self.get_piece(Position(r,c))
-                if (current_piece != GamePiece.BLANK 
-                        and not current_piece in seen):
+                if (current_piece.get_piece() != Piece.BLANK
+                        and not current_piece.get_piece() in seen):
                     unique_piece_count += 1
-                    seen.append(current_piece)
+                    seen.append(current_piece.get_piece())
         return unique_piece_count
                     
 

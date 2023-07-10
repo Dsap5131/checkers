@@ -14,3 +14,4 @@ Testing for the src/common directory
 | [test_playergamestate.py](./test_playergamestate.py) | Tests for [PlayerGameState](../../src/common/playergamestate.py) |
 | [test_rulesstandard.py](./test_rulesstandard.py) | Tests for [RulesStandard](../../src/common/rulesstandard.py) |
 | [test_rulesdumb.py](./test_rulesdumb.py) | Tests for [RulesDumb](../../src/common/rulesdumb.py) |
+| [test_gamepiece.py](./test_gamepiece.py) | Tests for [GamePiece](../../src/common/gamepiece.py) |

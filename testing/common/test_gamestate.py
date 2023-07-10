@@ -5,18 +5,21 @@ from src.common.rulesdumb import RulesDumb
 from src.common.gamestate import GameState
 from src.common.board import Board
 from src.common.gamepiece import GamePiece
+from src.common.piece import Piece
 from src.player.localplayer import LocalPlayer
 from src.player.dumbstrategy import DumbStrategy
 
 def test_constructor() -> None:
     row_size=2
     column_size=2
-    board_list=[[GamePiece.BLANK, GamePiece.BLANK],
-                [GamePiece.BLANK, GamePiece.BLANK]]
+    blank_piece = GamePiece(Piece.BLANK, False)
+    board_list=[[blank_piece, blank_piece],
+                [blank_piece, blank_piece]]
     board=Board(row_size,column_size,board_list)
     rules = RulesStandard()
     strategy = DumbStrategy()
-    player_one = LocalPlayer(GamePiece.RED, strategy)
+    red_piece = GamePiece(Piece.RED, False)
+    player_one = LocalPlayer(red_piece, strategy)
     players = deque([player_one])
     gamestate = GameState(board, rules, players)
 
@@ -24,14 +27,17 @@ def test_constructor() -> None:
 def test_is_game_over() -> None:
     rules = RulesStandard()
     strategy = DumbStrategy()
-    red_player = LocalPlayer(GamePiece.RED, strategy)
-    black_player = LocalPlayer(GamePiece.BLACK, strategy)
+    red_piece = GamePiece(Piece.RED, False)
+    red_player = LocalPlayer(red_piece, strategy)
+    black_piece = GamePiece(Piece.BLACK, False)
+    black_player = LocalPlayer(black_piece, strategy)
     
     # Game with 1 player
     row_size_1=2
     column_size_1=2
-    board_list_1=[[GamePiece.BLANK, GamePiece.BLANK],
-                  [GamePiece.RED, GamePiece.BLACK]]
+    blank_piece = GamePiece(Piece.BLANK, False)
+    board_list_1=[[blank_piece, blank_piece],
+                  [red_piece, black_piece]]
     board_1 = Board(row_size_1, column_size_1, board_list_1)
     players_1 = deque([red_player])
     gamestate_1 = GameState(board_1, rules, players_1)
@@ -42,8 +48,8 @@ def test_is_game_over() -> None:
     # Non-gameover state
     row_size_2=2
     column_size_2=2
-    board_list_2=[[GamePiece.BLANK, GamePiece.BLACK],
-                  [GamePiece.RED, GamePiece.BLANK]]
+    board_list_2=[[blank_piece, black_piece],
+                  [red_piece, blank_piece]]
     board_2 = Board(row_size_2, column_size_2, board_list_2)
     players_2 = deque([red_player, black_player])
     gamestate_2 = GameState(board_2, rules, players_2)
@@ -54,8 +60,8 @@ def test_is_game_over() -> None:
     # 2 players with 1 type of piece on board.
     row_size_3=2
     column_size_3=2
-    board_list_3=[[GamePiece.BLANK, GamePiece.BLACK],
-                  [GamePiece.BLACK, GamePiece.BLANK]]
+    board_list_3=[[blank_piece, black_piece],
+                  [black_piece, blank_piece]]
     board_3 = Board(row_size_3, column_size_3, board_list_3)
     players_3 = deque([red_player, black_player])
     gamestate_3 = GameState(board_3, rules, players_3)
@@ -67,12 +73,15 @@ def test_is_game_over() -> None:
 def test_take_turn() -> None:
     rules = RulesDumb()
     strategy = DumbStrategy()
-    red_player = LocalPlayer(GamePiece.RED, strategy)
-    black_player = LocalPlayer(GamePiece.BLACK, strategy)
+    red_piece = GamePiece(Piece.RED, False)
+    red_player = LocalPlayer(red_piece, strategy)
+    black_piece = GamePiece(Piece.BLACK, False)
+    black_player = LocalPlayer(black_piece, strategy)
     row_size=2
     column_size=2
-    board_list=[[GamePiece.BLANK, GamePiece.BLANK],
-                  [GamePiece.RED, GamePiece.BLACK]]
+    blank_piece = GamePiece(Piece.BLANK, False)
+    board_list=[[blank_piece, blank_piece],
+                  [red_piece, black_piece]]
     board = Board(row_size, column_size, board_list)
     players = deque([black_player, red_player])
     gamestate = GameState(board, rules, players)

@@ -2,12 +2,14 @@ from src.common.playergamestate import PlayerGameState
 from src.common.board import Board
 from src.common.rulesstandard import RulesStandard
 from src.common.gamepiece import GamePiece
+from src.common.piece import Piece
 
 def test_constructor() -> None:
     row_size = 2 
     column_size = 2
-    board_list = [[GamePiece.BLANK, GamePiece.BLANK],
-                  [GamePiece.BLANK, GamePiece.BLANK]]
+    blank_piece = GamePiece(Piece.BLANK, False)
+    board_list = [[blank_piece, blank_piece],
+                  [blank_piece, blank_piece]]
     board = Board(row_size, column_size, board_list)
     rules = RulesStandard()
 
@@ -17,12 +19,15 @@ def test_constructor() -> None:
 def test_get_board() -> None:
     row_size = 2 
     column_size = 2
-    board_list_1 = [[GamePiece.BLANK, GamePiece.BLANK],
-                    [GamePiece.BLANK, GamePiece.BLANK]]
+    blank_piece = GamePiece(Piece.BLANK, False)
+    red_piece = GamePiece(Piece.RED, False)
+    black_piece = GamePiece(Piece.BLACK, False)
+    board_list_1 = [[blank_piece, blank_piece],
+                    [blank_piece, blank_piece]]
     board_1 = Board(row_size, column_size, board_list_1)
 
-    board_list_2 = [[GamePiece.RED, GamePiece.BLACK],
-                    [GamePiece.BLANK, GamePiece.BLANK]]
+    board_list_2 = [[red_piece, black_piece],
+                    [blank_piece, blank_piece]]
     board_2 = Board(row_size, column_size, board_list_2)
 
     rules = RulesStandard()
@@ -39,8 +44,9 @@ def test_get_board() -> None:
 def test_get_rules() -> None:
     row_size=2
     column_size=2
-    board_list = [[GamePiece.BLANK, GamePiece.BLANK],
-                  [GamePiece.BLANK, GamePiece.BLANK]]
+    blank_piece = GamePiece(Piece.BLANK, False)
+    board_list = [[blank_piece, blank_piece],
+                  [blank_piece, blank_piece]]
     board = Board(row_size, column_size, board_list)
     rules = RulesStandard()
     playergamestate = PlayerGameState(board, rules)

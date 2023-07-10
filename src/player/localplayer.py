@@ -1,4 +1,4 @@
-from src.common.gamepiece import GamePiece
+from src.common.gamepiece import Piece
 from src.player.strategy import Strategy
 from src.common.player import Player
 from src.common.playergamestate import PlayerGameState
@@ -14,20 +14,20 @@ class LocalPlayer(Player):
     @param: startegy: Strategy
     '''
 
-    def __init__(self, gamepiece: GamePiece, strategy: Strategy) -> None:
-        self.__gamepiece = gamepiece
+    def __init__(self, piece: Piece, strategy: Strategy) -> None:
+        self.__piece = piece
         self.__strategy = strategy
         self.__is_winner = False
 
     
-    def get_gamepiece(self) -> GamePiece:
+    def get_gamepiece(self) -> Piece:
         '''
-        Get the gamepiece of the player.
+        Get the piece of the player.
 
-        @returns: GamePiece
+        @returns: Piece
         '''
 
-        return self.__gamepiece
+        return self.__piece
     
 
     def get_move(self, playergamestate: PlayerGameState) -> Move:

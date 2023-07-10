@@ -6,6 +6,7 @@ from src.common.board import Board
 from src.common.player import Player
 from src.common.position import Position
 from src.common.gamepiece import GamePiece
+from src.common.piece import Piece
 from src.common.leap import Leap
 
 
@@ -95,10 +96,12 @@ class RulesStandard(Rules):
             middle_column= int((end_column-start_column)/2) + start_column
             middle_position = Position(middle_row, middle_column)
 
-            to_blank = board.get_piece(end_position) == GamePiece.BLANK
+            to_blank = board.get_piece(end_position).get_piece() \
+                        == Piece.BLANK
             over_opponent = board.get_piece(middle_position) \
-                            != board.get_piece(start_position)
-            not_over_blank = board.get_piece(middle_position) != GamePiece.BLANK
+                                != board.get_piece(start_position)
+            not_over_blank = board.get_piece(middle_position).get_piece() \
+                                 != Piece.BLANK
         
             capture = to_blank and over_opponent and not_over_blank
     
@@ -122,7 +125,8 @@ class RulesStandard(Rules):
         within_rows = (abs(end_position.get_row()-start_position.get_row())==1)
         within_cols = (abs(end_position.get_column()
                            -start_position.get_column())==1)
-        to_blank_space = board.get_piece(end_position) == GamePiece.BLANK
+        to_blank_space = board.get_piece(end_position).get_piece() \
+                            == Piece.BLANK
         
         return within_rows and within_cols and to_blank_space
 

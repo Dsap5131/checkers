@@ -5,6 +5,7 @@ from src.common.playergamestate import PlayerGameState
 from src.common.board import Board
 from src.common.rulesstandard import RulesStandard
 from src.common.gamepiece import GamePiece
+from src.common.piece import Piece
 from src.common.move import Move
 from src.common.leap import Leap
 from src.common.position import Position
@@ -19,8 +20,9 @@ def test_make_move() -> None:
 
     row_size=2
     column_size=2
-    board_list = [[GamePiece.BLANK, GamePiece.BLANK],
-                  [GamePiece.BLANK, GamePiece.BLANK]]
+    blank_piece = GamePiece(Piece.BLANK, False)
+    board_list = [[blank_piece, blank_piece],
+                  [blank_piece, blank_piece]]
     board = Board(row_size, column_size, board_list)
     rules = RulesStandard()
     playergamestate = PlayerGameState(board, rules)

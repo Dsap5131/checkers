@@ -3,6 +3,7 @@ from collections import deque
 from src.common.rulesdumb import RulesDumb
 from src.player.localplayer import LocalPlayer
 from src.common.gamepiece import GamePiece
+from src.common.piece import Piece
 from src.player.dumbstrategy import DumbStrategy
 from src.common.board import Board
 from src.common.leap import Leap
@@ -17,10 +18,12 @@ def test_check_move() -> None:
     rules = RulesDumb()
     strategy = DumbStrategy()
 
-    player = LocalPlayer(GamePiece.RED, strategy)
+    red_piece = GamePiece(Piece.RED, False)
+    blank_piece = GamePiece(Piece.BLANK, False)
+    player = LocalPlayer(red_piece, strategy)
 
-    board_list = [[GamePiece.BLANK, GamePiece.RED],
-                  [GamePiece.BLANK, GamePiece.BLANK]]
+    board_list = [[blank_piece, red_piece],
+                  [blank_piece, blank_piece]]
     board = Board(row_size=2, column_size=2, board=board_list)
     leaps = deque([Leap(Position(0,1), Position(1,0))])
     move = Move(leaps)
@@ -32,8 +35,9 @@ def test_check_move() -> None:
 def test_check_position() -> None:
     rules = RulesDumb()
     
-    board_list = [[GamePiece.BLANK, GamePiece.BLANK],
-                  [GamePiece.BLANK, GamePiece.BLANK]]
+    blank_piece = GamePiece(Piece.BLANK, False)
+    board_list = [[blank_piece, blank_piece],
+                  [blank_piece, blank_piece]]
     board = Board(row_size=2, column_size=2, board=board_list)
 
     assert rules.check_position(Position(0,0), board), \
@@ -43,8 +47,9 @@ def test_check_position() -> None:
 def test_is_game_over() -> None:
     rules = RulesDumb()
 
-    board_list = [[GamePiece.BLANK, GamePiece.BLANK],
-                  [GamePiece.BLANK, GamePiece.BLANK]]
+    blank_piece = GamePiece(Piece.BLANK, False)
+    board_list = [[blank_piece, blank_piece],
+                  [blank_piece, blank_piece]]
     board = Board(row_size=2, column_size=2, board=board_list)
 
     assert not rules.is_game_over(board, num_players=2), \

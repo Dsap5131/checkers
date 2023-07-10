@@ -1,4 +1,4 @@
-from src.common.gamepiece import GamePiece
+from src.common.piece import Piece
 from src.common.move import Move
 
 class Player():
@@ -7,11 +7,11 @@ class Player():
     '''
 
 
-    def get_gamepiece(self) -> GamePiece:
+    def get_gamepiece(self) -> Piece:
         '''
-        Get the gamepiece of the player.
+        Get the piece of the player.
 
-        @returns GamePiece
+        @returns: Piece
         '''
         raise NotImplementedError(
             "THIS IS NOT IMPLEMENTED AND SHOULD NEVER BE CALLED.")
