@@ -12,4 +12,6 @@ class GamePiece(Enum):
     BLANK = 0
     BLACK = 1
     RED = 2
+    BLACK_KING = 3
+    RED_KING = 4
     
