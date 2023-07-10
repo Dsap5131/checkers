@@ -7,8 +7,8 @@ The specific goals of this project are to create checkers using Python and Flask
 
 # TODO
 
-1. implement taketurn in gamestate
-2. improve and learn testing for taketurn in gamestate
+1. Add direction based on Piece to rules
+2. Check for available moves in rules / GameOver
 3. Implement online player
 4. Instance checking on parameters? What is the best practice
 5. Should Move return copies of the Position? Is this a vulnerability if not.
