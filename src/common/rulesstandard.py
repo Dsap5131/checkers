@@ -21,6 +21,9 @@ class RulesStandard(Rules):
         to a blank space. A move is allowed to jump diagonally over an 
         opponents piece, capturing their piece.
 
+        Red pieces can only move up on the board unless it is a king.
+        Black pieces can only move down on the board unless it is a king.
+
         @param: move: Move: move being made.
         @param: board: Board: board the move is made on.
         @param: player: Player: player making the move.
@@ -42,6 +45,9 @@ class RulesStandard(Rules):
         '''
         Check to see if a given leap is valid for the player on the board.
 
+        A red piece can only leap upwards on the board unless it is a king.
+        A black piece can only leap downwards on the board unless it isi a king.
+
         @param: leap: Leap
         @param: board: Board
         @param: player: Player
@@ -57,12 +63,44 @@ class RulesStandard(Rules):
         if not onboard:
             return False
         
-        players_piece = player.get_gamepiece()==board.get_piece(start_position)  
+        players_piece = player.get_gamepiece()==board.get_piece(start_position)
+        if not players_piece:
+            return False
+
+        direction = self.__check_leap_direction(leap, 
+                                                board.get_piece(start_position))  
         one_leap = self.__check_single_leap(leap, board)
         capture = self.__check_capture_leap(leap, board)
             
-        return players_piece and (one_leap or capture)
+        return direction and (one_leap or capture)
         
+
+    def __check_leap_direction(self, leap: Leap, gamepiece: GamePiece) -> bool:
+        '''
+        Checks to see if the direction of a leap is valid.
+
+        Red pieces can only leap up on the board unless they are a king.
+        Black pieces can only leap down on the board unless they are a king.
+
+        @param: leap: Leap
+        @param: gamepiece: GamePiece
+
+        @returns: bool
+        '''
+
+        end_row = leap.get_end_position().get_row()
+        start_row = leap.get_start_position().get_row()
+        direction_row = end_row-start_row
+
+        red_direction = direction_row<=-1 and gamepiece.get_piece()==Piece.RED
+        black_direction = (direction_row>=1 and 
+                          gamepiece.get_piece()==Piece.BLACK)
+
+        return (gamepiece.is_king() or 
+                red_direction or
+                black_direction)
+        
+
 
     def __check_capture_leap(self, leap: Leap, board: Board) \
         -> bool:
