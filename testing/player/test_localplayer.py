@@ -9,24 +9,21 @@ from src.common.rulesstandard import RulesStandard
 
 
 def test_constructor() -> None:
-    gamepiece = GamePiece(Piece.BLACK, False)
     strategy = DumbStrategy()
-    localplayer = LocalPlayer(gamepiece, strategy)    
+    localplayer = LocalPlayer(Piece.BLACK, strategy)    
 
 
-def test_get_gamepiece() -> None:
-    gamepiece = GamePiece(Piece.BLACK, False)
+def test_get_piece() -> None:
     strategy = DumbStrategy()
-    localplayer = LocalPlayer(gamepiece, strategy)
+    localplayer = LocalPlayer(Piece.BLACK, strategy)
 
-    assert localplayer.get_gamepiece() == GamePiece(Piece.BLACK, False), \
+    assert localplayer.get_piece() == Piece.BLACK, \
         'LocalPlayer.get_gamepiece() not working properly.'
 
 
 def test_get_move() -> None:
-    gamepiece = GamePiece(Piece.BLACK, False)
     strategy = DumbStrategy()
-    localplayer = LocalPlayer(gamepiece, strategy)
+    localplayer = LocalPlayer(Piece.BLACK, strategy)
 
     row_size=2
     column_size=2
@@ -41,12 +38,12 @@ def test_get_move() -> None:
 
 
 def test_won() -> None:
-    player = LocalPlayer(GamePiece(Piece.BLACK, False), DumbStrategy())
+    player = LocalPlayer(Piece.BLACK, DumbStrategy())
     player.won(True)
 
 
 def test_get_is_winner() -> None:
-    player = LocalPlayer(GamePiece(Piece.BLACK, False), DumbStrategy())
+    player = LocalPlayer(Piece.BLACK, DumbStrategy())
 
     assert player.get_is_winner() == False, \
         "Player.get_is_winner() setup failed."

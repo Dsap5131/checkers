@@ -21,8 +21,8 @@ def test_check_move() -> None:
     strategy = DumbStrategy()
     red_piece = GamePiece(Piece.RED, False)
     black_piece = GamePiece(Piece.BLACK, False)
-    player = LocalPlayer(red_piece, strategy)
-    player_black = LocalPlayer(black_piece, strategy)
+    player = LocalPlayer(Piece.RED, strategy)
+    player_black = LocalPlayer(Piece.BLACK, strategy)
     # Test an valid move where a piece is not jumped
     blank_piece = GamePiece(Piece.BLANK, False)
     board_list_1 = [[blank_piece, black_piece],
@@ -290,17 +290,21 @@ def test_is_game_over() -> None:
     rules = RulesStandard()
 
     # Test a non-game over state
-    row_size_1=2
-    column_size_1=2
+    row_size_1=3
+    column_size_1=3
     blank_piece = GamePiece(Piece.BLANK, False)
     red_piece = GamePiece(Piece.RED, False)
     black_piece = GamePiece(Piece.BLACK, False)
-    board_list_1=[[blank_piece, red_piece],
-                  [black_piece, blank_piece]]
+    strategy = DumbStrategy()
+    red_player = LocalPlayer(Piece.RED, strategy)
+    black_player = LocalPlayer(Piece.BLACK, strategy)
+    board_list_1=[[blank_piece, blank_piece, blank_piece],
+                  [blank_piece, black_piece, blank_piece],
+                  [red_piece, blank_piece, blank_piece]]
     board_1 = Board(row_size_1, column_size_1, board_list_1)
     num_players_1 = 2
 
-    assert rules.is_game_over(board_1, num_players_1) == False, \
+    assert rules.is_game_over(board_1, num_players_1, red_player) == False, \
         "RulesStandard.is_game_over(Board, int) failling to identify an active \
         game."
     
@@ -313,7 +317,7 @@ def test_is_game_over() -> None:
     board_2 = Board(row_size_2, column_size_2, board_list_2)
     num_players_2 = 1
     
-    assert rules.is_game_over(board_2, num_players_2), \
+    assert rules.is_game_over(board_2, num_players_2, red_player), \
         "RulesStandard.is_game_over(Board, int) allowing a game with 1 player."
 
     # Test a game over where there are one type of piece
@@ -324,9 +328,22 @@ def test_is_game_over() -> None:
     board_3 = Board(row_size_3, column_size_3, board_list_3)
     num_players_3 = 2
 
-    assert rules.is_game_over(board_3, num_players_3), \
+    assert rules.is_game_over(board_3, num_players_3, red_player), \
         "RulesStandard.is_game_over(Board, int) allowing a game with only 1 \
         type of piece left."
+    
+
+    # Test a gameover where there is no possible moves left
+    row_size_4 = 2
+    column_size_4=2
+    board_list_4 = [[blank_piece, black_piece],
+                    [red_piece, blank_piece]]
+    board_4 = Board(row_size_4, column_size_4, board_list_4)
+    num_players_4 = 2
+
+    assert rules.is_game_over(board_4, num_players_4, black_player), \
+        "RulesStandard.is_game_over(Board, int) allowing a game with no \
+        available moves left"
 
 
 def test_kickable() -> None:

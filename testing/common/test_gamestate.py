@@ -19,7 +19,7 @@ def test_constructor() -> None:
     rules = RulesStandard()
     strategy = DumbStrategy()
     red_piece = GamePiece(Piece.RED, False)
-    player_one = LocalPlayer(red_piece, strategy)
+    player_one = LocalPlayer(Piece.RED, strategy)
     players = deque([player_one])
     gamestate = GameState(board, rules, players)
 
@@ -28,9 +28,9 @@ def test_is_game_over() -> None:
     rules = RulesStandard()
     strategy = DumbStrategy()
     red_piece = GamePiece(Piece.RED, False)
-    red_player = LocalPlayer(red_piece, strategy)
+    red_player = LocalPlayer(Piece.RED, strategy)
     black_piece = GamePiece(Piece.BLACK, False)
-    black_player = LocalPlayer(black_piece, strategy)
+    black_player = LocalPlayer(Piece.BLACK, strategy)
     
     # Game with 1 player
     row_size_1=2
@@ -74,9 +74,9 @@ def test_take_turn() -> None:
     rules = RulesDumb()
     strategy = DumbStrategy()
     red_piece = GamePiece(Piece.RED, False)
-    red_player = LocalPlayer(red_piece, strategy)
+    red_player = LocalPlayer(Piece.RED, strategy)
     black_piece = GamePiece(Piece.BLACK, False)
-    black_player = LocalPlayer(black_piece, strategy)
+    black_player = LocalPlayer(Piece.BLACK, strategy)
     row_size=2
     column_size=2
     blank_piece = GamePiece(Piece.BLANK, False)

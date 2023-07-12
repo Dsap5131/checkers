@@ -10,7 +10,7 @@ class LocalPlayer(Player):
     to be AI setup by the server and players used for testing. The server has
     greater control over these players.
     
-    @param: gamepiece: GamePiece
+    @param: piece: Piece
     @param: startegy: Strategy
     '''
 
@@ -20,7 +20,7 @@ class LocalPlayer(Player):
         self.__is_winner = False
 
     
-    def get_gamepiece(self) -> Piece:
+    def get_piece(self) -> Piece:
         '''
         Get the piece of the player.
 

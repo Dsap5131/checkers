@@ -20,7 +20,7 @@ def test_check_move() -> None:
 
     red_piece = GamePiece(Piece.RED, False)
     blank_piece = GamePiece(Piece.BLANK, False)
-    player = LocalPlayer(red_piece, strategy)
+    player = LocalPlayer(Piece.RED, strategy)
 
     board_list = [[blank_piece, red_piece],
                   [blank_piece, blank_piece]]

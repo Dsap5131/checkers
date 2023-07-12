@@ -7,7 +7,7 @@ class Player():
     '''
 
 
-    def get_gamepiece(self) -> Piece:
+    def get_piece(self) -> Piece:
         '''
         Get the piece of the player.
 

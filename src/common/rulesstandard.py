@@ -63,7 +63,8 @@ class RulesStandard(Rules):
         if not onboard:
             return False
         
-        players_piece = player.get_gamepiece()==board.get_piece(start_position)
+        players_piece = (player.get_piece()==
+                         board.get_piece(start_position).get_piece())
         if not players_piece:
             return False
 
@@ -185,17 +186,28 @@ class RulesStandard(Rules):
                 (position.get_column() >= 0))
     
 
-    def is_game_over(self, board: Board, num_players: int) -> bool:
+    def is_game_over(self, board: Board, 
+                     num_players: int, 
+                     current_player: Player) -> bool:
         '''
-        Check to see if the game is over.
+        Check to see if the game is over. A game is over if there is only 1
+        players, 1 type of piece on the board, or no available moves left
+        for the current player.
 
         @param: board: Board
         @param: num_players: int: Number of players in the game
+        @param: current_player: Player: 
 
         @returns: bool: True if the game is over.
         '''
 
-        return num_players <= 1 or board.unique_piece_count() <= 1
+        return (num_players <= 1 or 
+                board.unique_piece_count() <= 1 or
+                self.__check_no_moves(board, current_player))
+    
+
+    def __check_no_moves(self, board: Board, player: Player) -> None:
+        return False
 
 
     def kickable(self) -> bool:

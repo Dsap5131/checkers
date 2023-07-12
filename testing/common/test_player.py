@@ -7,13 +7,13 @@ from src.common.board import Board
 from src.common.rulesstandard import RulesStandard
 
 
-def test_get_gamepiece() -> None:
+def test_get_piece() -> None:
     player_one = Player()
     player_two = Player()
     with pytest.raises(NotImplementedError):
-        player_one.get_gamepiece()
+        player_one.get_piece()
     with pytest.raises(NotImplementedError):
-        player_two.get_gamepiece()
+        player_two.get_piece()
 
 
 def test_get_move() -> None:

@@ -28,7 +28,9 @@ class GameState():
         @returns: bool: True if the game is in a gameover state.
         '''
 
-        return self.__rules.is_game_over(self.__board, len(self.__players))
+        return self.__rules.is_game_over(self.__board, 
+                                         len(self.__players), 
+                                         self.__players[0])
     
 
     def take_turn(self) -> None:
