@@ -46,10 +46,11 @@ def test_is_game_over() -> None:
         "GameState.is_game_over() failing with 1 player."
 
     # Non-gameover state
-    row_size_2=2
-    column_size_2=2
-    board_list_2=[[blank_piece, black_piece],
-                  [red_piece, blank_piece]]
+    row_size_2=3
+    column_size_2=3
+    board_list_2=[[blank_piece, blank_piece, blank_piece],
+                  [blank_piece, blank_piece, black_piece],
+                  [blank_piece, red_piece, blank_piece]]
     board_2 = Board(row_size_2, column_size_2, board_list_2)
     players_2 = deque([red_player, black_player])
     gamestate_2 = GameState(board_2, rules, players_2)

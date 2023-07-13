@@ -206,7 +206,89 @@ class RulesStandard(Rules):
                 self.__check_no_moves(board, current_player))
     
 
-    def __check_no_moves(self, board: Board, player: Player) -> None:
+    def __check_no_moves(self, board: Board, current_player: Player) -> bool:
+        '''
+        Checks to see if the current player has any moves left on the board.
+
+        @returns: True if they have a valid move.
+        '''
+        
+        current_piece = current_player.get_piece()
+
+        for r in range(board.get_row_size()):
+            for c in range(board.get_column_size()):
+                if board.get_piece(Position(r,c)).get_piece() == current_piece:
+                    has_moves = self.__check_moves_from_position(board, 
+                                                                 Position(r,c))
+                    if has_moves:
+                        return False
+                    
+        return True
+
+
+    def __check_moves_from_position(self, board: Board, position: Position)  \
+            -> bool:
+        '''
+        Checks to see if the piece at position has any possible moves.
+
+        @returns: True if they have a valid move.
+        '''
+        # A move can be checked if it is valid. if in any of its valid diagonals 
+        # it can make a leap or a capture then that piece has a valid move
+
+        return (self.__check_for_one_leaps(board, position) or 
+                self.__check_for_capture_leaps(board, position))
+    
+
+    def __check_for_one_leaps(self, board: Board, position: Position) -> bool:
+        '''
+        Checks to see if the piece at position has any one leaps.
+
+        @returns: True if it has a one leap available.
+        '''
+        start_row = position.get_row()
+        start_column = position.get_column()
+        end_positions = [Position(start_row-1, start_column-1),
+                         Position(start_row-1, start_column+1),
+                         Position(start_row+1, start_column-1),
+                         Position(start_row+1, start_column+1)]
+        for end_position in end_positions:
+            if not self.check_position(end_position, board):
+                continue
+
+            leap = Leap(position, end_position)
+            direction = self.__check_leap_direction(leap, 
+                                                    board.get_piece(position))  
+            one_leap = self.__check_single_leap(leap, board)
+            if direction and one_leap:
+                return True
+
+        return False
+    
+
+    def __check_for_capture_leaps(self, board: Board, position: Position)->bool:
+        '''
+        Checks to see if the piece at position has any capture leaps.
+
+        @returns: True if it has a capture leap available
+        '''
+        start_row = position.get_row()
+        start_column = position.get_column()
+        end_positions = [Position(start_row-2, start_column-2),
+                         Position(start_row-2, start_column+2),
+                         Position(start_row+2, start_column-2),
+                         Position(start_row+2, start_column+2)]
+        for end_position in end_positions:
+            if not self.check_position(end_position, board):
+                continue 
+
+            leap = Leap(position, end_position)
+            direction = self.__check_leap_direction(leap, 
+                                                    board.get_piece(position))  
+            capture_leap = self.__check_capture_leap(leap, board)
+            if direction and capture_leap:
+                return True
+
         return False
 
 
