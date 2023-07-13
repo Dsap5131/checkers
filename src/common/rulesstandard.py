@@ -38,6 +38,7 @@ class RulesStandard(Rules):
             if not valid_move:
                 break
             board.move_piece(Move(deque([leap])))
+            
         return valid_move
 
 
@@ -72,7 +73,7 @@ class RulesStandard(Rules):
                                                 board.get_piece(start_position))  
         one_leap = self.__check_single_leap(leap, board)
         capture = self.__check_capture_leap(leap, board)
-            
+
         return direction and (one_leap or capture)
         
 

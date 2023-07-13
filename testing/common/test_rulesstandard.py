@@ -231,20 +231,41 @@ def test_check_move() -> None:
                      [black_piece, blank_piece, blank_piece]]
     board_19 = Board(row_size=3, column_size=3, board=board_list_19)
     leaps_19 = deque([Leap(Position(2,0), Position(0,2))])
+    move_19 = Move(leaps_19)
+    assert rules_standard.check_move(move_19, board_19, player_black) == False,\
+        "RulesStandard.check_move(Move, Board, Player) allowing moving black \
+        piece backwards"
 
     # Test valid move where red king moves down.
     red_king = GamePiece(Piece.RED, True)
     board_list_20 = [[blank_piece, blank_piece, red_king],
                      [blank_piece, black_piece, blank_piece],
                      [blank_piece, blank_piece, blank_piece]]
+    board_20 = Board(row_size=3, column_size=3, board=board_list_20)
     move_20 = Move(deque([Leap(Position(0,2), Position(2,0))]))
+    assert rules_standard.check_move(move_20, board_20, player), \
+        "RulesStandard.check_move(Move, Board, Player) failing red king moves."
 
     # Test valid move where black king moves up.
     black_king = GamePiece(Piece.BLACK, True)
     board_list_21 = [[blank_piece, blank_piece, blank_piece],
                      [blank_piece, red_piece, blank_piece],
                      [black_king, blank_piece, blank_piece]]
+    board_21 = Board(row_size=3, column_size=3, board=board_list_21)
     move_21 = Move(deque([Leap(Position(2,0), Position(0,2))]))
+    assert rules_standard.check_move(move_21, board_21, player_black), \
+        "RulesStandard.check_move(Move, Board, Player) fails black king moves."
+    
+
+    # Test valid move and that move is reset.
+    black_king = GamePiece(Piece.BLACK, True)
+    board_list_22 = [[blank_piece, blank_piece, blank_piece],
+                     [blank_piece, red_piece, blank_piece],
+                     [black_king, blank_piece, blank_piece]]
+    board_22 = Board(row_size=3, column_size=3, board=board_list_22)
+    move_22 = Move(deque([Leap(Position(2,0), Position(0,2))]))
+    assert rules_standard.check_move(move_22, board_22, player_black), \
+        "RulesStandard.check_move(Move, Board, Player) fails valid move."
 
 
 def test_check_position():
