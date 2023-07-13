@@ -52,7 +52,7 @@ class GameState():
         '''
         return PlayerGameState(Board.from_board(self.__board), 
                                self.__rules,
-                               self.__players[0].get_piece())
+                               self.__players[0])
 
 
 

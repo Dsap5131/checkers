@@ -3,6 +3,8 @@ from src.common.board import Board
 from src.common.rulesstandard import RulesStandard
 from src.common.gamepiece import GamePiece
 from src.common.piece import Piece
+from src.player.localplayer import LocalPlayer
+from src.player.dumbstrategy import DumbStrategy
 
 def test_constructor() -> None:
     row_size = 2 
@@ -12,8 +14,9 @@ def test_constructor() -> None:
                   [blank_piece, blank_piece]]
     board = Board(row_size, column_size, board_list)
     rules = RulesStandard()
-
-    playergamestate = PlayerGameState(board, rules, Piece.BLACK)
+    strategy = DumbStrategy()
+    player = LocalPlayer(Piece.BLACK, strategy)
+    playergamestate = PlayerGameState(board, rules, player)
 
 
 def test_get_board() -> None:
@@ -31,9 +34,10 @@ def test_get_board() -> None:
     board_2 = Board(row_size, column_size, board_list_2)
 
     rules = RulesStandard()
-
-    playergamestate_1 = PlayerGameState(board_1, rules, Piece.BLACK)
-    playergamestate_2 = PlayerGameState(board_2, rules, Piece.BLACK)
+    strategy = DumbStrategy()
+    player = LocalPlayer(Piece.BLACK, strategy)
+    playergamestate_1 = PlayerGameState(board_1, rules, player)
+    playergamestate_2 = PlayerGameState(board_2, rules, player)
 
     assert playergamestate_1.get_board() == board_1, \
         "PlayerGameState.get_board() not working."
@@ -49,13 +53,15 @@ def test_get_rules() -> None:
                   [blank_piece, blank_piece]]
     board = Board(row_size, column_size, board_list)
     rules = RulesStandard()
-    playergamestate = PlayerGameState(board, rules, Piece.BLACK)
+    strategy = DumbStrategy()
+    player = LocalPlayer(Piece.BLACK, strategy)
+    playergamestate = PlayerGameState(board, rules, player)
 
     assert playergamestate.get_rules() == rules, \
         "PlayerGameState.get_rules() not working."
     
 
-def test_get_piece() -> None:
+def test_get_player() -> None:
     row_size=2
     column_size=2
     blank_piece = GamePiece(Piece.BLANK, False)
@@ -63,7 +69,9 @@ def test_get_piece() -> None:
                   [blank_piece, blank_piece]]
     board = Board(row_size, column_size, board_list)
     rules = RulesStandard()
-    playergamestate = PlayerGameState(board, rules, Piece.BLACK)
+    strategy = DumbStrategy()
+    player = LocalPlayer(Piece.BLACK, strategy)
+    playergamestate = PlayerGameState(board, rules, player)
 
-    assert playergamestate.get_piece() == Piece.BLACK, \
+    assert playergamestate.get_player() == player, \
         "PlayerGameState.get_piece() not working."

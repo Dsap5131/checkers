@@ -1,6 +1,6 @@
 from src.common.board import Board
 from src.common.rules import Rules
-from src.common.piece import Piece
+from src.common.player import Player
 
 class PlayerGameState():
     '''
@@ -8,13 +8,16 @@ class PlayerGameState():
 
     @param: board: Board
     @param: rules: Rules
-    @param: current_piece: Piece
+    @param: current_player: Player
     '''
 
-    def __init__(self, board: Board, rules: Rules, current_piece: Piece)-> None:
+    def __init__(self, 
+                 board: Board, 
+                 rules: Rules, 
+                 current_player: Player) -> None:
         self.__board = board
         self.__rules = rules
-        self.__current_piece = current_piece
+        self.__current_player = current_player
 
     
     def get_board(self) -> Board:
@@ -33,9 +36,9 @@ class PlayerGameState():
         return self.__rules
     
 
-    def get_piece(self) -> Piece:
+    def get_player(self) -> Player:
         '''
-        Get the piece of the current players piece.
+        Get the current player
         '''
 
-        return self.__current_piece
+        return self.__current_player
