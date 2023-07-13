@@ -50,7 +50,9 @@ class GameState():
         '''
         Create PlayerGameState from current gamestate.
         '''
-        return PlayerGameState(Board.from_board(self.__board), self.__rules)
+        return PlayerGameState(Board.from_board(self.__board), 
+                               self.__rules,
+                               self.__players[0].get_piece())
 
 
 

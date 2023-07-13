@@ -13,7 +13,7 @@ def test_constructor() -> None:
     board = Board(row_size, column_size, board_list)
     rules = RulesStandard()
 
-    playergamestate = PlayerGameState(board, rules)
+    playergamestate = PlayerGameState(board, rules, Piece.BLACK)
 
 
 def test_get_board() -> None:
@@ -32,8 +32,8 @@ def test_get_board() -> None:
 
     rules = RulesStandard()
 
-    playergamestate_1 = PlayerGameState(board_1, rules)
-    playergamestate_2 = PlayerGameState(board_2, rules)
+    playergamestate_1 = PlayerGameState(board_1, rules, Piece.BLACK)
+    playergamestate_2 = PlayerGameState(board_2, rules, Piece.BLACK)
 
     assert playergamestate_1.get_board() == board_1, \
         "PlayerGameState.get_board() not working."
@@ -49,7 +49,21 @@ def test_get_rules() -> None:
                   [blank_piece, blank_piece]]
     board = Board(row_size, column_size, board_list)
     rules = RulesStandard()
-    playergamestate = PlayerGameState(board, rules)
+    playergamestate = PlayerGameState(board, rules, Piece.BLACK)
 
     assert playergamestate.get_rules() == rules, \
         "PlayerGameState.get_rules() not working."
+    
+
+def test_get_piece() -> None:
+    row_size=2
+    column_size=2
+    blank_piece = GamePiece(Piece.BLANK, False)
+    board_list = [[blank_piece, blank_piece],
+                  [blank_piece, blank_piece]]
+    board = Board(row_size, column_size, board_list)
+    rules = RulesStandard()
+    playergamestate = PlayerGameState(board, rules, Piece.BLACK)
+
+    assert playergamestate.get_piece() == Piece.BLACK, \
+        "PlayerGameState.get_piece() not working."
