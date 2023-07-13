@@ -12,7 +12,8 @@ from src.common.player import Player
 
 class BasicStrategy(Strategy):
     '''
-    Basic Strategy is a simple strategy in checkers. 
+    Basic Strategy is a simple strategy in checkers. It is made to be played
+    against the standard ruleset
 
     The strategy works by
      
