@@ -7,7 +7,7 @@ from src.common.board import Board
 from src.common.gamepiece import GamePiece
 from src.common.piece import Piece
 from src.player.localplayer import LocalPlayer
-from src.player.dumbstrategy import DumbStrategy
+from src.player.strategies.dumbstrategy import DumbStrategy
 
 def test_constructor() -> None:
     row_size=2

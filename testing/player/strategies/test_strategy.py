@@ -1,6 +1,6 @@
 import pytest
 
-from src.player.strategy import Strategy
+from src.player.strategies.strategy import Strategy
 from src.common.playergamestate import PlayerGameState
 from src.common.board import Board
 from src.common.rulesstandard import RulesStandard

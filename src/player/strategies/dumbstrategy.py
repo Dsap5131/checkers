@@ -4,7 +4,7 @@ from src.common.playergamestate import PlayerGameState
 from src.common.move import Move
 from src.common.leap import Leap
 from src.common.position import Position
-from src.player.strategy import Strategy
+from src.player.strategies.strategy import Strategy
 
 
 class DumbStrategy(Strategy):

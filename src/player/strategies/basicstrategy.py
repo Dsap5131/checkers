@@ -1,7 +1,7 @@
 from collections import deque
 from typing import Tuple
 
-from src.player.strategy import Strategy
+from src.player.strategies.strategy import Strategy
 from src.common.move import Move
 from src.common.playergamestate import PlayerGameState
 from src.common.position import Position

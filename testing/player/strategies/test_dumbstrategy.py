@@ -1,6 +1,6 @@
 from collections import deque
 
-from src.player.dumbstrategy import DumbStrategy
+from src.player.strategies.dumbstrategy import DumbStrategy
 from src.common.playergamestate import PlayerGameState
 from src.common.board import Board
 from src.common.rulesstandard import RulesStandard

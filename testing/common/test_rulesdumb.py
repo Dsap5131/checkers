@@ -4,7 +4,7 @@ from src.common.rulesdumb import RulesDumb
 from src.player.localplayer import LocalPlayer
 from src.common.gamepiece import GamePiece
 from src.common.piece import Piece
-from src.player.dumbstrategy import DumbStrategy
+from src.player.strategies.dumbstrategy import DumbStrategy
 from src.common.board import Board
 from src.common.leap import Leap
 from src.common.position import Position

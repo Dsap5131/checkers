@@ -1,6 +1,6 @@
 from collections import deque
 
-from src.player.basicstrategy import BasicStrategy
+from src.player.strategies.basicstrategy import BasicStrategy
 from src.common.playergamestate import PlayerGameState
 from src.common.piece import Piece
 from src.common.gamepiece import GamePiece

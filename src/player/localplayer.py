@@ -1,5 +1,5 @@
 from src.common.gamepiece import Piece
-from src.player.strategy import Strategy
+from src.player.strategies.strategy import Strategy
 from src.common.player import Player
 from src.common.playergamestate import PlayerGameState
 from src.common.move import Move
