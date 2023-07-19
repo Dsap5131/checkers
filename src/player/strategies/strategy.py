@@ -8,6 +8,17 @@ class Strategy():
     '''
 
     def make_move(self, playergamestate: PlayerGameState) -> Move:
+        '''
+        Make a move based on the given playergamestate.
+
+        Given playergamestate should never be in a gameover state. Thus a valid
+        move should exist.
+
+        @param: playergamestate: PlayerGameState
+
+        @returns: Move
+        '''
+        
         raise NotImplementedError(
             "THIS IS NOT IMPLEMENTED AND SHOULD NEVER BE CALLED.")
 

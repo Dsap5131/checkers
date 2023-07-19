@@ -17,6 +17,9 @@ class DumbStrategy(Strategy):
         '''
         Make a move based on the given playergamestate.
 
+        Given playergamestate should never be in a gameover state. Thus a valid
+        move should exist.
+
         @param: playergamestate: PlayerGameState
 
         @returns: Move
