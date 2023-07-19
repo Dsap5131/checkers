@@ -5,7 +5,7 @@ from src.common.leap import Leap
 class Move(): 
     '''
     Represents a move in checkers. A move in checkers is characterized by 
-    as a list of leaps.
+    as a deque of leaps.
     '''
 
     def __init__(self, leaps: deque[Leap]) -> None:
