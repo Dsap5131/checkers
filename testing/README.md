@@ -18,5 +18,6 @@ For example
 # Directory
 | File or Folder | About |
 | ---            | ---   |
-| [common](./common/README.md) | Tests for [src/common](../src/common/README.md)
-| [player](./player/README.md) | Tests for [src/player](../src/player/README.md)
+| [common](./common/README.md) | Tests for [src/common](../src/common/README.md) |
+| [player](./player/README.md) | Tests for [src/player](../src/player/README.md) |
+| [referee](./referee/README.md) | Tests for [src/referee](../src/referee/README.md) |
