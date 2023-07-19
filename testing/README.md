@@ -7,13 +7,13 @@ This may eventually be moved or changed to facilitate CI/CD tools.
 # To run
 
 In terminal from the root project directory run the command\
-`pytest testing/`
+`python3 -m pytest testing/`
 
 To run individual tests you can expand that command and path to any specific 
 testing file.
 
 For example
-`pytest testing/test_board.py`
+`python3 -m pytest testing/test_board.py`
 
 # Directory
 | File or Folder | About |
