@@ -42,7 +42,7 @@ class BasicStrategy(Strategy):
 
         for r in range(board.get_row_size()):
             for c in range(board.get_column_size()):
-                current_piece = board.get_piece(Position(r,c))
+                current_piece = board.get_gamepiece(Position(r,c))
                 if current_piece.get_piece() == piece:
                     valid, move = \
                         self.__check_for_move(board, 

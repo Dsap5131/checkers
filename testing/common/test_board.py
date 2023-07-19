@@ -56,7 +56,7 @@ def test_get_column_size() -> None:
     assert board_2.get_column_size() == 1, "Board.get_column_size() not working."
 
 
-def test_get_piece() -> None:
+def test_get_gamepiece() -> None:
     row_size = 2
     column_size = 3
     blank_piece = GamePiece(Piece.BLANK, False)
@@ -65,10 +65,10 @@ def test_get_piece() -> None:
                    [blank_piece, red_piece, blank_piece]]
     board = Board(row_size, column_size, board_setup)
     
-    assert board.get_piece(Position(0,0)) == GamePiece(Piece.BLANK, False), \
-        "Board.get_piece(position) not working."
+    assert board.get_gamepiece(Position(0,0)) == GamePiece(Piece.BLANK, False), \
+        "Board.get_gamepiece(position) not working."
     
-    assert board.get_piece(Position(1,1)) == GamePiece(Piece.RED, False), \
+    assert board.get_gamepiece(Position(1,1)) == GamePiece(Piece.RED, False), \
         "Board.get_piece(position) not working."
     
 
@@ -81,17 +81,17 @@ def test_move_piece() -> None:
                    [blank_piece, red_piece, blank_piece]]
     board = Board(row_size, column_size, board_setup)
 
-    assert board.get_piece(Position(1,1)) == GamePiece(Piece.RED, False), \
-        "Board.get_piece(position) failed and ruins integration testing."
+    assert board.get_gamepiece(Position(1,1)) == GamePiece(Piece.RED, False), \
+        "Board.get_gamepiece(position) failed and ruins integration testing."
     
-    assert board.get_piece(Position(0,1)) == GamePiece(Piece.BLANK, False), \
-        "Board.get_piece(position) failed and ruins integration testing."
+    assert board.get_gamepiece(Position(0,1)) == GamePiece(Piece.BLANK, False), \
+        "Board.get_gamepiece(position) failed and ruins integration testing."
     
 
     move = Move(deque([Leap(Position(1,1), Position(0,1))]))
     board.move_piece(move)
 
-    assert board.get_piece(Position(0,1)) == GamePiece(Piece.RED, False), \
+    assert board.get_gamepiece(Position(0,1)) == GamePiece(Piece.RED, False), \
         "Board.move_piece(move) not working."
     
 
@@ -105,19 +105,19 @@ def test_copy_constructor() -> None:
     board_one = Board(row_size, column_size, board_setup)
     board_two = Board.from_board(board_one)
 
-    assert board_one.get_piece(Position(0,0)) == GamePiece(Piece.BLANK, False),\
+    assert board_one.get_gamepiece(Position(0,0)) == GamePiece(Piece.BLANK, False),\
         "Board.from_board(Board) setup failed."
     
-    assert board_two.get_piece(Position(0,0)) == GamePiece(Piece.BLANK, False), \
+    assert board_two.get_gamepiece(Position(0,0)) == GamePiece(Piece.BLANK, False), \
         "Board.from_board(Board) setup failed."
     
     move = Move(deque([Leap(Position(0,1), Position(0,0))]))
     board_two.move_piece(move)
 
-    assert board_one.get_piece(Position(0,0)) == GamePiece(Piece.BLANK, False), \
+    assert board_one.get_gamepiece(Position(0,0)) == GamePiece(Piece.BLANK, False), \
         "Board.from_board(Board) failed."
     
-    assert board_two.get_piece(Position(0,0)) == GamePiece(Piece.RED, False), \
+    assert board_two.get_gamepiece(Position(0,0)) == GamePiece(Piece.RED, False), \
         "Board.from_board(Board) failed."
     
 

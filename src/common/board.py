@@ -41,7 +41,7 @@ class Board():
         for r in range(copied_row_size):
             copied_row = []
             for c in range(copied_row_size):
-                copied_row.append(board.get_piece(Position(r,c)))
+                copied_row.append(board.get_gamepiece(Position(r,c)))
             copied_board_list.append(copied_row)
 
 
@@ -69,7 +69,7 @@ class Board():
         return self.__column_size
     
 
-    def get_piece(self, position: Position) -> GamePiece:
+    def get_gamepiece(self, position: Position) -> GamePiece:
         '''
         Get GamePiece at a given Position
 
@@ -100,7 +100,7 @@ class Board():
 
         start_position = leap.get_start_position()
         end_position = leap.get_end_position()
-        gamepiece = self.get_piece(start_position)
+        gamepiece = self.get_gamepiece(start_position)
 
         self.__board[start_position.get_row()][start_position.get_column()] \
             = GamePiece(Piece.BLANK, False)
@@ -120,7 +120,7 @@ class Board():
         seen = []
         for r in range(self.get_row_size()):
             for c in range(self.get_column_size()):
-                current_piece = self.get_piece(Position(r,c))
+                current_piece = self.get_gamepiece(Position(r,c))
                 if (current_piece.get_piece() != Piece.BLANK
                         and not current_piece.get_piece() in seen):
                     unique_piece_count += 1
