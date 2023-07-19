@@ -9,10 +9,9 @@ class GamePiece():
     @parma: is_king: bool
     """
 
-    def __init__(self, piece: Piece, is_king: bool) -> None:
+    def __init__(self, piece: Piece, is_king: bool=False) -> None:
         self.__piece = piece
         self.__is_king = is_king
-
 
     def get_piece(self) -> Piece:
         '''

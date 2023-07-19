@@ -3,6 +3,7 @@ from src.common.piece import Piece
 
 def test_constructor() -> None:
     gamepiece = GamePiece(Piece.BLACK, False)
+    gamepiece_2 = GamePiece(Piece.BLACK)
 
 
 def test_get_piece() -> None:
