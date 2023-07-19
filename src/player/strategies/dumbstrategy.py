@@ -14,6 +14,14 @@ class DumbStrategy(Strategy):
     '''
 
     def make_move(self, playergamestate: PlayerGameState) -> Move:
+        '''
+        Make a move based on the given playergamestate.
+
+        @param: playergamestate: PlayerGameState
+
+        @returns: Move
+        '''
+        
         return Move(deque([Leap(Position(0,0), Position(0,0))]))
 
     
