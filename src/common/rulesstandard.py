@@ -25,6 +25,10 @@ class RulesStandard(Rules):
         Red pieces can only move up on the board unless it is a king.
         Black pieces can only move down on the board unless it is a king.
 
+        A piece may only promote itself when it gets to the end of the board.
+        It may only promote on the opponents side. It may only promote itself 
+        and not others.
+
         @param: move: Move: move being made.
         @param: board: Board: board the move is made on.
         @param: player: Player: player making the move.
@@ -76,9 +80,55 @@ class RulesStandard(Rules):
             board.get_gamepiece(start_position))  
         one_leap = self.__check_single_leap(leap, board)
         capture = self.__check_capture_leap(leap, board)
+        proper_promote = self.__check_promotion(leap,
+                                                board)
 
-        return direction and (one_leap or capture)
+        return direction and (one_leap or capture) and proper_promote
+    
+
+    def __check_promotion(self, leap: Leap, board: Board) -> bool:
+        '''
+        Check to see if a piece is properly being promoted.
+        A piece may only promote itself when it gets to the end of the board.
+        It may only promote on the opponents side. It may only promote itself 
+        and not others.
         
+        @param: leap: Leap
+        @param: board: Board
+
+        @returns: bool: True if the promote is valid
+        '''
+
+        promote_positions = leap.get_promote_positions()
+        if len(promote_positions) > 1: 
+            return False
+        
+        if len(promote_positions) == 1:
+            end_position = leap.get_end_position()
+            end_row = end_position.get_row()
+
+            gamepiece = board.get_gamepiece(leap.get_start_position())
+            piece = gamepiece.get_piece()
+            is_king = gamepiece.is_king()
+
+            valid_red_promote = piece == Piece.RED and end_row == 0
+            valid_black_promote = (piece == Piece.BLACK and 
+                                   end_row == board.get_row_size()-1)
+            valid_promote = (promote_positions[0] == end_position and 
+                             not is_king)
+
+            return (valid_red_promote or valid_black_promote) and valid_promote
+    
+        if len(promote_positions) == 0:
+            end_row = leap.get_end_position().get_row()
+            piece = board.get_gamepiece(leap.get_start_position()).get_piece()
+
+            return ((piece == Piece.RED and end_row != 0)
+                    or (piece == Piece.BLACK and
+                        end_row != board.get_row_size()-1))
+    
+        return False
+
 
     def __check_leap_direction(self, leap: Leap, gamepiece: GamePiece) -> bool:
         '''

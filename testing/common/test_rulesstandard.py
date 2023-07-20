@@ -28,7 +28,9 @@ def test_check_move() -> None:
     board_list_1 = [[blank_piece, black_piece],
                   [blank_piece, blank_piece]]
     board_1 = Board(row_size=2, column_size=2, board=board_list_1)
-    leaps_1 = deque([Leap(Position(0,1), Position(1,0))])
+    leaps_1 = deque([Leap(Position(0,1), 
+                          Position(1,0),
+                          promote_positions=[Position(1,0)])])
     move_1 = Move(leaps_1)
     
     assert rules_standard.check_move(move_1, board_1, player_black), \
@@ -40,7 +42,10 @@ def test_check_move() -> None:
                     [blank_piece, black_piece, blank_piece],
                     [red_piece, blank_piece, blank_piece]]
     board_2 = Board(row_size=3, column_size=3, board=board_list_2)
-    leaps_2 = deque([Leap(Position(2,0), Position(0,2), [Position(1,1)])])
+    leaps_2 = deque([Leap(Position(2,0), 
+                          Position(0,2), 
+                          capture_positions=[Position(1,1)],
+                          promote_positions=[Position(0,2)])])
     move_2 = Move(leaps_2)
 
     assert rules_standard.check_move(move_2, board_2, player), \
@@ -50,7 +55,9 @@ def test_check_move() -> None:
     board_list_3 = [[blank_piece, red_piece],
                     [blank_piece, blank_piece]]
     board_3 = Board(row_size=2, column_size=2, board=board_list_3)
-    leaps_3 = deque([Leap(Position(0,1), Position(0,0))])
+    leaps_3 = deque([Leap(Position(0,1), 
+                          Position(0,0),
+                          promote_positions=[Position(0,0)])])
     move_3 = Move(leaps_3)
 
     assert rules_standard.check_move(move_3, board_3, player) == False, \
@@ -60,7 +67,9 @@ def test_check_move() -> None:
     board_list_4 = [[blank_piece, blank_piece],
                     [blank_piece, red_piece]]
     board_4 = Board(row_size=2, column_size=2, board=board_list_4)
-    leaps_4 = deque([Leap(Position(1,1), Position(0,1))])
+    leaps_4 = deque([Leap(Position(1,1), 
+                          Position(0,1),
+                          promote_positions=[Position(0,1)])])
     move_4 = Move(leaps_4)
 
     assert rules_standard.check_move(move_4, board_4, player) == False, \
@@ -71,7 +80,10 @@ def test_check_move() -> None:
                     [blank_piece, red_piece, blank_piece],
                     [red_piece, blank_piece, blank_piece]]
     board_5 = Board(row_size=3, column_size=3, board=board_list_5)
-    leaps_5 = deque([Leap(Position(2,0), Position(0,2), [Position(1,1)])])
+    leaps_5 = deque([Leap(Position(2,0), 
+                          Position(0,2), 
+                          capture_positions=[Position(1,1)],
+                          promote_positions=[Position(0,2)])])
     move_5 = Move(leaps_5)
 
     assert rules_standard.check_move(move_5, board_5, player) == False, \
@@ -83,7 +95,9 @@ def test_check_move() -> None:
                     [blank_piece, blank_piece, blank_piece],
                     [red_piece, blank_piece, blank_piece]]
     board_6 = Board(row_size=3, column_size=3, board=board_list_6)
-    leaps_6 = deque([Leap(Position(2,0), Position(0,2))])
+    leaps_6 = deque([Leap(Position(2,0), 
+                          Position(0,2),
+                          promote_positions=[Position(0,2)])])
     move_6 = Move(leaps_6)
 
     assert rules_standard.check_move(move_6, board_6, player) == False, \
@@ -138,7 +152,9 @@ def test_check_move() -> None:
     board_list_11 = [[blank_piece, black_piece],
                      [blank_piece, blank_piece]]
     board_11 = Board(row_size=2, column_size=2, board=board_list_11)
-    leaps_11 = deque([Leap(Position(0,1), Position(1,0))])
+    leaps_11 = deque([Leap(Position(0,1), 
+                           Position(1,0),
+                           promote_positions=[Position(1,0)])])
     move_11 = Move(leaps_11)
 
     assert rules_standard.check_move(move_11, board_11, player) == False, \
@@ -160,7 +176,9 @@ def test_check_move() -> None:
     board_list_13 = [[blank_piece, red_piece],
                      [red_piece, blank_piece]]
     board_13 = Board(row_size=2, column_size=2, board=board_list_13)
-    leaps_13 = deque([Leap(Position(1,0), Position(0,1))])
+    leaps_13 = deque([Leap(Position(1,0), 
+                           Position(0,1),
+                           promote_positions=[Position(0,1)])])
     move_13 = Move(leaps_13)
 
     assert rules_standard.check_move(move_13, board_13, player) == False, \
@@ -266,7 +284,9 @@ def test_check_move() -> None:
                      [GamePiece(Piece.RED), GamePiece(Piece.BLANK), 
                       GamePiece(Piece.BLANK)]]
     board_22 = Board(row_size=3, column_size=3, board=board_list_22)
-    move_22 = Move(deque([Leap(Position(2,0), Position(0,2))]))
+    move_22 = Move(deque([Leap(Position(2,0), 
+                               Position(0,2),
+                               promote_positions=[Position(0,2)])]))
     assert rules_standard.check_move(move_22, board_22, player_red) == False, \
         "RulesStandard.check_move(Move, Board, Player) allows bad \
         captures_positions."
@@ -279,7 +299,10 @@ def test_check_move() -> None:
                      [GamePiece(Piece.RED), GamePiece(Piece.BLANK), 
                       GamePiece(Piece.BLANK)]]
     board_23 = Board(row_size=3, column_size=3, board=board_list_23)
-    move_23 = Move(deque([Leap(Position(2,0), Position(0,2), [Position(0,0)])]))
+    move_23 = Move(deque([Leap(Position(2,0), 
+                               Position(0,2), 
+                               capture_positions=[Position(0,0)],
+                               promote_positions=[Position(0,2)])]))
     assert rules_standard.check_move(move_23, board_23, player_red) == False,\
         "RulesStandard.check_move(Move, Board, Player) allows bad \
         capture_positions"
@@ -293,7 +316,10 @@ def test_check_move() -> None:
                      [GamePiece(Piece.RED), GamePiece(Piece.BLANK), 
                       GamePiece(Piece.BLANK)]]
     board_24 = Board(row_size=3, column_size=3, board=board_list_24)
-    leap_24 = Leap(Position(2,0), Position(0,2), [Position(1,1), Position(0,0)])
+    leap_24 = Leap(Position(2,0), 
+                   Position(0,2), 
+                   capture_positions=[Position(1,1), Position(0,0)],
+                   promote_positions=[Position(0,2)])
     move_24 = Move(deque([leap_24]))
     assert rules_standard.check_move(move_24, board_24, player_red) == False,\
         "RulesStandard.check_move(Move, Board, Player) allows bad \
@@ -307,7 +333,10 @@ def test_check_move() -> None:
                      [GamePiece(Piece.RED), GamePiece(Piece.BLANK), GamePiece(Piece.BLANK), GamePiece(Piece.BLANK), GamePiece(Piece.BLANK)]]
     board_25 = Board(row_size=5, column_size=5, board=board_list_25)
     leap_25_1 = Leap(Position(4,0), Position(2,2), [Position(3,1)])
-    leap_25_2 = Leap(Position(2,2), Position(0,4), [Position(1,3)])
+    leap_25_2 = Leap(Position(2,2), 
+                     Position(0,4), 
+                     capture_positions=[Position(1,3)],
+                     promote_positions=[Position(0,4)])
     move_25 = Move(deque([leap_25_1, leap_25_2]))
     assert rules_standard.check_move(move_25, board_25, player_red),\
         "RulesStandard.check_move(Move, Board, Player) failling good \
@@ -317,9 +346,14 @@ def test_check_move() -> None:
     board_list_26 = [[GamePiece(Piece.BLANK), GamePiece(Piece.BLANK)],
                      [GamePiece(Piece.RED), GamePiece(Piece.BLANK)]]
     board_26 = Board(row_size=2, column_size=2, board=board_list_26)
-    move_26 = Move(deque([Leap(Position(1,0), Position(0,1))]))
+    move_26 = Move(deque([Leap(Position(1,0), 
+                               Position(0,1),
+                               promote_positions=[Position(0,1)])]))
     rules_standard.check_move(move_26, board_26, player_red)
-    assert move_26 == Move(deque([Leap(Position(1,0), Position(0,1))])), \
+    expected_move_26 = Move(deque([Leap(Position(1,0),
+                                        Position(0,1),
+                                        promote_positions=[Position(0,1)])]))
+    assert move_26 == expected_move_26, \
         "RulesStandard.check_move(Move, Board, Player) mutating move."
     expected_board_list_26 = [[GamePiece(Piece.BLANK), GamePiece(Piece.BLANK)],
                               [GamePiece(Piece.RED), GamePiece(Piece.BLANK)]]
@@ -328,7 +362,60 @@ def test_check_move() -> None:
                               board=expected_board_list_26)
     assert board_26 == expected_board_26, \
         "RulesStandard.check_move(Move, Board, Player) mutating board."
+    
 
+    # Test illegal move that promotes a piece not taking the leap
+    board_list_27 = [[GamePiece(Piece.RED), GamePiece(Piece.BLANK)],
+                     [GamePiece(Piece.RED), GamePiece(Piece.BLANK)]]
+    board_27 = Board(row_size=2, column_size=2, board=board_list_27)
+    leap_27 = Leap(Position(1,0), 
+                   Position(0,1), 
+                   promote_positions=[Position(0,0)])
+    move_27 = Move(deque([leap_27]))
+    assert rules_standard.check_move(move_27, board_27, player_red) == False, \
+        "RulesStandard.check_move(Move, Board, Player) allows invalid promote."
+
+    # Test legal move that promotes a valid piece
+    board_list_28 = [[GamePiece(Piece.BLANK), GamePiece(Piece.BLANK)],
+                     [GamePiece(Piece.RED), GamePiece(Piece.BLANK)]]
+    board_28 = Board(row_size=2, column_size=2, board=board_list_28)
+    leap_28 = Leap(Position(1,0), 
+                   Position(0,1),
+                   promote_positions=[Position(0,1)])
+    move_28 = Move(deque([leap_28]))
+    assert rules_standard.check_move(move_28, board_28, player_red), \
+        "RulesStandard.check_move(Move, Board, Player) failing valid promote."
+    
+    # Test illegal move where a piece should promote but doesn't
+    board_list_29 = [[GamePiece(Piece.BLANK), GamePiece(Piece.BLANK)],
+                     [GamePiece(Piece.RED), GamePiece(Piece.BLANK)]]
+    board_29 = Board(row_size=2, column_size=2, board=board_list_29)
+    move_29 = Move(deque([Leap(Position(1,0), Position(0,1))]))
+    assert rules_standard.check_move(move_29, board_29, player_red) == False, \
+        "RulesStandard.check_move(Move, Board, Player) allows not promoting"
+    
+    # Test illegal promote on a piece that is already a king
+    board_list_30 = [[GamePiece(Piece.BLANK), GamePiece(Piece.BLANK)],
+                     [GamePiece(Piece.RED, True), GamePiece(Piece.BLANK)]]
+    board_30 = Board(row_size=2, column_size=2, board=board_list_30)
+    leap_30 = Leap(Position(1,0), 
+                   Position(0,1),
+                   promote_positions=[Position(0,1)])
+    move_30 = Move(deque([leap_30]))
+    assert rules_standard.check_move(move_30, board_30, player_red) == False, \
+        "RulesStandard.check_move(Move, Board, Player) allows re-promoting"
+
+    # Test illegal promote on the correct piece
+    board_list_31 = [[GamePiece(Piece.BLANK), GamePiece(Piece.BLANK), GamePiece(Piece.BLANK)],
+                     [GamePiece(Piece.BLANK), GamePiece(Piece.BLANK), GamePiece(Piece.BLANK)],
+                     [GamePiece(Piece.RED), GamePiece(Piece.BLANK), GamePiece(Piece.BLANK)]]
+    board_31 = Board(row_size=3, column_size=3, board=board_list_31)
+    leap_31 = Leap(Position(2,0), 
+                   Position(1,1),
+                   promote_positions=[Position(1,1)])
+    move_31 = Move(deque([leap_31]))
+    assert rules_standard.check_move(move_31, board_31, player_red) == False, \
+        "RulesStandard.check_move(Move, Board, Player) allows bad promotes."
 
 
 def test_check_position():
