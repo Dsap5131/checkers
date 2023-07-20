@@ -185,6 +185,47 @@ def test_unique_piece_count() -> None:
 
     assert board_4.unique_piece_count() == 1, \
         "Board.unique_piece_count() failing with 2 types of pieces."
+    
+
+def test_eq() -> None:
+    row_size_1 = 2
+    column_size_1 = 2
+    board_list_1 = [[GamePiece(Piece.BLANK), GamePiece(Piece.BLACK)],
+                    [GamePiece(Piece.RED), GamePiece(Piece.BLANK)]]
+    board_1 = Board(row_size_1, column_size_1, board_list_1)
+
+    row_size_2 = 2
+    column_size_2 = 2
+    board_list_2 = [[GamePiece(Piece.BLANK), GamePiece(Piece.BLACK)],
+                    [GamePiece(Piece.RED), GamePiece(Piece.BLANK)]]
+    board_2 = Board(row_size_2, column_size_2, board_list_2)
+
+    row_size_3 = 3
+    column_size_3 = 2
+    board_list_3 = [[GamePiece(Piece.BLANK), GamePiece(Piece.BLACK)],
+                    [GamePiece(Piece.RED), GamePiece(Piece.BLANK)],
+                    [GamePiece(Piece.BLANK), GamePiece(Piece.BLANK)]]
+    board_3 = Board(row_size_3, column_size_3, board_list_3)
+    
+    row_size_4 = 2
+    column_size_4 = 3
+    board_list_4 = [[GamePiece(Piece.BLANK), GamePiece(Piece.BLACK), 
+                     GamePiece(Piece.BLANK)],
+                    [GamePiece(Piece.RED), GamePiece(Piece.BLANK), 
+                     GamePiece(Piece.BLANK)]]
+    board_4 = Board(row_size_4, column_size_4, board_list_4)
+
+    row_size_5 = 2
+    column_size_5 = 2
+    board_list_5 = [[GamePiece(Piece.BLANK), GamePiece(Piece.BLANK)],
+                    [GamePiece(Piece.BLANK), GamePiece(Piece.BLANK)]]
+    board_5 = Board(row_size_5, column_size_5, board_list_5)
+
+    assert board_1 == board_2, "Board == Board not working correctly."
+    assert board_1 != board_3, "Board == Board not working correctly."
+    assert board_1 != board_4, "Board == Board not working correctly."
+    assert board_1 != board_5, "Board == Board not working correctly."
+    assert board_1 != 5, "Board == Board not working correctly."
 
 
 
