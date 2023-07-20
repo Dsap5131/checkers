@@ -78,24 +78,3 @@ class Leap():
                 obj.get_end_position() == self.get_end_position() and
                 obj.get_capture_positions() == self.get_capture_positions() and
                 obj.get_promote_positions() == self.get_promote_positions())
-    
-
-    def __str__(self) -> str:
-        '''
-        Override Leaps tostring
-
-        @returns: str
-        '''
-
-        from_to = f'Leap({self.get_start_position()},{self.get_end_position()}'
-        capture = f'capture['
-        for capture_position in self.get_capture_positions():
-            capture += str(capture_position)
-        capture += ']'
-
-        promote = f'promote['
-        for promote_position in self.get_promote_positions():
-            promote += str(promote_position)
-        promote += '])'
-
-        return from_to+','+capture+','+promote

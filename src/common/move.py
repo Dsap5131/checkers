@@ -61,7 +61,3 @@ class Move():
         self.reset()
         obj.reset()
         return leaps_equal
-    
-
-    
-    

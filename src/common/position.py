@@ -38,13 +38,3 @@ class Position():
         return (isinstance(obj, Position) and
                 obj.get_row() == self.get_row() and
                 obj.get_column() == self.get_column())
-    
-
-    def __str__(self) -> str:
-        '''
-        Override tostring
-
-        @returns: str
-        '''
-
-        return f'Position({self.get_row()},{self.get_column()})'
