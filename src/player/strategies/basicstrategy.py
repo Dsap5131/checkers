@@ -9,6 +9,7 @@ from src.common.board import Board
 from src.common.rules import Rules
 from src.common.leap import Leap
 from src.common.player import Player
+from src.common.piece import Piece
 
 class BasicStrategy(Strategy):
     '''
@@ -96,9 +97,25 @@ class BasicStrategy(Strategy):
         
         for (end_position, capture_position_list) in zip(end_positions,
                                                          capture_positions):
+            
+            gamepiece = board.get_gamepiece(position)
+            piece = gamepiece.get_piece()
+            is_king = gamepiece.is_king()
+
+            promote_positions = []
+            valid_red_promote = (end_position.get_row() == 0 
+                                 and piece == Piece.RED)
+            valid_black_promote = (end_position.get_row() \
+                                        == board.get_row_size()-1
+                                   and piece == Piece.BLACK)
+            valid_promote = not is_king
+            if (valid_red_promote or valid_black_promote) and valid_promote:
+                promote_positions.append(end_position)
+                
             move = Move(deque([Leap(position, 
                                     end_position,
-                                    capture_position_list)]))
+                                    capture_position_list,
+                                    promote_positions)]))
             valid_move = rules.check_move(move, board, player) 
             move.reset()
             if valid_move:
