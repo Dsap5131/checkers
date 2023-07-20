@@ -159,13 +159,15 @@ def test_copy_constructor() -> None:
     assert board_two.get_gamepiece(Position(0,0)) == GamePiece(Piece.BLANK, False), \
         "Board.from_board(Board) setup failed."
     
-    move = Move(deque([Leap(Position(0,1), Position(0,0))]))
+    move = Move(deque([Leap(Position(0,1), 
+                            Position(0,0),
+                            promote_positions=[Position(0,0)])]))
     board_two.move_piece(move)
 
     assert board_one.get_gamepiece(Position(0,0)) == GamePiece(Piece.BLANK, False), \
         "Board.from_board(Board) failed."
     
-    assert board_two.get_gamepiece(Position(0,0)) == GamePiece(Piece.RED, False), \
+    assert board_two.get_gamepiece(Position(0,0)) == GamePiece(Piece.RED, True), \
         "Board.from_board(Board) failed."
     
 

@@ -41,7 +41,10 @@ class Board():
         for r in range(copied_row_size):
             copied_row = []
             for c in range(copied_row_size):
-                copied_row.append(board.get_gamepiece(Position(r,c)))
+                gamepiece = board.get_gamepiece(Position(r,c))
+                new_gamepiece = GamePiece(gamepiece.get_piece(), 
+                                          gamepiece.is_king())
+                copied_row.append(new_gamepiece)
             copied_board_list.append(copied_row)
 
 
