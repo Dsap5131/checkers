@@ -34,6 +34,17 @@ def test_get_captures() -> None:
 
     assert leap.get_capture_positions() == [Position(1,1)], \
         "Leap.get_capture() not working correctly."
+    
+
+def test_get_promote_positions() -> None:
+    start_position = Position(0,0)
+    end_position = Position(2,2)
+    capture_position = Position(1,1)
+    promotes = Position(2,2)
+    leap = Leap(start_position, end_position, [capture_position], [promotes])
+    
+    assert leap.get_promote_positions() == [Position(2,2)], \
+        "Leap.get_promote_positions() not working correctly."
 
 
 def test_eq() -> None:
@@ -100,5 +111,50 @@ def test_eq() -> None:
         "Leap.__eq__ not working correctly."
     assert leap_five != leap_nine, \
         "Leap.__eq__ not working correctly."
+    
+
+    # Test eq with promotes
+
+    start_position_10 = Position(0,0)
+    end_position_10 = Position(1,1)
+    promote_position_10 = Position(1,1)
+    leap_10 = Leap(start_position_10,
+                   end_position_10,
+                   promote_positions=[promote_position_10])
+
+    start_position_11 = Position(0,0)
+    end_position_11 = Position(1,1)
+    promote_position_11 = Position(1,1)
+    leap_11 = Leap(start_position_11,
+                   end_position_11,
+                   promote_positions=[promote_position_11])
+
+    start_position_12 = Position(0,0)
+    end_position_12 = Position(1,1)
+    promote_position_12 = Position(0,0)
+    leap_12 = Leap(start_position_12,
+                   end_position_12,
+                   promote_positions=[promote_position_12])
+    
+    start_position_13 = Position(0,0)
+    end_position_13 = Position(1,1)
+    leap_13 = Leap(start_position_13,
+                   end_position_13)
+
+    start_position_14 = Position(0,0)
+    end_position_14 = Position(1,1)
+    promote_position_14_1 = Position(1,1)
+    promote_position_14_2 = Position(0,0)
+    leap_14 = Leap(start_position_14,
+                   end_position_14,
+                   promote_positions=[promote_position_14_1,
+                                      promote_position_14_2])
+    
+    assert leap_10 == leap_11, "Leap == Leap not working correctly."
+    assert leap_10 != leap_12, "Leap == Leap not working correctly."
+    assert leap_10 != leap_13, "Leap == Leap not working correctly."
+    assert leap_10 != leap_14, "Leap == Leap not working correctly."
+
+    
 
 
