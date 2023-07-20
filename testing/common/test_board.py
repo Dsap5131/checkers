@@ -73,6 +73,7 @@ def test_get_gamepiece() -> None:
     
 
 def test_move_piece() -> None:
+    # Test single leap 
     row_size = 2
     column_size = 3
     blank_piece = GamePiece(Piece.BLANK, False)
@@ -93,6 +94,25 @@ def test_move_piece() -> None:
 
     assert board.get_gamepiece(Position(0,1)) == GamePiece(Piece.RED, False), \
         "Board.move_piece(move) not working."
+    
+    # Test capture move
+    board_list_2 = [[GamePiece(Piece.BLANK), GamePiece(Piece.BLANK), GamePiece(Piece.BLANK)],
+                    [GamePiece(Piece.BLANK), GamePiece(Piece.BLACK), GamePiece(Piece.BLANK)],
+                    [GamePiece(Piece.BLANK), GamePiece(Piece.BLANK), GamePiece(Piece.RED)]]
+    board_2 = Board(row_size=3, column_size=3, board=board_list_2)
+
+    assert board_2.get_gamepiece(Position(2,2)) == GamePiece(Piece.RED), \
+        "Board.get_gamepiece(Position) failed and ruins integration testing."
+    assert board_2.get_gamepiece(Position(1,1)) == GamePiece(Piece.BLACK), \
+        "Board.get_gamepiece(Position) failed and ruins integration testing."
+    move = Move(deque([Leap(Position(2,2), Position(0,0), [Position(1,1)])]))
+    board_2.move_piece(move)
+    assert board_2.get_gamepiece(Position(2,2)) == GamePiece(Piece.BLANK), \
+        "Board.move_piece(Move) not working correctly."
+    assert board_2.get_gamepiece(Position(1,1)) == GamePiece(Piece.BLANK), \
+        "Board.move_piece(Move) not working correctly."
+    assert board_2.get_gamepiece(Position(0,0)) == GamePiece(Piece.RED), \
+        "Board.move_piece(Move) not working correctly."
     
 
 def test_copy_constructor() -> None:

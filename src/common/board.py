@@ -106,6 +106,12 @@ class Board():
             = GamePiece(Piece.BLANK, False)
         self.__board[end_position.get_row()][end_position.get_column()] \
             = gamepiece
+        
+        capture_positions = leap.get_capture_positions()
+        for capture_position in capture_positions:
+            capture_row = capture_position.get_row()
+            capture_column = capture_position.get_column()
+            self.__board[capture_row][capture_column] = GamePiece(Piece.BLANK)
 
 
     def unique_piece_count(self) -> int:
