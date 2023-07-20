@@ -164,7 +164,3 @@ def test_str() -> None:
     expected = "Leap(Position(3,4),Position(1,2),capture"\
               +"[Position(2,3)],promote[Position(1,2)])"
     assert str(leap) == expected, "Leap.__str__() not working correctly."
-
-    
-
-
