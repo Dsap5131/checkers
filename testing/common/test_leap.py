@@ -155,6 +155,16 @@ def test_eq() -> None:
     assert leap_10 != leap_13, "Leap == Leap not working correctly."
     assert leap_10 != leap_14, "Leap == Leap not working correctly."
 
+
+def test_str() -> None:
+    leap = Leap(Position(3,4),
+                Position(1,2),
+                capture_positions=[Position(2,3)],
+                promote_positions=[Position(1,2)])
+    expected = "Leap(Position(3,4),Position(1,2),capture"\
+              +"[Position(2,3)],promote[Position(1,2)])"
+    assert str(leap) == expected, "Leap.__str__() not working correctly."
+
     
 
 
