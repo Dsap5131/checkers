@@ -1,12 +1,10 @@
-
-
 from src.common.position import Position
 
 class Leap():
     '''
     A Leap represents a singular move a GamePiece makes.
-    This includes the data about the movement of a piece and which pieces
-    it captures.
+    This includes the data about the movement of a piece, which pieces
+    it captures, and which pieces get promoted.
 
     @params: start_position: Position
     @params: end_position: Position
