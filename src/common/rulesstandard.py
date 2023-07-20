@@ -1,4 +1,5 @@
 from collections import deque
+from typing import List
 
 from src.common.rules import Rules
 from src.common.move import Move
@@ -30,15 +31,16 @@ class RulesStandard(Rules):
 
         @returns: bool: True if it is valid and False if not.
         '''
-        
+        private_board = Board.from_board(board)
         valid_move = True
         while move.leaps_remaining() > 0:
             leap = move.get_next_leap()
-            valid_move = valid_move and self.__check_leap(leap, board, player)
+            valid_move = valid_move and \
+                         self.__check_leap(leap, private_board, player)
             if not valid_move:
                 break
-            board.move_piece(Move(deque([leap])))
-            
+            private_board.move_piece(Move(deque([leap])))
+        move.reset()
         return valid_move
 
 
@@ -65,12 +67,13 @@ class RulesStandard(Rules):
             return False
         
         players_piece = (player.get_piece()==
-                         board.get_piece(start_position).get_piece())
+                         board.get_gamepiece(start_position).get_piece())
         if not players_piece:
             return False
 
-        direction = self.__check_leap_direction(leap, 
-                                                board.get_piece(start_position))  
+        direction = self.__check_leap_direction(
+            leap, 
+            board.get_gamepiece(start_position))  
         one_leap = self.__check_single_leap(leap, board)
         capture = self.__check_capture_leap(leap, board)
 
@@ -124,9 +127,7 @@ class RulesStandard(Rules):
                           (abs(end_position.get_column()
                               - start_position.get_column()) == 2))
         
-        if not two_space_leap:
-            capture = False
-        else:
+        if two_space_leap:
             start_row = start_position.get_row()
             end_row = end_position.get_row()
             start_column = start_position.get_column()
@@ -136,16 +137,21 @@ class RulesStandard(Rules):
             middle_column= int((end_column-start_column)/2) + start_column
             middle_position = Position(middle_row, middle_column)
 
-            to_blank = board.get_piece(end_position).get_piece() \
+            to_blank = board.get_gamepiece(end_position).get_piece() \
                         == Piece.BLANK
-            over_opponent = board.get_piece(middle_position) \
-                                != board.get_piece(start_position)
-            not_over_blank = board.get_piece(middle_position).get_piece() \
+            over_opponent = board.get_gamepiece(middle_position) \
+                                != board.get_gamepiece(start_position)
+            not_over_blank = board.get_gamepiece(middle_position).get_piece() \
                                  != Piece.BLANK
+            correct_captures = leap.get_capture_positions() == \
+                                [middle_position]
         
-            capture = to_blank and over_opponent and not_over_blank
+            return (to_blank and 
+                    over_opponent and 
+                    not_over_blank and 
+                    correct_captures)
     
-        return capture
+        return False
         
 
     def __check_single_leap(self, leap: Leap, board: Board) -> bool:
@@ -165,10 +171,11 @@ class RulesStandard(Rules):
         within_rows = (abs(end_position.get_row()-start_position.get_row())==1)
         within_cols = (abs(end_position.get_column()
                            -start_position.get_column())==1)
-        to_blank_space = board.get_piece(end_position).get_piece() \
+        to_blank_space = board.get_gamepiece(end_position).get_piece() \
                             == Piece.BLANK
+        no_captures = leap.get_capture_positions() == []
         
-        return within_rows and within_cols and to_blank_space
+        return within_rows and within_cols and to_blank_space and no_captures
 
 
     def check_position(self, position: Position, board: Board) -> bool:
@@ -218,7 +225,8 @@ class RulesStandard(Rules):
 
         for r in range(board.get_row_size()):
             for c in range(board.get_column_size()):
-                if board.get_piece(Position(r,c)).get_piece() == current_piece:
+                if (board.get_gamepiece(Position(r,c)).get_piece() 
+                        == current_piece):
                     has_moves = self.__check_moves_from_position(board, 
                                                                  Position(r,c))
                     if has_moves:
@@ -258,8 +266,9 @@ class RulesStandard(Rules):
                 continue
 
             leap = Leap(position, end_position)
-            direction = self.__check_leap_direction(leap, 
-                                                    board.get_piece(position))  
+            direction = self.__check_leap_direction(
+                leap, 
+                board.get_gamepiece(position))  
             one_leap = self.__check_single_leap(leap, board)
             if direction and one_leap:
                 return True
@@ -279,13 +288,21 @@ class RulesStandard(Rules):
                          Position(start_row-2, start_column+2),
                          Position(start_row+2, start_column-2),
                          Position(start_row+2, start_column+2)]
-        for end_position in end_positions:
+        capture_positions = [Position(start_row-1, start_column-1),
+                             Position(start_row-1, start_column+1),
+                             Position(start_row+1, start_column-1),
+                             Position(start_row+1, start_column+1)]
+        for (end_position, capture_position) in zip(end_positions, 
+                                                     capture_positions):
             if not self.check_position(end_position, board):
                 continue 
+            if not self.check_position(capture_position, board):
+                continue
 
-            leap = Leap(position, end_position)
-            direction = self.__check_leap_direction(leap, 
-                                                    board.get_piece(position))  
+            leap = Leap(position, end_position, [capture_position])
+            direction = self.__check_leap_direction(
+                leap, 
+                board.get_gamepiece(position))  
             capture_leap = self.__check_capture_leap(leap, board)
             if direction and capture_leap:
                 return True
@@ -302,3 +319,127 @@ class RulesStandard(Rules):
         '''
 
         return True
+    
+
+    def valid_moves(self, board: Board, player: Player) -> List[Move]:
+        '''
+        Return all valid moves the given player can make on the given
+        board.
+
+        @params: board: Board
+        @params: player: Player
+
+        @returns: List[Move]
+        '''
+
+        valid_moves = []
+        for r in range(board.get_row_size()):
+            for c in range(board.get_column_size()):
+                piece = board.get_gamepiece(Position(r,c)).get_piece()
+
+                if piece == player.get_piece():
+                    valid_moves += self.__get_valid_moves(Position(r,c), 
+                                                          board,
+                                                          player)
+        return valid_moves
+
+
+    def __get_valid_moves(self, 
+                          position: Position, 
+                          board: Board, 
+                          player: Player) -> List[Move]:
+        """
+        Returns the valid moves of the piece at position on board.
+        
+        @params: position: Position
+        @params: board: Board
+        @params: player: Player
+
+        @returns: List[Move]
+        """
+
+        start_row = position.get_row()
+        start_column = position.get_column()
+
+        end_positions = [Position(start_row-2, start_column-2),
+                         Position(start_row-2, start_column+2),
+                         Position(start_row+2, start_column-2),
+                         Position(start_row+2, start_column+2),
+                         Position(start_row-1, start_column-1),
+                         Position(start_row-1, start_column+1),
+                         Position(start_row+1, start_column-1),
+                         Position(start_row+1, start_column+1)]
+        
+        valid_moves = []
+        for end_position in end_positions:
+            leaps = [Leap(position, end_position)]
+            move = Move(deque(leaps))
+            valid_move = self.check_move(move, board, player)
+            move.reset()
+            if valid_move:
+                valid_moves.append(move)
+            
+                new_board = Board.from_board(board)
+                new_board.move_piece(move)
+                move.reset()
+                extended_moves = self.__get_valid_capture_moves(end_position, 
+                                                                new_board, 
+                                                                player)
+                
+
+                for extended_move in extended_moves:
+                    new_leaps = [Leap(position, end_position)]
+                    while extended_move.leaps_remaining() > 0:
+                        new_leaps.append(extended_move.get_next_leap())
+                    new_move = Move[deque(leaps)]
+                    valid_moves.append(new_move)
+        return valid_moves
+    
+
+    def __get_valid_capture_moves(self, 
+                          position: Position, 
+                          board: Board, 
+                          player: Player) -> List[Move]:
+        """
+        Returns the valid moves of the piece at position on board.
+        
+        @params: position: Position
+        @params: board: Board
+        @params: player: Player
+
+        @returns: List[Move]
+        """
+
+        start_row = position.get_row()
+        start_column = position.get_column()
+
+        end_positions = [Position(start_row-2, start_column-2),
+                         Position(start_row-2, start_column+2),
+                         Position(start_row+2, start_column-2),
+                         Position(start_row+2, start_column+2)]
+        
+        valid_moves = []
+        for end_position in end_positions:
+            leaps = [Leap(position, end_position)]
+            move = Move(deque(leaps))
+            valid_move = self.check_move(move, board, player)
+            move.reset()
+            if valid_move:
+                valid_moves.append(move)
+            
+                new_board = Board.from_board(board)
+                new_board.move_piece(move)
+                move.reset()
+                extended_moves = self.__get_valid_capture_moves(end_position, 
+                                                                new_board, 
+                                                                player)
+                
+
+                for extended_move in extended_moves:
+                    new_leaps = [Leap(position, end_position)]
+                    while extended_move.leaps_remaining() > 0:
+                        new_leaps.append(extended_move.get_next_leap())
+                    new_move = Move[deque(leaps)]
+                    valid_moves.append(new_move)
+        return valid_moves
+
