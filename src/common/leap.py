@@ -17,7 +17,7 @@ class Leap():
     def __init__(self, 
                  start_position: Position, 
                  end_position: Position,
-                 capture_positions: list[Position]=None) -> None:
+                 capture_positions: list[Position]=[]) -> None:
         
         self.__start_position = start_position
         self.__end_position = end_position
