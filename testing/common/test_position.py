@@ -36,3 +36,12 @@ def test_eq() -> None:
     
     assert (position_one == position_three) == False, \
         "Position.__eq__ is not working correctly."
+    
+
+def test_str() -> None:
+    position_one = Position(5,5)
+    position_two = Position(3,4)
+    assert str(position_one) == 'Position(5,5)', \
+        "Position.__str__ is not working correctly."
+    assert str(position_two) == 'Position(3,4)', \
+        "Position.__str__ is not working correctly."
