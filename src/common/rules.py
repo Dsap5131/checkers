@@ -1,3 +1,5 @@
+from typing import List
+
 from src.common.move import Move
 from src.common.board import Board
 from src.common.player import Player
@@ -63,4 +65,20 @@ class Rules():
 
         raise NotImplementedError(
             "THIS IS NOT IMPLEMENTED AND SHOULD NEVER BE CALLED.")
+    
+
+    def valid_moves(self, board: Board, player: Player) -> List[Move]:
+        '''
+        Return all valid moves the given player can make on the given
+        board.
+
+        @params: board: Board
+        @params: player: Player
+
+        @returns: List[Move]
+        '''
+
+        raise NotImplementedError(
+            "THIS IS NOT IMPLEMENTED AND SHOULD NEVER BE CALLED.")
+
 

@@ -1,9 +1,12 @@
+from typing import List
+
 from src.common.move import Move
 from src.common.board import Board
 from src.common.player import Player
 from src.common.position import Position
+from src.common.rules import Rules
 
-class RulesDumb():
+class RulesDumb(Rules):
     '''
     RulesDumb is a dumb set of rules. Everything is valid and the game never
     ends.
@@ -59,4 +62,27 @@ class RulesDumb():
         '''
 
         return True
+    
+
+    def valid_moves(self, board: Board, player: Player) -> List[Move]:
+        '''
+        Return all valid moves the given player can make on the given
+        board.
+
+        RulesDumb doesn't care and will always return an empty list.
+        
+        @params: board: Board
+        @params: player: Player
+
+        @returns: List[Move]
+        '''
+
+        return []
+
+                
+
+
+        
+
+
 
