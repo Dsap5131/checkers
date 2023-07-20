@@ -58,9 +58,10 @@ def test_make_move() -> None:
                     [blank_piece, blank_piece, blank_piece, blank_piece]]
     board_3 = Board(row_size=4, column_size=4, board=board_list_3)
     playergamestate_3 = PlayerGameState(board_3, rules, player_black)
-    actual_move = strategy.make_move(playergamestate_3)
-    expected_move = Move(deque([Leap(Position(1,1), Position(3,3))]))
-    assert actual_move == expected_move, \
+    actual_move_3 = strategy.make_move(playergamestate_3)
+    expected_leap_3 = Leap(Position(1,1), Position(3,3), [Position(2,2)])
+    expected_move_3 = Move(deque([expected_leap_3]))
+    assert actual_move_3 == expected_move_3, \
         "BasicStrategy.make_move() not working correctly."
     
 

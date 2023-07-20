@@ -85,9 +85,20 @@ class BasicStrategy(Strategy):
                          Position(start_row-1, start_column+1),
                          Position(start_row+1, start_column-1),
                          Position(start_row+1, start_column+1)]
+        capture_positions = [[Position(start_row-1, start_column-1)],
+                             [Position(start_row-1, start_column+1)],
+                             [Position(start_row+1, start_column-1)],
+                             [Position(start_row+1, start_column+1)],
+                             [],
+                             [],
+                             [],
+                             []]
         
-        for end_position in end_positions:
-            move = Move(deque([Leap(position, end_position)]))
+        for (end_position, capture_position_list) in zip(end_positions,
+                                                         capture_positions):
+            move = Move(deque([Leap(position, 
+                                    end_position,
+                                    capture_position_list)]))
             valid_move = rules.check_move(move, board, player) 
             move.reset()
             if valid_move:
