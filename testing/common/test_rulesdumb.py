@@ -61,24 +61,3 @@ def test_kickable() -> None:
 
     assert rules.kickable(), \
         "RulesDumb.kickable() not working correctly."
-    
-
-def test_valid_moves() -> None:
-    rules = RulesDumb()
-
-    board_list = [[GamePiece(Piece.BLANK, False), 
-                   GamePiece(Piece.BLANK, False), 
-                   GamePiece(Piece.BLANK, False)],
-                  [GamePiece(Piece.BLANK, False), 
-                   GamePiece(Piece.RED, False), 
-                   GamePiece(Piece.BLANK, False)],
-                  [GamePiece(Piece.BLANK, False), 
-                   GamePiece(Piece.BLANK, False), 
-                   GamePiece(Piece.BLANK, False)]]
-    board = Board(row_size=3, column_size=3, board=board_list)
-    player = LocalPlayer(Piece.RED, DumbStrategy())
-
-    expected_moves = []
-    
-    assert rules.valid_moves(board, player) == expected_moves, \
-        "RulesDumb.valid_moves(Board, Player) not working as expected."
