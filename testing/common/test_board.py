@@ -114,6 +114,34 @@ def test_move_piece() -> None:
     assert board_2.get_gamepiece(Position(0,0)) == GamePiece(Piece.RED), \
         "Board.move_piece(Move) not working correctly."
     
+    # Test promoting piece
+    board_list_3 = [[GamePiece(Piece.BLANK), GamePiece(Piece.BLANK)],
+                    [GamePiece(Piece.BLACK), GamePiece(Piece.RED)],
+                    [GamePiece(Piece.RED), GamePiece(Piece.BLANK)]]
+    board_3 = Board(row_size=3, column_size=2, board=board_list_3)
+
+    assert board_3.get_gamepiece(Position(1,0)).is_king() == False, \
+        "Board.move_piece(Move) setup failed."
+    assert board_3.get_gamepiece(Position(1,1)).is_king() == False, \
+        "Board.move_piece(Move) setup failed."
+    assert board_3.get_gamepiece(Position(2,0)).is_king() == False, \
+        "Board.move_piece(Move) setup failed."
+    board_3.move_piece(Move(deque([Leap(Position(1,0), 
+                                        Position(2,1),
+                                        promote_positions=[Position(2,1)])])))
+    board_3.move_piece(Move(deque([Leap(Position(1,1),
+                                        Position(0,0),
+                                        promote_positions=[Position(0,0)])])))
+    board_3.move_piece(Move(deque([Leap(Position(2,0),
+                                        Position(1,1))])))
+    assert board_3.get_gamepiece(Position(2,1)).is_king(), \
+        "Board.move_piece(Move) failed to promote."
+    assert board_3.get_gamepiece(Position(0,0)).is_king(), \
+        "Board.move_piece(Move) failed to promote."
+    assert board_3.get_gamepiece(Position(1,1)).is_king() == False, \
+        "Board.move_piece(Move) promoted when it shouldn't."
+    
+    
 
 def test_copy_constructor() -> None:
     row_size = 2

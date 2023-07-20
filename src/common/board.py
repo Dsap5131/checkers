@@ -82,7 +82,7 @@ class Board():
     
     def move_piece(self, move: Move) -> None:
         '''
-        Move a GamePiece 
+        Move a GamePiece, remove captured piece, promote selected pieces.
 
         @param: move: Move
         '''
@@ -112,6 +112,14 @@ class Board():
             capture_row = capture_position.get_row()
             capture_column = capture_position.get_column()
             self.__board[capture_row][capture_column] = GamePiece(Piece.BLANK)
+
+        promote_positions = leap.get_promote_positions()
+        for promote_position in promote_positions:
+            promote_row = promote_position.get_row()
+            promote_column = promote_position.get_column()
+            gamepiece = self.get_gamepiece(promote_position)
+            gamepiece.make_king()
+            self.__board[promote_row][promote_column] = gamepiece
 
 
     def unique_piece_count(self) -> int:
