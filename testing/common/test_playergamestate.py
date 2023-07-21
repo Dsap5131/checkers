@@ -16,7 +16,8 @@ def test_constructor() -> None:
     rules = RulesStandard()
     strategy = DumbStrategy()
     player = LocalPlayer(Piece.BLACK, strategy)
-    playergamestate = PlayerGameState(board, rules, player)
+    num_players = 2
+    playergamestate = PlayerGameState(board, rules, player, num_players)
 
 
 def test_get_board() -> None:
@@ -36,8 +37,8 @@ def test_get_board() -> None:
     rules = RulesStandard()
     strategy = DumbStrategy()
     player = LocalPlayer(Piece.BLACK, strategy)
-    playergamestate_1 = PlayerGameState(board_1, rules, player)
-    playergamestate_2 = PlayerGameState(board_2, rules, player)
+    playergamestate_1 = PlayerGameState(board_1, rules, player, 2)
+    playergamestate_2 = PlayerGameState(board_2, rules, player, 2)
 
     assert playergamestate_1.get_board() == board_1, \
         "PlayerGameState.get_board() not working."
@@ -55,7 +56,7 @@ def test_get_rules() -> None:
     rules = RulesStandard()
     strategy = DumbStrategy()
     player = LocalPlayer(Piece.BLACK, strategy)
-    playergamestate = PlayerGameState(board, rules, player)
+    playergamestate = PlayerGameState(board, rules, player, 2)
 
     assert playergamestate.get_rules() == rules, \
         "PlayerGameState.get_rules() not working."
@@ -71,7 +72,23 @@ def test_get_player() -> None:
     rules = RulesStandard()
     strategy = DumbStrategy()
     player = LocalPlayer(Piece.BLACK, strategy)
-    playergamestate = PlayerGameState(board, rules, player)
+    playergamestate = PlayerGameState(board, rules, player, 2)
 
     assert playergamestate.get_player() == player, \
         "PlayerGameState.get_piece() not working."
+    
+
+def test_get_num_players() -> None:
+    row_size=2
+    column_size=2
+    board_list = [[GamePiece(Piece.BLANK), GamePiece(Piece.BLANK)],
+                  [GamePiece(Piece.BLANK), GamePiece(Piece.BLANK)]]
+    board = Board(row_size, column_size, board_list)
+    rules = RulesStandard()
+    strategy = DumbStrategy()
+    player = LocalPlayer(Piece.BLACK, strategy)
+    num_players = 2
+    playergamestate = PlayerGameState(board, rules, player, num_players)
+
+    assert playergamestate.get_num_players() == 2, \
+        "PlayerGameState.get_num_players() not working."

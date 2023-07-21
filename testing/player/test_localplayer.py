@@ -32,7 +32,7 @@ def test_get_move() -> None:
                   [blank_piece, blank_piece]]
     board = Board(row_size, column_size, board_list)
     rules = RulesStandard()
-    playergamestate = PlayerGameState(board, rules, Piece.BLACK)
+    playergamestate = PlayerGameState(board, rules, Piece.BLACK, 2)
 
     assert isinstance(localplayer.get_move(playergamestate), Move)
 

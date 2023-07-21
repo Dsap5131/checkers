@@ -9,15 +9,18 @@ class PlayerGameState():
     @param: board: Board
     @param: rules: Rules
     @param: current_player: Player
+    @param: num_players: int
     '''
 
     def __init__(self, 
                  board: Board, 
                  rules: Rules, 
-                 current_player: Player) -> None:
+                 current_player: Player,
+                 num_players: int) -> None:
         self.__board = board
         self.__rules = rules
         self.__current_player = current_player
+        self.__num_players = num_players
 
     
     def get_board(self) -> Board:
@@ -42,3 +45,10 @@ class PlayerGameState():
         '''
 
         return self.__current_player
+    
+    def get_num_players(self) -> int:
+        '''
+        Get the number of players in the game
+        '''
+
+        return self.__num_players

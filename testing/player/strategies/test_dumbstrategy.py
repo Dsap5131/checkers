@@ -25,7 +25,7 @@ def test_make_move() -> None:
                   [blank_piece, blank_piece]]
     board = Board(row_size, column_size, board_list)
     rules = RulesStandard()
-    playergamestate = PlayerGameState(board, rules, Piece.BLACK)
+    playergamestate = PlayerGameState(board, rules, Piece.BLACK, 2)
 
     expected_move = Move(deque([Leap(Position(0,0), Position(0,0))]))
 
