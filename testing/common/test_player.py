@@ -5,6 +5,7 @@ from src.common.gamepiece import Piece
 from src.common.playergamestate import PlayerGameState
 from src.common.board import Board
 from src.common.rulesstandard import RulesStandard
+from src.common.playerstate import PlayerState
 
 
 def test_get_piece() -> None:
@@ -25,7 +26,9 @@ def test_get_move() -> None:
                   [Piece.BLANK, Piece.BLANK]]
     board = Board(row_size, column_size, board_list)
     rules = RulesStandard()
-    playergamestate = PlayerGameState(board, rules, Piece.BLACK, 2)
+    playerstate = PlayerState(Piece.BLACK)
+    players = [playerstate]
+    playergamestate = PlayerGameState(board, rules, players)
 
     with pytest.raises(NotImplementedError):
         player.get_move(playergamestate)

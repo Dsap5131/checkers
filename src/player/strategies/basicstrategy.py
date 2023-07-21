@@ -38,7 +38,7 @@ class BasicStrategy(Strategy):
         @returns: Move
         '''
         board = playergamestate.get_board()
-        player = playergamestate.get_player()
+        player = playergamestate.get_current_player()
         piece = player.get_piece()
 
         for r in range(board.get_row_size()):

@@ -9,6 +9,7 @@ from src.common.piece import Piece
 from src.common.move import Move
 from src.common.leap import Leap
 from src.common.position import Position
+from src.common.playerstate import PlayerState
 
 
 def test_constructor() -> None:
@@ -25,7 +26,9 @@ def test_make_move() -> None:
                   [blank_piece, blank_piece]]
     board = Board(row_size, column_size, board_list)
     rules = RulesStandard()
-    playergamestate = PlayerGameState(board, rules, Piece.BLACK, 2)
+    playerstate = PlayerState(Piece.BLACK)
+    players = [playerstate]
+    playergamestate = PlayerGameState(board, rules, players)
 
     expected_move = Move(deque([Leap(Position(0,0), Position(0,0))]))
 

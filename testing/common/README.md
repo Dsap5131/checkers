@@ -15,3 +15,4 @@ Testing for the src/common directory
 | [test_rulesstandard.py](./test_rulesstandard.py) | Tests for [RulesStandard](../../src/common/rulesstandard.py) |
 | [test_rulesdumb.py](./test_rulesdumb.py) | Tests for [RulesDumb](../../src/common/rulesdumb.py) |
 | [test_gamepiece.py](./test_gamepiece.py) | Tests for [GamePiece](../../src/common/gamepiece.py) |
+| [test_playerstate.py](./test_playerstate.py) | Tests for [PlayerState](../../src/common/playerstate.py) |

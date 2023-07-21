@@ -6,6 +6,7 @@ from src.common.board import Board
 from src.common.rulesstandard import RulesStandard
 from src.common.gamepiece import GamePiece
 from src.common.piece import Piece
+from src.common.playerstate import PlayerState
 
 def test_constructor() -> None: 
     strategy = Strategy()
@@ -21,7 +22,8 @@ def test_make_move() -> None:
                   [blank_piece, blank_piece]]
     board = Board(row_size, column_size, board_list)
     rules = RulesStandard()
-    playergamestate = PlayerGameState(board, rules, Piece.BLACK, 2)
+    playerstate = PlayerState(Piece.BLACK)
+    playergamestate = PlayerGameState(board, rules, [playerstate])
 
     with pytest.raises(NotImplementedError):
         strategy.make_move(playergamestate)

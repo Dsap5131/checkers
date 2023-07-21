@@ -6,6 +6,7 @@ from src.common.board import Board
 from src.common.playergamestate import PlayerGameState
 from src.common.move import Move
 from src.common.rulesstandard import RulesStandard
+from src.common.playerstate import PlayerState
 
 
 def test_constructor() -> None:
@@ -32,7 +33,9 @@ def test_get_move() -> None:
                   [blank_piece, blank_piece]]
     board = Board(row_size, column_size, board_list)
     rules = RulesStandard()
-    playergamestate = PlayerGameState(board, rules, Piece.BLACK, 2)
+    playerstate = PlayerState(Piece.BLACK)
+    players = [playerstate]
+    playergamestate = PlayerGameState(board, rules, players)
 
     assert isinstance(localplayer.get_move(playergamestate), Move)
 
@@ -52,4 +55,13 @@ def test_get_is_winner() -> None:
 
     assert player.get_is_winner(), \
         "Player.get_is_winner() not working correctly."
+    
+
+def test_get_playerstate() -> None:
+    player = LocalPlayer(Piece.BLACK, DumbStrategy())
+
+    expected_playerstate = PlayerState(Piece.BLACK)
+
+    assert player.get_playerstate() == expected_playerstate, \
+        "LocalPlayer.get_playerstate() not working correctly."
 

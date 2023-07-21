@@ -3,6 +3,7 @@ from src.player.strategies.strategy import Strategy
 from src.common.player import Player
 from src.common.playergamestate import PlayerGameState
 from src.common.move import Move
+from src.common.playerstate import PlayerState
 
 class LocalPlayer(Player):
     '''
@@ -60,3 +61,13 @@ class LocalPlayer(Player):
         '''
 
         return self.__is_winner
+    
+
+    def get_playerstate(self) -> PlayerState:
+        '''
+        Get PlayerState of this players public information
+
+        @returns: PlayerState
+        '''
+
+        return PlayerState(self.get_piece())

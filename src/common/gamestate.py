@@ -4,6 +4,7 @@ from src.common.board import Board
 from src.common.rules import Rules
 from src.common.player import Player
 from src.common.playergamestate import PlayerGameState
+from src.common.playerstate import PlayerState
 
 class GameState():
     '''
@@ -46,14 +47,26 @@ class GameState():
             self.__players.append(current_player)
 
 
+    def __make_playerstates(self) -> list[PlayerState]:
+        '''
+        Convert players into a list of playerstates
+
+        @returns: List[PlayerState]
+        '''
+
+        playerstates = []
+        for i in range(len(self.__players)):
+            playerstates.append(self.__players[i].get_playerstate())
+        return playerstates
+
+
     def __make_playergamestate(self) -> None:
         '''
         Create PlayerGameState from current gamestate.
         '''
         return PlayerGameState(Board.from_board(self.__board), 
                                self.__rules,
-                               self.__players[0],
-                               len(self.__players))
+                               self.__make_playerstates())
 
 
 

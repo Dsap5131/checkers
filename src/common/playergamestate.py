@@ -1,6 +1,8 @@
+from collections import deque
+
 from src.common.board import Board
 from src.common.rules import Rules
-from src.common.player import Player
+from src.common.playerstate import PlayerState
 
 class PlayerGameState():
     '''
@@ -8,19 +10,16 @@ class PlayerGameState():
 
     @param: board: Board
     @param: rules: Rules
-    @param: current_player: Player
-    @param: num_players: int
+    @param: players: deque[PlayerState]
     '''
 
     def __init__(self, 
                  board: Board, 
                  rules: Rules, 
-                 current_player: Player,
-                 num_players: int) -> None:
+                 players: list[PlayerState]) -> None:
         self.__board = board
         self.__rules = rules
-        self.__current_player = current_player
-        self.__num_players = num_players
+        self.__players = deque(players)
 
     
     def get_board(self) -> Board:
@@ -39,16 +38,26 @@ class PlayerGameState():
         return self.__rules
     
 
-    def get_player(self) -> Player:
+    def get_current_player(self) -> PlayerState:
         '''
         Get the current player
         '''
 
-        return self.__current_player
+        return self.__players[0]
     
+
+    def set_next_player(self) -> None:
+        '''
+        Update the current player
+        '''
+
+        current_player = self.__players.popleft()
+        self.__players.append(current_player)
+
+
     def get_num_players(self) -> int:
         '''
         Get the number of players in the game
         '''
 
-        return self.__num_players
+        return len(self.__players)
