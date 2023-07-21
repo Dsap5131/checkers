@@ -4,6 +4,7 @@ from src.common.move import Move
 from src.common.board import Board
 from src.common.player import Player
 from src.common.position import Position
+from src.common.playerstate import PlayerState
 
 class Rules():
     '''
@@ -80,3 +81,18 @@ class Rules():
 
         raise NotImplementedError(
             "THIS IS NOT IMPLEMENTED AND SHOULD NEVER BE CALLED.")
+
+
+    def is_winner(self, board: Board, playerstate: PlayerState) -> bool:
+        '''
+        Return if the player is a winner based on the given board
+        
+        @params: board: Board
+        @params: playerstate: PlayerState
+        
+        @returns: List[Move]
+        '''
+
+        raise NotImplementedError(
+            "THIS IS NOT IMPLEMENTED AND SHOULD NEVER BE CALLED.")
+

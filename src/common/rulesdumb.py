@@ -5,6 +5,7 @@ from src.common.board import Board
 from src.common.player import Player
 from src.common.position import Position
 from src.common.rules import Rules
+from src.common.playerstate import PlayerState
 
 class RulesDumb(Rules):
     '''
@@ -79,6 +80,18 @@ class RulesDumb(Rules):
 
         return []
     
+
+    def is_winner(self, board: Board, playerstate: PlayerState) -> bool:
+        '''
+        Return if the player is a winner based on the given board
+        
+        @params: board: Board
+        @params: playerstate: PlayerState
+        
+        @returns: List[Move]
+        '''
+
+        return False
                 
 
 

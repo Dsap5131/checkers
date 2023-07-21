@@ -9,6 +9,7 @@ from src.common.position import Position
 from src.common.gamepiece import GamePiece
 from src.common.piece import Piece
 from src.common.leap import Leap
+from src.common.playerstate import PlayerState
 
 
 class RulesStandard(Rules):
@@ -454,3 +455,25 @@ class RulesStandard(Rules):
                                     [],
                                     promote_positions))
         return leaps
+    
+
+    def is_winner(self, board: Board, playerstate: PlayerState) -> bool:
+        '''
+        Return if the player is a winner based on the given board
+        
+        @params: board: Board
+        @params: playerstate: PlayerState
+        
+        @returns: List[Move]
+        '''
+
+        if board.unique_piece_count() != 1:
+            return False
+        
+        for r in range(board.get_row_size()):
+            for c in range(board.get_column_size()):
+                piece = board.get_gamepiece(Position(r,c)).get_piece()
+                if piece == playerstate.get_piece():
+                    return True
+                elif piece != Piece.BLANK:
+                    return False

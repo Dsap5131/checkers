@@ -9,6 +9,7 @@ from src.common.board import Board
 from src.common.leap import Leap
 from src.common.position import Position
 from src.common.move import Move
+from src.common.playerstate import PlayerState
 
 def test_constructor() -> None:
     rules = RulesDumb()
@@ -82,3 +83,16 @@ def test_valid_moves() -> None:
     
     assert rules.valid_moves(board, player) == expected_moves, \
         "RulesDumb.valid_moves(Board, Player) not working as expected."
+
+
+def test_is_winner() -> None:
+    rules = RulesDumb()
+
+    board_list_1 = [[GamePiece(Piece.RED), GamePiece(Piece.BLANK)],
+                    [GamePiece(Piece.BLANK), GamePiece(Piece.BLANK)]]
+    board_1 = Board(row_size=1, column_size=1, board=board_list_1)
+    playerstate_1 = PlayerState(Piece.RED)
+
+    assert rules.is_winner(board_1, playerstate_1) == False, \
+        "RulesDumb.is_winner(Board, PlayerState) not working correctly."
+    
