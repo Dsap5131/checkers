@@ -428,18 +428,9 @@ class RulesStandard(Rules):
 
         start_row = position.get_row()
         start_column = position.get_column()
-
-        
         leaps = []
-        possible_captures = [(-2,-2),
-                             (-2,+2),
-                             (+2,-2),
-                             (+2,+2)]
-        possible_singles = [(-1,-1),
-                            (-1,+1),
-                            (+1,-1),
-                            (+1,+1)]
-        
+        possible_captures = [(-2,-2),(-2,+2),(+2,-2),(+2,+2)]
+        possible_singles = [(-1,-1),(-1,+1),(+1,-1),(+1,+1)]
         # Possible capture leaps
         for (end_updates, capture_updates) in \
                 zip(possible_captures, possible_singles):
@@ -452,8 +443,6 @@ class RulesStandard(Rules):
                                 end_position,
                                 capture_positions,
                                 promote_positions))
-                
-        
         # Possible single leaps
         if not only_captures:
             for end_updates in possible_singles:
@@ -464,6 +453,4 @@ class RulesStandard(Rules):
                                     end_position,
                                     [],
                                     promote_positions))
-                    
-
         return leaps
