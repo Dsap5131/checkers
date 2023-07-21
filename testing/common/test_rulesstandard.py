@@ -537,3 +537,99 @@ def test_kickable() -> None:
 
     assert rules.kickable(), \
         "RulesStandard.kickable() not working as expected."
+    
+
+def test_valid_moves() -> None:
+    rules = RulesStandard()
+    player = LocalPlayer(Piece.RED, DumbStrategy())
+
+    # Test valid moves 1
+    board_list_1 = [[GamePiece(Piece.BLACK), 
+                    GamePiece(Piece.BLANK), 
+                    GamePiece(Piece.BLANK)],
+                   [GamePiece(Piece.BLANK), 
+                    GamePiece(Piece.RED), 
+                    GamePiece(Piece.BLANK)],
+                   [GamePiece(Piece.BLANK), 
+                    GamePiece(Piece.BLANK), 
+                    GamePiece(Piece.BLANK)]]
+    board_1 = Board(row_size=3, column_size=3, board=board_list_1)
+    leap_1_1 = Leap(Position(1,1), 
+                    Position(0,2),
+                    promote_positions=[Position(0,2)])
+    move_1_1 = Move(deque([leap_1_1]))
+    expected_moves_1 = [move_1_1]
+
+    assert rules.valid_moves(board_1, player) == expected_moves_1, \
+        "RulesStandard.valid_moves(Board, Player) not working as expected."
+
+    # Test where there are no valid moves
+    board_list_2 = [[GamePiece(Piece.BLACK), 
+                     GamePiece(Piece.BLANK), 
+                     GamePiece(Piece.BLACK)],
+                    [GamePiece(Piece.BLANK), 
+                     GamePiece(Piece.RED), 
+                     GamePiece(Piece.BLANK)],
+                    [GamePiece(Piece.BLANK), 
+                     GamePiece(Piece.BLANK), 
+                     GamePiece(Piece.BLANK)]]
+    board_2 = Board(row_size=3, column_size=3, board=board_list_2)
+    expected_moves_2 = []
+
+    assert rules.valid_moves(board_2, player) == expected_moves_2, \
+        "RulesStandard.valid_moves(Board, Player) not working as expected."
+
+
+    # Test valid moves with captures and as a king piece
+    board_list_3 = [[GamePiece(Piece.BLANK), 
+                     GamePiece(Piece.BLANK), 
+                     GamePiece(Piece.RED, True)],
+                    [GamePiece(Piece.BLANK), 
+                     GamePiece(Piece.BLACK), 
+                     GamePiece(Piece.BLANK)],
+                    [GamePiece(Piece.BLANK), 
+                     GamePiece(Piece.BLANK), 
+                     GamePiece(Piece.BLANK)]]
+    board_3 = Board(row_size=3, column_size=3, board=board_list_3)
+    leap_3_1 = Leap(Position(0,2),
+                    Position(2,0),
+                    capture_positions=[Position(1,1)])
+    move_3_1 = Move(deque([leap_3_1]))
+    expected_moves_3 = [move_3_1]
+    assert rules.valid_moves(board_3, player) == expected_moves_3, \
+        "RulesStandard.valid_moves(Board, Player) not working as expected."
+    
+    # Test a double capture move
+    board_list_4 = [[GamePiece(Piece.BLANK), GamePiece(Piece.BLANK), 
+                     GamePiece(Piece.BLANK), GamePiece(Piece.BLANK), 
+                     GamePiece(Piece.BLANK)],
+                    [GamePiece(Piece.BLANK), GamePiece(Piece.BLANK), 
+                     GamePiece(Piece.BLANK), GamePiece(Piece.BLACK), 
+                     GamePiece(Piece.BLANK)],
+                    [GamePiece(Piece.BLANK), GamePiece(Piece.BLANK), 
+                     GamePiece(Piece.BLANK), GamePiece(Piece.BLANK), 
+                     GamePiece(Piece.BLANK)],
+                    [GamePiece(Piece.BLANK), GamePiece(Piece.BLACK), 
+                     GamePiece(Piece.BLANK), GamePiece(Piece.BLANK), 
+                     GamePiece(Piece.BLANK)],
+                    [GamePiece(Piece.RED), GamePiece(Piece.BLANK), 
+                     GamePiece(Piece.BLANK), GamePiece(Piece.BLANK), 
+                     GamePiece(Piece.BLANK)]]
+    board_4 = Board(row_size=5, column_size=5, board=board_list_4)
+    leap_4_1 = Leap(Position(4,0),
+                    Position(2,2),
+                    capture_positions=[Position(3,1)])
+    move_4_1 = Move(deque([leap_4_1]))
+    leap_4_2 = Leap(Position(4,0),
+                    Position(2,2),
+                    capture_positions=[Position(3,1)])
+    leap_4_3 = Leap(Position(2,2),
+                    Position(0,4),
+                    capture_positions=[Position(1,3)],
+                    promote_positions=[Position(0,4)])
+    move_4_2 = Move(deque([leap_4_2, leap_4_3]))
+
+    expected_moves_4 = [move_4_1, move_4_2]
+    
+    assert rules.valid_moves(board_4, player) == expected_moves_4, \
+        "RulesStandard.valid_moves(Board, Player) not working as expected."

@@ -62,6 +62,23 @@ class RulesDumb(Rules):
         '''
 
         return True
+    
+
+    def valid_moves(self, board: Board, player: Player) -> List[Move]:
+        '''
+        Return all valid moves the given player can make on the given
+        board.
+
+        RulesDumb doesn't care and will always return an empty list.
+        
+        @params: board: Board
+        @params: player: Player
+
+        @returns: List[Move]
+        '''
+
+        return []
+    
                 
 
 
