@@ -357,102 +357,113 @@ class RulesStandard(Rules):
         valid_moves = []
         for r in range(board.get_row_size()):
             for c in range(board.get_column_size()):
-                piece = board.get_gamepiece(Position(r,c)).get_piece()
+                current_position = Position(r,c)
+                piece = board.get_gamepiece(current_position).get_piece()
 
                 if piece == player.get_piece():
-                    valid_moves += self.__get_valid_moves(Position(r,c), 
-                                                          board,
-                                                          player)
+                    valid_moves += self.__get_extended_valid_moves(
+                        self.__get_possible_leaps(current_position),
+                        current_position,
+                        board,
+                        player)
         return valid_moves
 
-
-    def __get_valid_moves(self, 
-                          position: Position, 
-                          board: Board, 
-                          player: Player) -> List[Move]:
+    def __get_extended_valid_moves(self,
+                                   leaps: List[Leap],
+                                   current_position: Position,
+                                   board: Board,
+                                   player: Player) -> List[Move]:
         """
-        Returns the valid moves of the piece at position on board.
-        
-        @params: position: Position
+        Gets all possible moves given based on the possible leaps and
+        the piece at the current_position.
+
+        @params: end_positions: List[Position]
+        @params: capture_positions: List[Position]
+        @params: current_position: Position
         @params: board: Board
         @params: player: Player
 
         @returns: List[Move]
         """
 
-        start_row = position.get_row()
-        start_column = position.get_column()
-
-        end_positions = [Position(start_row-2, start_column-2),
-                         Position(start_row-2, start_column+2),
-                         Position(start_row+2, start_column-2),
-                         Position(start_row+2, start_column+2),
-                         Position(start_row-1, start_column-1),
-                         Position(start_row-1, start_column+1),
-                         Position(start_row+1, start_column-1),
-                         Position(start_row+1, start_column+1)]
-        capture_positions = [[Position(start_row-1, start_column-1)],
-                             [Position(start_row-1, start_column+1)],
-                             [Position(start_row+1, start_column-1)],
-                             [Position(start_row+1, start_column+1)],
-                             [],
-                             [],
-                             [],
-                             []]
-        return self.__get_extended_valid_moves(end_positions,
-                                               capture_positions,
-                                               position,
-                                               board,
-                                               player)
-
-    
-    def __get_extended_valid_moves(self,
-                                   end_positions: List[Position],
-                                   capture_positions: List[Position],
-                                   current_position: Position,
-                                   board: Board,
-                                   player: Player):
-
-        
         valid_moves = []
-        for (end_position, capture_position) in zip(end_positions,
-                                                    capture_positions):
-            for promote_position in [[], [end_position]]:
-                move = Move(deque([Leap(current_position,
-                                        end_position,
-                                        capture_position,
-                                        promote_position)]))
-                if self.check_move(move, board, player):
-                    valid_moves.append(move)
+        for leap in leaps:
+            move = Move(deque([leap]))
+            if self.check_move(move, board, player):
+                valid_moves.append(move)
 
-                    new_board = Board.from_board(board)
-                    new_board.move_piece(move)
-                    move.reset()
-                    start_row = end_position.get_row()
-                    start_column = end_position.get_column()
-                    extended_end_positions = [
-                        Position(start_row-2, start_column-2),
-                        Position(start_row-2, start_column+2),
-                        Position(start_row+2, start_column-2),
-                        Position(start_row+2, start_column+2)]
-                    extended_capture_positions = [
-                        [Position(start_row-1, start_column-1)],
-                        [Position(start_row-1, start_column+1)],
-                        [Position(start_row+1, start_column-1)],
-                        [Position(start_row+1, start_column+1)]]
-                    extended_moves = self.__get_extended_valid_moves(
-                        extended_end_positions,
-                        extended_capture_positions,
-                        end_position,
-                        new_board,
-                        player)
-                    print(extended_moves)
-                    for extended_move in extended_moves:
+                new_board = Board.from_board(board)
+                new_board.move_piece(move)
+                move.reset()
+                end_position = leap.get_end_position()
+                new_leaps = self.__get_possible_leaps(end_position, True)
+                extended_moves = self.__get_extended_valid_moves(
+                    new_leaps,
+                    end_position,
+                    new_board,
+                    player)
+                for extended_move in extended_moves:
                         leaps = [Leap(current_position,
                                       end_position,
-                                      capture_position,
-                                      promote_position)]
+                                      leap.get_capture_positions(),
+                                      leap.get_promote_positions())]
                         while extended_move.leaps_remaining()>0:
                             leaps.append(extended_move.get_next_leap())
                         valid_moves.append(Move(deque(leaps)))
         return valid_moves
+    
+
+    def __get_possible_leaps(self, 
+                             position: Position,
+                             only_captures: bool = False):
+        '''
+        This will return a list of all next leaps a piece can take valid or 
+        invalid.
+
+        @params: position: Position
+        @params: captures: bool: True if you want only capture leaps
+
+        @returns: List[Leap]
+        '''
+
+        start_row = position.get_row()
+        start_column = position.get_column()
+
+        
+        leaps = []
+        possible_captures = [(-2,-2),
+                             (-2,+2),
+                             (+2,-2),
+                             (+2,+2)]
+        possible_singles = [(-1,-1),
+                            (-1,+1),
+                            (+1,-1),
+                            (+1,+1)]
+        
+        # Possible capture leaps
+        for (end_updates, capture_updates) in \
+                zip(possible_captures, possible_singles):
+            end_position = Position(start_row+end_updates[0],
+                                    start_column+end_updates[1])
+            for promote_positions in [[], [end_position]]:
+                capture_positions = [Position(start_row+capture_updates[0],
+                                              start_column+capture_updates[1])]
+                leaps.append(Leap(position,
+                                end_position,
+                                capture_positions,
+                                promote_positions))
+                
+        
+        # Possible single leaps
+        if not only_captures:
+            for end_updates in possible_singles:
+                end_position = Position(start_row+end_updates[0],
+                                        start_column+end_updates[1])
+                for promote_positions in [[], [end_position]]:
+                    leaps.append(Leap(position,
+                                    end_position,
+                                    [],
+                                    promote_positions))
+                    
+
+        return leaps

@@ -630,6 +630,6 @@ def test_valid_moves() -> None:
     move_4_2 = Move(deque([leap_4_2, leap_4_3]))
 
     expected_moves_4 = [move_4_1, move_4_2]
-    
+
     assert rules.valid_moves(board_4, player) == expected_moves_4, \
         "RulesStandard.valid_moves(Board, Player) not working as expected."
