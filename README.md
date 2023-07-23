@@ -7,8 +7,9 @@ The specific goals of this project are to create checkers using Python and Flask
 
 # TODO
 
-1. Create MiniMax Algorithm
-2. Implement online player
+1. Implement a terminal strategy
+1. Implement online player
+2. Create MiniMax Algorithm
 3. Instance checking on parameters? What is the best practice
 4. Should Move return copies of the Position? Is this a vulnerability if not.
 5. (Optional) Research and implement optional typing for the use of GamePiece
