@@ -9,7 +9,7 @@ class Piece(Enum):
     If possible I would remove Piece.BLANK and instead have optional typing
     around the use of Piece
     '''
-    BLANK = 0
-    BLACK = 1
-    RED = 2
+    BLANK = " "
+    BLACK = "X"
+    RED = "O"
     
