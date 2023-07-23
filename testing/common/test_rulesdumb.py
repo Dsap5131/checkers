@@ -52,8 +52,9 @@ def test_is_game_over() -> None:
     board_list = [[blank_piece, blank_piece],
                   [blank_piece, blank_piece]]
     board = Board(row_size=2, column_size=2, board=board_list)
+    player = PlayerState(Piece.BLACK)
 
-    assert not rules.is_game_over(board, num_players=2), \
+    assert not rules.is_game_over(board, 2, player), \
         "RulesDumb.is_game_over(Board, num_players) not working correctly."
 
 

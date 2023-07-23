@@ -42,12 +42,16 @@ class Rules():
             "THIS IS NOT IMPLEMENTED AND SHOULD NEVER BE CALLED.")
     
 
-    def is_game_over(self, board: Board, num_players: int) -> bool:
+    def is_game_over(self, 
+                     board: Board, 
+                     num_players: int,
+                     current_player: PlayerState) -> bool:
         '''
         Check to see if the game is over.
 
         @param: board: Board
         @param: num_players: int: Number of players in the game
+        @param: current_player: PlayerState: the current player in the game
 
         @returns: bool: True if the game is over.
         '''
