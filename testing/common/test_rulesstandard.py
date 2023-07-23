@@ -665,3 +665,42 @@ def test_is_winner() -> None:
 
     assert rules.is_winner(board_3, playerstate_3) == False, \
         "RulesStandard.is_winner(Board, PlayerState) not working correctly."
+    
+
+def test_starting_board() -> None:
+    board_list = [[GamePiece(Piece.BLACK), GamePiece(Piece.BLANK), 
+                   GamePiece(Piece.BLACK), GamePiece(Piece.BLANK), 
+                   GamePiece(Piece.BLACK), GamePiece(Piece.BLANK), 
+                   GamePiece(Piece.BLACK), GamePiece(Piece.BLANK)],
+                  [GamePiece(Piece.BLANK), GamePiece(Piece.BLACK), 
+                   GamePiece(Piece.BLANK), GamePiece(Piece.BLACK), 
+                   GamePiece(Piece.BLANK), GamePiece(Piece.BLACK), 
+                   GamePiece(Piece.BLANK), GamePiece(Piece.BLACK)],
+                  [GamePiece(Piece.BLACK), GamePiece(Piece.BLANK), 
+                   GamePiece(Piece.BLACK), GamePiece(Piece.BLANK), 
+                   GamePiece(Piece.BLACK), GamePiece(Piece.BLANK), 
+                   GamePiece(Piece.BLACK), GamePiece(Piece.BLANK)],
+                  [GamePiece(Piece.BLANK), GamePiece(Piece.BLANK), 
+                   GamePiece(Piece.BLANK), GamePiece(Piece.BLANK), 
+                   GamePiece(Piece.BLANK), GamePiece(Piece.BLANK), 
+                   GamePiece(Piece.BLANK), GamePiece(Piece.BLANK)],
+                  [GamePiece(Piece.BLANK), GamePiece(Piece.BLANK), 
+                   GamePiece(Piece.BLANK), GamePiece(Piece.BLANK), 
+                   GamePiece(Piece.BLANK), GamePiece(Piece.BLANK), 
+                   GamePiece(Piece.BLANK), GamePiece(Piece.BLANK)],
+                  [GamePiece(Piece.RED), GamePiece(Piece.BLANK), 
+                   GamePiece(Piece.RED), GamePiece(Piece.BLANK), 
+                   GamePiece(Piece.RED), GamePiece(Piece.BLANK), 
+                   GamePiece(Piece.RED), GamePiece(Piece.BLANK)],
+                  [GamePiece(Piece.BLANK), GamePiece(Piece.RED), 
+                   GamePiece(Piece.BLANK), GamePiece(Piece.RED), 
+                   GamePiece(Piece.BLANK), GamePiece(Piece.RED), 
+                   GamePiece(Piece.BLANK), GamePiece(Piece.RED)],
+                  [GamePiece(Piece.RED), GamePiece(Piece.BLANK), 
+                   GamePiece(Piece.RED), GamePiece(Piece.BLANK), 
+                   GamePiece(Piece.RED), GamePiece(Piece.BLANK), 
+                   GamePiece(Piece.RED), GamePiece(Piece.BLANK)]]
+    board = Board(8,8,board_list)
+    
+    assert RulesStandard().starting_board() == board, \
+        "RulesStandard.starting_board() not working correctly."

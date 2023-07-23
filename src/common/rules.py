@@ -99,4 +99,15 @@ class Rules():
 
         raise NotImplementedError(
             "THIS IS NOT IMPLEMENTED AND SHOULD NEVER BE CALLED.")
+    
+
+    def starting_board(self) -> Board:
+        '''
+        Return the starting Board for a game using these rules.
+
+        @returns: Board
+        '''
+
+        raise NotImplementedError(
+            "THIS IS NOT IMPLEMENTED AND SHOULD NEVER BE CALLED.")
 

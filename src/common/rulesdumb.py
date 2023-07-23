@@ -6,6 +6,8 @@ from src.common.player import Player
 from src.common.position import Position
 from src.common.rules import Rules
 from src.common.playerstate import PlayerState
+from src.common.gamepiece import GamePiece
+from src.common.piece import Piece
 
 class RulesDumb(Rules):
     '''
@@ -98,6 +100,14 @@ class RulesDumb(Rules):
         return False
                 
 
+    def starting_board(self) -> Board:
+        '''
+        Return the starting Board for a game using these rules.
+
+        @returns: Board
+        '''
+
+        return Board(1,1,[[GamePiece(Piece.BLANK)]])
 
         
 

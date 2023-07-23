@@ -477,3 +477,41 @@ class RulesStandard(Rules):
                     return True
                 elif piece != Piece.BLANK:
                     return False
+                
+
+    def starting_board(self) -> Board:
+        '''
+        Return the starting Board for a game using these rules.
+
+        @returns: Board
+        '''
+
+        column_size = 8
+        board_list = []
+        # Black Player Starting Area
+        for r in range(3):
+            row = []
+            for c in range(8):
+                if (r+c)%2 == 0:
+                    row.append(GamePiece(Piece.BLACK))
+                else:
+                    row.append(GamePiece(Piece.BLANK))
+            board_list.append(row)
+        # Neutral Area
+        board_list.append([GamePiece(Piece.BLANK) for _ in range(column_size)])
+        board_list.append([GamePiece(Piece.BLANK) for _ in range(column_size)])
+        # Red Player Area
+        for r in range(3):
+            row = []
+            for c in range(8):
+                if (r+c)%2 == 0:
+                    row.append(GamePiece(Piece.RED))
+                else:
+                    row.append(GamePiece(Piece.BLANK))
+            board_list.append(row)
+        return Board(row_size=8, column_size=column_size, board=board_list)
+        
+
+
+
+

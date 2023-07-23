@@ -91,9 +91,16 @@ def test_is_winner() -> None:
 
     board_list_1 = [[GamePiece(Piece.RED), GamePiece(Piece.BLANK)],
                     [GamePiece(Piece.BLANK), GamePiece(Piece.BLANK)]]
-    board_1 = Board(row_size=1, column_size=1, board=board_list_1)
+    board_1 = Board(row_size=2, column_size=2, board=board_list_1)
     playerstate_1 = PlayerState(Piece.RED)
 
     assert rules.is_winner(board_1, playerstate_1) == False, \
         "RulesDumb.is_winner(Board, PlayerState) not working correctly."
     
+
+def test_starting_board() -> None:
+    board_list = [[GamePiece(Piece.BLANK)]]
+    board = Board(1,1,board_list)
+
+    assert RulesDumb().starting_board() == board, \
+        "RulesDumb.default_board() not working correctly."
