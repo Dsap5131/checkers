@@ -1,9 +1,14 @@
 # CHECKERS
 
+Its Checkers :) 
 
-Hi. This project is to improve my skills. The goal is to create a simple game of checkers with extremely clean and professional code, to use the latest up-to-date practices and tools (including CI/CD), and to learn.
+Just a simple project updated every once in awhile as I improve my software development skills.
+The main goals of this project being to improve my Python software development skills.
+This includes using new software, like Flask. 
 
-The specific goals of this project are to create checkers using Python and Flask. Use strong soft dev tools like git and jenkins. Then publish my first public project.
+Practice makes perfect.
+Feel free to leave comments and help improve the professional and socially
+responsible code I write.
 
 # TODO
 
