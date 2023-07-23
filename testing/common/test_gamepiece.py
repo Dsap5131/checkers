@@ -46,3 +46,14 @@ def test_eq() -> None:
         "GamePiece == GamePiece not working"
     assert gamepiece_one != 4, \
         "GamePiece == GamePiece not working"
+    
+
+def test_str() -> None:
+    assert str(GamePiece(Piece.RED)) == "O_", "GamePiece.__str not working."
+    assert str(GamePiece(Piece.RED, True)) == "OK", \
+        "GamePiece.__str not working."
+    assert str(GamePiece(Piece.BLACK)) == "X_", "GamePiece.__str not working."
+    assert str(GamePiece(Piece.BLACK, True)) == "XK", \
+        "GamePiece.__str not working."
+    assert str(GamePiece(Piece.BLANK)) == " _", "GamePiece.__str not working."
+   

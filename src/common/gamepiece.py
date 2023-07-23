@@ -53,4 +53,19 @@ class GamePiece():
         return (isinstance(obj, GamePiece) and
                 obj.get_piece() == self.get_piece() and
                 obj.is_king() == self.is_king())
+    
 
+    def __str__(self) -> str:
+        '''
+        Override __str__ of GamePiece
+
+        @returns: str
+        '''
+
+        output = self.get_piece().value
+        if self.is_king():
+            output += "K"
+        else:
+            output += "_"
+        return output
+        
