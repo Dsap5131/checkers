@@ -122,6 +122,14 @@ def test_get_players() -> None:
 
     expected_players = [PlayerState(Piece.BLACK), 
                         PlayerState(Piece.RED)]
-
-    assert playergamestate.get_players() == expected_players, \
+    actual_players = playergamestate.get_players()
+    assert actual_players == expected_players, \
         "PlayerGameState.get_players() not working correctly."
+    
+    #Test actual players is a copy
+    playergamestate.set_next_player()
+
+    assert actual_players == expected_players, \
+        "PlayerGameState.get_players() not working correctly."
+    assert actual_players != playergamestate.get_players(), \
+        "PlayerGamestate.get_players() not working correctly."

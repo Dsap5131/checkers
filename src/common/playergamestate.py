@@ -1,4 +1,5 @@
 from collections import deque
+from copy import deepcopy
 
 from src.common.board import Board
 from src.common.rules import Rules
@@ -65,7 +66,7 @@ class PlayerGameState():
 
     def get_players(self) -> list[PlayerState]:
         '''
-        Returns the list of active players.
+        Returns a copy of the list of active players.
         '''
 
-        return list(self.__players)
+        return list(deepcopy(self.__players))
