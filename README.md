@@ -7,13 +7,14 @@ The specific goals of this project are to create checkers using Python and Flask
 
 # TODO
 
-1. Implement a terminal strategy
-1. Implement online player
-2. Create MiniMax Algorithm
-3. Instance checking on parameters? What is the best practice
-4. Should Move return copies of the Position? Is this a vulnerability if not.
-5. (Optional) Research and implement optional typing for the use of GamePiece
-6. Should typing be done through strings and not imports (this can help with circular imports?)
+1. Create Referee
+2. Implement a terminal strategy
+3. Implement online player
+4. Create MiniMax Algorithm
+5. Instance checking on parameters? What is the best practice
+6. Should Move return copies of the Position? Is this a vulnerability if not.
+7. (Optional) Research and implement optional typing for the use of GamePiece
+8. Should typing be done through strings and not imports (this can help with circular imports?)
 
 # Project Design
 
