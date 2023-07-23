@@ -15,7 +15,6 @@ responsible code I write.
 1. Create Referee
 2. Implement a terminal strategy
 3. Implement online player
-4. Create MiniMax Algorithm
 5. Instance checking on parameters? What is the best practice
 6. Should Move return copies of the Position? Is this a vulnerability if not.
 7. (Optional) Research and implement optional typing for the use of GamePiece
