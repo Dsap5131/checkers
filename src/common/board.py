@@ -145,9 +145,11 @@ class Board():
         return unique_piece_count
 
 
-    def __eq__(self, obj) -> None:
+    def __eq__(self, obj) -> bool:
         """
         Boards are equal if all of their contents are equal.
+
+        @returns: bool
         """
 
         if not isinstance(obj, Board):
@@ -162,6 +164,32 @@ class Board():
                         return False
             return True
         return False
+
+
+    def __str__(self) -> str:
+        """
+        Override __str__ of Board
+
+        @returns Board
+        """
+
+        output = ""
+        for r in range(self.get_row_size()):
+            row_output = ""
+            divider_output = ""
+            for c in range(self.get_column_size()):
+                piece = self.get_gamepiece(Position(r,c))
+                row_output += f" {str(piece)} "
+                divider_output += "----"
+                if c != self.get_column_size() - 1:
+                    row_output += "|"
+                    divider_output += "-"
+            row_output += "\n"
+            divider_output += "\n"
+            output += row_output
+            if r != self.get_row_size() - 1:
+                output += divider_output
+        return output
 
                     
 

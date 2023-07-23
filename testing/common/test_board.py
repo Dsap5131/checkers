@@ -258,4 +258,22 @@ def test_eq() -> None:
     assert board_1 != 5, "Board == Board not working correctly."
 
 
+def test__str() -> None:
+    board_list = [[GamePiece(Piece.RED), GamePiece(Piece.BLACK, True), 
+                   GamePiece(Piece.RED, True)],
+                  [GamePiece(Piece.BLANK), GamePiece(Piece.BLANK),
+                   GamePiece(Piece.BLACK)],
+                  [GamePiece(Piece.BLANK), GamePiece(Piece.BLANK),
+                   GamePiece(Piece.BLANK)]]
+    board = Board(row_size=3, column_size=3, board=board_list)
+
+    expected = " O_ | XK | OK \n" + \
+               "--------------\n" + \
+               "  _ |  _ | X_ \n" + \
+               "--------------\n" + \
+               "  _ |  _ |  _ \n"
+    assert str(board) == expected, "Board.__str__ not working."
+    
+
+
 
