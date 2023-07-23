@@ -39,3 +39,14 @@ class Player():
 
         raise NotImplementedError(
             "THIS IS NOT IMPLEMENTED AND SHOULD NEVER BE CALLED.")
+    
+
+    def get_playerstate(self) -> 'PlayerState':
+        '''
+        Get PlayerState of this players public information
+
+        @returns: PlayerState
+        '''
+
+        raise NotImplementedError(
+            "THIS IS NOT IMPLEMENTED AND SHOULD NEVER BE CALLED.")

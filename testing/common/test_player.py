@@ -39,3 +39,10 @@ def test_won() -> None:
 
     with pytest.raises(NotImplementedError):
         player.won(False)
+
+
+def test_get_playerstate() -> None:
+    player = Player()
+
+    with pytest.raises(NotImplementedError):
+        player.get_playerstate()
