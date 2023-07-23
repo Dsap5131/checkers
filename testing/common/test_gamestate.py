@@ -89,3 +89,20 @@ def test_take_turn() -> None:
 
     gamestate.take_turn()
     gamestate.take_turn()
+
+
+def test_end_game() -> None:
+    board = Board(1, 1, [[GamePiece(Piece.RED)]])
+    player_1 = LocalPlayer(Piece.RED, DumbStrategy())
+    player_2 = LocalPlayer(Piece.BLACK, DumbStrategy())
+
+    gamestate = GameState(board, RulesStandard(), deque([player_1, player_2]))
+
+    assert player_1.get_is_winner()==False,"GameState.end_game() setup failed."
+    assert player_2.get_is_winner()==False,"GameState.end_game() setup failed."
+    
+    gamestate.end_game()
+
+    assert player_1.get_is_winner(), "GameState.end_game() failed."
+    assert player_2.get_is_winner() == False, "GameState.end_game() failed."
+    

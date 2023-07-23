@@ -67,6 +67,16 @@ class GameState():
         return PlayerGameState(Board.from_board(self.__board), 
                                self.__rules,
                                self.__make_playerstates())
+    
+
+    def end_game(self) -> None:
+        '''
+        Alert players if they have won or lost.
+        '''
+
+        for player in self.__players:
+            player.won(
+                self.__rules.is_winner(self.__board, player.get_playerstate()))
 
 
 
