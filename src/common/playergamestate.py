@@ -61,3 +61,11 @@ class PlayerGameState():
         '''
 
         return len(self.__players)
+    
+
+    def get_players(self) -> list[PlayerState]:
+        '''
+        Returns the list of active players.
+        '''
+
+        return list(self.__players)

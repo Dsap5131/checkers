@@ -108,3 +108,20 @@ def test_get_num_players() -> None:
 
     assert playergamestate.get_num_players() == 2, \
         "PlayerGameState.get_num_players() not working."
+    
+
+def test_get_players() -> None:
+    board_list = [[GamePiece(Piece.BLANK), GamePiece(Piece.BLANK)],
+                  [GamePiece(Piece.BLANK), GamePiece(Piece.BLANK)]]
+    board = Board(row_size=2, column_size=2, board=board_list)
+    rules = RulesStandard()
+    playerstate_1 = PlayerState(Piece.BLACK)
+    playerstate_2 = PlayerState(Piece.RED)
+    players = [playerstate_1, playerstate_2]
+    playergamestate = PlayerGameState(board, rules, players)
+
+    expected_players = [PlayerState(Piece.BLACK), 
+                        PlayerState(Piece.RED)]
+
+    assert playergamestate.get_players() == expected_players, \
+        "PlayerGameState.get_players() not working correctly."
