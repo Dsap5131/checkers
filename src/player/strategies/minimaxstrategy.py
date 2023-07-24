@@ -20,20 +20,6 @@ class MiniMaxStrategy(Strategy):
 
         @returns: Move
         '''
-        
-        # Pseudocode
-        # function minimax(node, depth, maximizingPlayer) is
-        #       if depth = 0 or node is terminal node then
-        #               return the heuristic value of node
-        #       if maximizingPlayer than
-        #           value := -infinity
-        #           for each child of node do
-        #               value = max(value, minimax(child, depth-1, false))
-        #       else (*minimizing player*)
-        #           value := infinity
-        #           for each child of node do
-        #               value = min(value, minimax(child, depth-1,true))
-        #           return value
 
         rules = playergamestate.get_rules()
         current_player = playergamestate.get_current_player()
@@ -61,6 +47,30 @@ class MiniMaxStrategy(Strategy):
                   move: Move,
                   playergamestate: PlayerGameState, 
                   our_player: PlayerState) -> int:
+        '''
+        Perform MiniMax.
+
+        Pseudocode
+        function minimax(node, depth, maximizingPlayer) is
+              if depth = 0 or node is terminal node then
+                      return the heuristic value of node
+              if maximizingPlayer than
+                  value := -infinity
+                  for each child of node do
+                      value = max(value, minimax(child, depth-1, false))
+              else (*minimizing player*)
+                  value := infinity
+                  for each child of node do
+                      value = min(value, minimax(child, depth-1,true))
+                  return value
+        
+                  
+        @params: move: Move
+        @params: playergamestate: PlayerGameState
+        @params: our_player: PlayerState
+
+        @returns: int
+        '''
         
         rules = playergamestate.get_rules()
         current_player = playergamestate.get_current_player()
@@ -72,6 +82,8 @@ class MiniMaxStrategy(Strategy):
         board.move_piece(move)
         move.reset()
 
+        new_playergamestate = PlayerGameState(board,rules,players)
+
 
         if rules.is_game_over(board, num_players, current_player):
             return self.__value_gamestate(playergamestate, our_player)
@@ -80,28 +92,18 @@ class MiniMaxStrategy(Strategy):
             moves = rules.valid_moves(board, current_player)
             value = float('-inf')
             for move in moves:
-                new_playergamestate = PlayerGameState(board,
-                                                      rules,
-                                                      players)
                 value = max(value, self.__minimax(move,
                                                   new_playergamestate,
                                                   our_player))
             return value
-        
         else:
             moves = rules.valid_moves(board, current_player)
             value = float('inf')
             for move in moves:
-                new_playergamestate = PlayerGameState(board,
-                                                      rules,
-                                                      players)
                 value = min(value, self.__minimax(move,
                                                   new_playergamestate,
                                                   our_player))
             return value
-
-
-
         
 
     def __value_gamestate(self,
