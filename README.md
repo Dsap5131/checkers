@@ -16,8 +16,10 @@ responsible code I write.
 2. Update diagrams and design pngs
 3. Instance checking on parameters? What is the best practice
 4. Should Move return copies of the Position? Is this a vulnerability if not.
-5. (Optional) Research and implement optional typing for the use of GamePiece
-6. Should typing be done through strings and not imports (this can help with circular imports?)
+5. Add makefile, just needs pytest
+6. (Optional) Research and implement optional typing for the use of GamePiece
+7. Should typing be done through strings and not imports (this can help with circular imports?)
+
 
 # Project Design
 
