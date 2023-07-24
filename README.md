@@ -12,14 +12,13 @@ responsible code I write.
 
 # TODO
 
-1. Create Referee
-2. Implement a terminal strategy
-3. Implement online player
-4. Update diagrams and design pngs
-5. Instance checking on parameters? What is the best practice
-6. Should Move return copies of the Position? Is this a vulnerability if not.
-7. (Optional) Research and implement optional typing for the use of GamePiece
-8. Should typing be done through strings and not imports (this can help with circular imports?)
+1. Implement a terminal strategy
+2. Implement online player
+3. Update diagrams and design pngs
+4. Instance checking on parameters? What is the best practice
+5. Should Move return copies of the Position? Is this a vulnerability if not.
+6. (Optional) Research and implement optional typing for the use of GamePiece
+7. Should typing be done through strings and not imports (this can help with circular imports?)
 
 # Project Design
 
