@@ -693,11 +693,7 @@ def test_is_winner() -> None:
 
 
 def test_starting_board() -> None:
-    board_list = [[GamePiece(Piece.BLACK), GamePiece(Piece.BLANK), 
-                   GamePiece(Piece.BLACK), GamePiece(Piece.BLANK), 
-                   GamePiece(Piece.BLACK), GamePiece(Piece.BLANK), 
-                   GamePiece(Piece.BLACK), GamePiece(Piece.BLANK)],
-                  [GamePiece(Piece.BLANK), GamePiece(Piece.BLACK), 
+    board_list = [[GamePiece(Piece.BLANK), GamePiece(Piece.BLACK), 
                    GamePiece(Piece.BLANK), GamePiece(Piece.BLACK), 
                    GamePiece(Piece.BLANK), GamePiece(Piece.BLACK), 
                    GamePiece(Piece.BLANK), GamePiece(Piece.BLACK)],
@@ -705,6 +701,10 @@ def test_starting_board() -> None:
                    GamePiece(Piece.BLACK), GamePiece(Piece.BLANK), 
                    GamePiece(Piece.BLACK), GamePiece(Piece.BLANK), 
                    GamePiece(Piece.BLACK), GamePiece(Piece.BLANK)],
+                  [GamePiece(Piece.BLANK), GamePiece(Piece.BLACK), 
+                   GamePiece(Piece.BLANK), GamePiece(Piece.BLACK), 
+                   GamePiece(Piece.BLANK), GamePiece(Piece.BLACK), 
+                   GamePiece(Piece.BLANK), GamePiece(Piece.BLACK)],
                   [GamePiece(Piece.BLANK), GamePiece(Piece.BLANK), 
                    GamePiece(Piece.BLANK), GamePiece(Piece.BLANK), 
                    GamePiece(Piece.BLANK), GamePiece(Piece.BLANK), 

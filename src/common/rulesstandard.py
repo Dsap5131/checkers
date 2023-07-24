@@ -500,7 +500,7 @@ class RulesStandard(Rules):
         for r in range(3):
             row = []
             for c in range(8):
-                if (r+c)%2 == 0:
+                if (r+c)%2 == 1:
                     row.append(GamePiece(Piece.BLACK))
                 else:
                     row.append(GamePiece(Piece.BLANK))
