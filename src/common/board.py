@@ -40,7 +40,7 @@ class Board():
         copied_board_list = []
         for r in range(copied_row_size):
             copied_row = []
-            for c in range(copied_row_size):
+            for c in range(copied_column_size):
                 gamepiece = board.get_gamepiece(Position(r,c))
                 new_gamepiece = GamePiece(gamepiece.get_piece(), 
                                           gamepiece.is_king())
