@@ -9,3 +9,4 @@ Testing for the src/player/strategies
 | [test_dumbstrategy.py](./test_dumbstrategy.py) | Tests for [DumbStrategy](../../src/player/strategies/dumbstrategy.py) |
 | [test_basicstrategy.py](./test_basicstrategy.py) | Tests for [BasicStrategy](../../src/player/strategies/basicstrategy.py) |
 | [test_minimaxstrategy.py](./test_minimaxstrategy.py) | Tests for [MiniMaxStrategy](../../src/player/strategies/minimaxstrategy.py) |
+| [test_terminalstrategy.py](./test_terminalstrategy.py) | Tests for [TerminalStrategy](../../src/player/strategies/terminalstrategy.py) |

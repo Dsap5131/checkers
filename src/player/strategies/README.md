@@ -19,3 +19,4 @@ MiniMaxStrategy is a strategy that can properly play a game of checkers.
 | [dumbstrategy.py](./dumbstrategy.py) | [DumbStrategy](./dumbstrategy.py) |
 | [basicstrategy.py](./basicstrategy.py) | [BasicStrategy](./basicstrategy.py) |
 | [minimaxstrategy.py](./minimaxstrategy.py) | [MiniMaxStrategy](./minimaxstrategy.py) |
+| [terminalstrategy.py](./terminalstrategy.py) | [TerminalStrategy](./terminalstrategy.py) |
