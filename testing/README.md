@@ -21,3 +21,4 @@ For example
 | [common](./common/README.md) | Tests for [src/common](../src/common/README.md) |
 | [player](./player/README.md) | Tests for [src/player](../src/player/README.md) |
 | [referee](./referee/README.md) | Tests for [src/referee](../src/referee/README.md) |
+| [server](./server/README.md) | Tests for [src/server](../src/server/README.md) |
