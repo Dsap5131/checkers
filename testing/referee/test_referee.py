@@ -48,7 +48,7 @@ def test_continue_game() -> None:
                      GamePiece(Piece.BLANK, False),
                      GamePiece(Piece.RED, False)]]
     board_1= Board(row_size=3, column_size=3, board=board_list_1)  
-    gamestate_1 = GameState(board_1,rules,players_1)
+    gamestate_1 = GameState(board_1,rules,players_1,0)
 
     referee_1 = Referee()
     referee_1.continue_game(gamestate_1)
@@ -75,7 +75,7 @@ def test_continue_game() -> None:
                      GamePiece(Piece.BLANK, False),
                      GamePiece(Piece.RED, False)]]
     board_2= Board(row_size=3, column_size=3, board=board_list_2)
-    gamestate_2 = GameState(board_2, rules_2, players_2)
+    gamestate_2 = GameState(board_2, rules_2, players_2, 0)
     referee_2 = Referee()
     
     referee_2.continue_game(gamestate_2)

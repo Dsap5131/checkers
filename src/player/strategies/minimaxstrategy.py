@@ -26,6 +26,7 @@ class MiniMaxStrategy(Strategy):
         playergamestate.set_next_player()
         board = playergamestate.get_board()
         players = playergamestate.get_players()
+        turn = playergamestate.get_turn()
 
         moves = rules.valid_moves(board, current_player)
         best_value = float('-inf')
@@ -33,7 +34,8 @@ class MiniMaxStrategy(Strategy):
         for move in moves:
             new_playergamestate = PlayerGameState(board,
                                                   rules,
-                                                  players)
+                                                  players,
+                                                  turn)
             value = self.__minimax(move,
                                    new_playergamestate,
                                    current_player)
@@ -77,15 +79,16 @@ class MiniMaxStrategy(Strategy):
         playergamestate.set_next_player()
         players = playergamestate.get_players()
         num_players = playergamestate.get_num_players()
+        turn = playergamestate.get_turn()
 
         board = playergamestate.get_board()
         board.move_piece(move)
         move.reset()
 
-        new_playergamestate = PlayerGameState(board,rules,players)
+        new_playergamestate = PlayerGameState(board,rules,players,turn)
 
 
-        if rules.is_game_over(board, num_players, current_player):
+        if rules.is_game_over(board, num_players, current_player, turn):
             return self.__value_gamestate(playergamestate, our_player)
         
         if current_player == our_player:

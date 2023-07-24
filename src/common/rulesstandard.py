@@ -250,7 +250,8 @@ class RulesStandard(Rules):
 
     def is_game_over(self, board: Board, 
                      num_players: int, 
-                     current_player: Player) -> bool:
+                     current_player: Player,
+                     turns: int) -> bool:
         '''
         Check to see if the game is over. A game is over if there is only 1
         players, 1 type of piece on the board, or no available moves left
@@ -258,14 +259,16 @@ class RulesStandard(Rules):
 
         @param: board: Board
         @param: num_players: int: Number of players in the game
-        @param: current_player: Player: 
+        @param: current_player: Player: current player in the game
+        @param: turns: int: current turn of the game
 
         @returns: bool: True if the game is over.
         '''
 
         return (num_players <= 1 or 
                 board.unique_piece_count() <= 1 or
-                self.__check_no_moves(board, current_player))
+                self.__check_no_moves(board, current_player) or
+                turns > 200)
     
 
     def __check_no_moves(self, board: Board, current_player: Player) -> bool:

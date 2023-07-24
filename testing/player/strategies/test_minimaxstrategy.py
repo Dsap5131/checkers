@@ -35,7 +35,7 @@ def test_make_move():
                      GamePiece(Piece.BLANK, False),
                      GamePiece(Piece.RED, False)]]
     board_1= Board(row_size=3, column_size=3, board=board_list_1)
-    playergamestate_1 = PlayerGameState(board_1, rules, players_1)
+    playergamestate_1 = PlayerGameState(board_1, rules, players_1, 0)
     expected_move_1 = Move(deque([Leap(Position(2,2), 
                                        Position(0,0),
                                        capture_positions=[Position(1,1)],
@@ -66,7 +66,7 @@ def test_make_move():
     playerstate_2_1 = PlayerState(Piece.RED)
     playerstate_2_2 = PlayerState(Piece.BLACK)
     players_2 = [playerstate_2_1, playerstate_2_2]
-    playergamestate_2 = PlayerGameState(board_2, rules, players_2)
+    playergamestate_2 = PlayerGameState(board_2, rules, players_2, 0)
     expected_move = Move(deque([Leap(Position(3,3), Position(2,2))]))
     assert strategy.make_move(playergamestate_2) == expected_move, \
         "MiniMaxStrategy.make_move(PlayerGameState) not working correctly."

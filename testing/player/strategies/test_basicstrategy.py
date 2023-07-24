@@ -34,7 +34,7 @@ def test_make_move() -> None:
     rules = RulesStandard()
     playerstate_red = PlayerState(Piece.RED)
     
-    playergamestate_2 = PlayerGameState(board_1, rules, [playerstate_red])
+    playergamestate_2 = PlayerGameState(board_1, rules, [playerstate_red],0)
     expected_move = Move(deque([Leap(Position(1,1), 
                                      Position(0,0),
                                      promote_positions=[Position(0,0)])]))
@@ -50,7 +50,7 @@ def test_make_move() -> None:
                     [blank_piece, blank_piece, blank_piece]]
     board_2 = Board(row_size=3, column_size=3, board=board_list_2)
     playerstate_black = PlayerState(Piece.BLACK)
-    playergamestate_2 = PlayerGameState(board_2, rules, [playerstate_black])
+    playergamestate_2 = PlayerGameState(board_2, rules, [playerstate_black],0)
     
     actual_move = strategy.make_move(playergamestate_2)
     expected_move = Move(deque([Leap(Position(1,1), 
@@ -65,7 +65,7 @@ def test_make_move() -> None:
                     [blank_piece, blank_piece, red_piece, blank_piece],
                     [blank_piece, blank_piece, blank_piece, blank_piece]]
     board_3 = Board(row_size=4, column_size=4, board=board_list_3)
-    playergamestate_3 = PlayerGameState(board_3, rules, [playerstate_black])
+    playergamestate_3 = PlayerGameState(board_3, rules, [playerstate_black],0)
     actual_move_3 = strategy.make_move(playergamestate_3)
     expected_leap_3 = Leap(Position(1,1), 
                            Position(3,3), 

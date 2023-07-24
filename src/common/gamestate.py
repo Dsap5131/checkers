@@ -14,13 +14,18 @@ class GameState():
     @param: board: Board: current board state
     @param: rules: Rules: Rules for dictating this game.
     @param: players: deque[Player]: queue of players in the game
+    @param: turn: current turn of the game
     '''
 
-    def __init__(self, board: Board, rules: Rules, players: deque[Player]) \
-            -> None:
+    def __init__(self, 
+                 board: Board, 
+                 rules: Rules, 
+                 players: deque[Player], 
+                 turn: int) -> None:
         self.__board = board
         self.__rules = rules
         self.__players = players
+        self.__turn = turn
 
 
     def is_game_over(self) -> bool:
@@ -32,7 +37,8 @@ class GameState():
 
         return self.__rules.is_game_over(self.__board, 
                                          len(self.__players), 
-                                         self.__players[0])
+                                         self.__players[0],
+                                         self.__turn)
     
 
     def take_turn(self) -> None:
@@ -48,6 +54,7 @@ class GameState():
             self.__players.append(current_player)
         elif not self.__rules.kickable():
             self.__players.append(current_player)
+        self.__turn += 1
 
     def __make_playerstates(self) -> list[PlayerState]:
         '''
@@ -68,7 +75,8 @@ class GameState():
         '''
         return PlayerGameState(Board.from_board(self.__board), 
                                self.__rules,
-                               self.__make_playerstates())
+                               self.__make_playerstates(),
+                               self.__turn)
     
 
     def end_game(self) -> None:

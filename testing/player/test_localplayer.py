@@ -35,7 +35,7 @@ def test_get_move() -> None:
     rules = RulesStandard()
     playerstate = PlayerState(Piece.BLACK)
     players = [playerstate]
-    playergamestate = PlayerGameState(board, rules, players)
+    playergamestate = PlayerGameState(board, rules, players, 0)
 
     assert isinstance(localplayer.get_move(playergamestate), Move)
 

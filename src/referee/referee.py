@@ -20,7 +20,7 @@ class Referee():
         '''
         
         self.continue_game(
-            GameState(rules.starting_board(), rules, deque(players)))
+            GameState(rules.starting_board(), rules, deque(players), 0))
 
 
     def continue_game(self, gamestate: GameState) -> None:

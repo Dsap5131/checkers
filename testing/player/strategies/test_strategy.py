@@ -23,7 +23,7 @@ def test_make_move() -> None:
     board = Board(row_size, column_size, board_list)
     rules = RulesStandard()
     playerstate = PlayerState(Piece.BLACK)
-    playergamestate = PlayerGameState(board, rules, [playerstate])
+    playergamestate = PlayerGameState(board, rules, [playerstate], 0)
 
     with pytest.raises(NotImplementedError):
         strategy.make_move(playergamestate)

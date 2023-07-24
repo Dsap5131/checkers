@@ -28,7 +28,7 @@ def test_get_move() -> None:
     rules = RulesStandard()
     playerstate = PlayerState(Piece.BLACK)
     players = [playerstate]
-    playergamestate = PlayerGameState(board, rules, players)
+    playergamestate = PlayerGameState(board, rules, players, 0)
 
     with pytest.raises(NotImplementedError):
         player.get_move(playergamestate)

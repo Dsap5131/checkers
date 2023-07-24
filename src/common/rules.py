@@ -45,13 +45,15 @@ class Rules():
     def is_game_over(self, 
                      board: Board, 
                      num_players: int,
-                     current_player: PlayerState) -> bool:
+                     current_player: PlayerState,
+                     turns: int) -> bool:
         '''
         Check to see if the game is over.
 
         @param: board: Board
         @param: num_players: int: Number of players in the game
         @param: current_player: PlayerState: the current player in the game
+        @param: turns: int: current turn of the game.
 
         @returns: bool: True if the game is over.
         '''

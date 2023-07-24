@@ -15,7 +15,7 @@ def test_constructor() -> None:
     rules = RulesStandard()
     playerstate = PlayerState(Piece.BLACK)
     players = [playerstate]
-    playergamestate = PlayerGameState(board, rules, players)
+    playergamestate = PlayerGameState(board, rules, players, 0)
 
 
 def test_get_board() -> None:
@@ -34,8 +34,8 @@ def test_get_board() -> None:
     playerstate_1 = PlayerState(Piece.BLACK)
     players = [playerstate_1]
 
-    playergamestate_1 = PlayerGameState(board_1, rules, players)
-    playergamestate_2 = PlayerGameState(board_2, rules, players)
+    playergamestate_1 = PlayerGameState(board_1, rules, players, 0)
+    playergamestate_2 = PlayerGameState(board_2, rules, players, 0)
 
     assert playergamestate_1.get_board() == board_1, \
         "PlayerGameState.get_board() not working."
@@ -53,7 +53,7 @@ def test_get_rules() -> None:
     rules = RulesStandard()
     playerstate = PlayerState(Piece.BLACK)
     players = [playerstate]
-    playergamestate = PlayerGameState(board, rules, players)
+    playergamestate = PlayerGameState(board, rules, players, 0)
 
     assert playergamestate.get_rules() == rules, \
         "PlayerGameState.get_rules() not working."
@@ -69,7 +69,7 @@ def test_get_current_player() -> None:
     rules = RulesStandard()
     playerstate = PlayerState(Piece.BLACK)
     players = [playerstate]
-    playergamestate = PlayerGameState(board, rules, players)
+    playergamestate = PlayerGameState(board, rules, players, 0)
 
     assert playergamestate.get_current_player() == playerstate, \
         "PlayerGameState.get_piece() not working."
@@ -86,12 +86,16 @@ def test_set_next_player() -> None:
     playerstate_1  = PlayerState(Piece.BLACK)
     playerstate_2 = PlayerState(Piece.BLACK)
     players = [playerstate_1, playerstate_2]
-    playergamestate = PlayerGameState(board, rules, players)
+    playergamestate = PlayerGameState(board, rules, players, 0)
 
     assert playergamestate.get_current_player() == playerstate_1, \
         "PlayerGameState.next_player() setup failed."
+    assert playergamestate.get_turn() == 0, \
+        "PlayerGameState.next_player() setup failed."
     playergamestate.set_next_player()
     assert playergamestate.get_current_player() == playerstate_2, \
+        "PlayerGameState.next_player() not working."
+    assert playergamestate.get_turn() == 1, \
         "PlayerGameState.next_player() not working."
 
 def test_get_num_players() -> None:
@@ -104,7 +108,7 @@ def test_get_num_players() -> None:
     playerstate_1 = PlayerState(Piece.BLACK)
     playerstate_2 = PlayerState(Piece.RED)
     players = [playerstate_1, playerstate_2]
-    playergamestate = PlayerGameState(board, rules, players)
+    playergamestate = PlayerGameState(board, rules, players, 0)
 
     assert playergamestate.get_num_players() == 2, \
         "PlayerGameState.get_num_players() not working."
@@ -118,7 +122,7 @@ def test_get_players() -> None:
     playerstate_1 = PlayerState(Piece.BLACK)
     playerstate_2 = PlayerState(Piece.RED)
     players = [playerstate_1, playerstate_2]
-    playergamestate = PlayerGameState(board, rules, players)
+    playergamestate = PlayerGameState(board, rules, players, 0)
 
     expected_players = [PlayerState(Piece.BLACK), 
                         PlayerState(Piece.RED)]

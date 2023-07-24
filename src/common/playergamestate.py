@@ -17,15 +17,19 @@ class PlayerGameState():
     def __init__(self, 
                  board: Board, 
                  rules: Rules, 
-                 players: list[PlayerState]) -> None:
+                 players: list[PlayerState],
+                 turn: int) -> None:
         self.__board = board
         self.__rules = rules
         self.__players = deque(players)
+        self.__turn = turn
 
     
     def get_board(self) -> Board:
         '''
         Get the board of the gamestate
+
+        @return: Board
         '''
 
         return self.__board
@@ -34,6 +38,8 @@ class PlayerGameState():
     def get_rules(self) -> Rules:
         '''
         Get the rules of the game
+
+        @return: Rules
         '''
 
         return self.__rules
@@ -42,6 +48,8 @@ class PlayerGameState():
     def get_current_player(self) -> PlayerState:
         '''
         Get the current player
+
+        @return: PlayerState
         '''
 
         return self.__players[0]
@@ -54,11 +62,14 @@ class PlayerGameState():
 
         current_player = self.__players.popleft()
         self.__players.append(current_player)
+        self.__turn += 1
 
 
     def get_num_players(self) -> int:
         '''
         Get the number of players in the game
+
+        @returns: int
         '''
 
         return len(self.__players)
@@ -67,6 +78,18 @@ class PlayerGameState():
     def get_players(self) -> list[PlayerState]:
         '''
         Returns a copy of the list of active players.
+
+        @returns: list[PlayerState]
         '''
 
         return list(deepcopy(self.__players))
+    
+
+    def get_turn(self) -> int:
+        '''
+        Return the current turn number.
+        
+        @returns: int
+        '''
+
+        return self.__turn
