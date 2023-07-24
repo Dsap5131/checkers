@@ -645,7 +645,7 @@ def test_is_winner() -> None:
     board_1 = Board(row_size=2, column_size=2, board=board_list_1)
     playerstate_1 = PlayerState(Piece.RED)
 
-    assert rules.is_winner(board_1, playerstate_1), \
+    assert rules.is_winner(board_1, playerstate_1, 2), \
         "RulesStandard.is_winner(Board, PlayerState) not working correctly."
     
     # Test an invalid winner
@@ -654,7 +654,7 @@ def test_is_winner() -> None:
     board_2 = Board(row_size=2, column_size=2, board=board_list_1)
     playerstate_2 = PlayerState(Piece.BLACK)
 
-    assert rules.is_winner(board_2, playerstate_2) == False, \
+    assert rules.is_winner(board_2, playerstate_2, 2) == False, \
         "RulesStandard.is_winner(Board, PlayerState) not working correctly."
     
     # Test an invalid winner
@@ -663,9 +663,18 @@ def test_is_winner() -> None:
     board_3 = Board(row_size=2, column_size=2, board=board_list_3)
     playerstate_3 = PlayerState(Piece.BLACK)
 
-    assert rules.is_winner(board_3, playerstate_3) == False, \
+    assert rules.is_winner(board_3, playerstate_3, 2) == False, \
         "RulesStandard.is_winner(Board, PlayerState) not working correctly."
     
+    # Test a valid winner because they are the only player
+    board_list_4 = [[GamePiece(Piece.BLACK), GamePiece(Piece.BLANK)],
+                    [GamePiece(Piece.BLANK), GamePiece(Piece.RED)]]
+    board_4 = Board(row_size=2, column_size=2, board=board_list_4)
+    playerstate_4 = PlayerState(Piece.RED)
+
+    assert rules.is_winner(board_4, playerstate_4, 1), \
+        "RulesStandard.is_winner(Board, PlayerState) not working correctly."
+
 
 def test_starting_board() -> None:
     board_list = [[GamePiece(Piece.BLACK), GamePiece(Piece.BLANK), 

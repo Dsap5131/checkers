@@ -5,6 +5,7 @@ from src.common.rules import Rules
 from src.common.player import Player
 from src.common.playergamestate import PlayerGameState
 from src.common.playerstate import PlayerState
+from src.common.position import Position
 
 class GameState():
     '''
@@ -76,7 +77,9 @@ class GameState():
 
         for player in self.__players:
             player.won(
-                self.__rules.is_winner(self.__board, player.get_playerstate()))
+                self.__rules.is_winner(self.__board, 
+                                       player.get_playerstate(),
+                                       len(self.__players)))
 
 
 

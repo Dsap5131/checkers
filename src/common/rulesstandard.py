@@ -457,7 +457,10 @@ class RulesStandard(Rules):
         return leaps
     
 
-    def is_winner(self, board: Board, playerstate: PlayerState) -> bool:
+    def is_winner(self, 
+                  board: Board, 
+                  playerstate: PlayerState,
+                  num_players: int) -> bool:
         '''
         Return if the player is a winner based on the given board
         
@@ -467,7 +470,9 @@ class RulesStandard(Rules):
         @returns: List[Move]
         '''
 
-        if board.unique_piece_count() != 1:
+        if num_players == 1:
+            return True
+        elif board.unique_piece_count() != 1:
             return False
         
         for r in range(board.get_row_size()):

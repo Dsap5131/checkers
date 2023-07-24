@@ -122,14 +122,15 @@ class MiniMaxStrategy(Strategy):
 
         rules = playergamestate.get_rules()
         board = playergamestate.get_board()
+        num_players = playergamestate.get_num_players()
 
-        if rules.is_winner(board, our_player):
+        if rules.is_winner(board, our_player, num_players):
             return 1
         
         players = playergamestate.get_players()
         players.remove(our_player)
         for player in players:
-            if rules.is_winner(board, player):
+            if rules.is_winner(board, player, num_players):
                 return -1
 
         return 0 
