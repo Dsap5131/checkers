@@ -39,14 +39,15 @@ class GameState():
         '''
         Go through one turn of the game.
         '''
+
+        playerstates = self.__make_playergamestate()
         current_player = self.__players.popleft()
-        move = current_player.get_move(self.__make_playergamestate())
+        move = current_player.get_move(playerstates)
         if self.__rules.check_move(move, self.__board, current_player):
             self.__board.move_piece(move)
             self.__players.append(current_player)
         elif not self.__rules.kickable():
             self.__players.append(current_player)
-
 
     def __make_playerstates(self) -> list[PlayerState]:
         '''
