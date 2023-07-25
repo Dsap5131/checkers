@@ -110,6 +110,18 @@ class RulesDumb(Rules):
         '''
 
         return Board(1,1,[[GamePiece(Piece.BLANK)]])
+    
+
+    def __eq__(self, obj) -> bool:
+        '''
+        Check whether two RulesDumb objects are equal.
+
+        @param: obj
+
+        @return: bool
+        '''
+
+        return isinstance(obj, RulesDumb)
 
         
 

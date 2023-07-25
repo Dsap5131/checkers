@@ -93,3 +93,20 @@ class PlayerGameState():
         '''
 
         return self.__turn
+    
+
+    def __eq__(self, obj) -> bool:
+        '''
+        Override __eq__ of PlayerGameState.
+
+        PlayerGameStates are equal if all the fields are equal.
+        '''
+
+        if not isinstance(obj, PlayerGameState):
+            return False
+        
+        return (obj.get_board() == self.get_board() and
+                obj.get_rules() == self.get_rules() and
+                obj.get_players() == self.get_players() and
+                obj.get_turn() == self.get_turn())
+

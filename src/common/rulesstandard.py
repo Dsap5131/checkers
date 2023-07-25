@@ -520,6 +520,18 @@ class RulesStandard(Rules):
         return Board(row_size=8, column_size=column_size, board=board_list)
         
 
+    def __eq__(self, obj) -> bool:
+        '''
+        Return if two RulesStandards are equal
+        
+        @param: obj
+
+        @return: bool
+        '''
+
+        return isinstance(obj, RulesStandard)
+
+
 
 
 

@@ -6,6 +6,7 @@ from src.common.piece import Piece
 from src.player.localplayer import LocalPlayer
 from src.player.strategies.dumbstrategy import DumbStrategy
 from src.common.playerstate import PlayerState
+from src.common.rulesdumb import RulesDumb
 
 def test_constructor() -> None:
     blank_piece = GamePiece(Piece.BLANK, False)
@@ -137,3 +138,52 @@ def test_get_players() -> None:
         "PlayerGameState.get_players() not working correctly."
     assert actual_players != playergamestate.get_players(), \
         "PlayerGamestate.get_players() not working correctly."
+    
+
+def test__eq() -> None:
+    board_1 = Board(1,1,[[GamePiece(Piece.BLANK)]])
+    board_2 = Board(1,1,[[GamePiece(Piece.BLANK)]])
+    board_3 = Board(1,1,[[GamePiece(Piece.RED)]])
+
+    players_1 = [PlayerState(Piece.BLACK)]
+    players_2 = [PlayerState(Piece.BLACK)]
+    players_3 = [PlayerState(Piece.BLACK), PlayerState(Piece.RED)]
+
+    playergamestate_1 = PlayerGameState(board_1,
+                                        RulesStandard(),
+                                        players_1,
+                                        1)
+    playergamestate_2 = PlayerGameState(board_2,
+                                        RulesStandard(),
+                                        players_2,
+                                        1)
+    playergamestate_3 = PlayerGameState(board_3,
+                                        RulesStandard(),
+                                        players_2,
+                                        1)
+    playergamestate_4 = PlayerGameState(board_2,
+                                        RulesDumb(),
+                                        players_2,
+                                        1)
+    playergamestate_5 = PlayerGameState(board_2,
+                                        RulesStandard(),
+                                        players_3,
+                                        1)
+    playergamestate_6 = PlayerGameState(board_2,
+                                        RulesStandard(),
+                                        players_2,
+                                        2)
+    
+    assert playergamestate_1 == playergamestate_2, \
+        "PlayerGameState == PlayerGameState not working."
+    assert playergamestate_1 != playergamestate_3, \
+        "PlayerGameState == PlayerGameState not working."
+    assert playergamestate_1 != playergamestate_4, \
+        "PlayerGameState == PlayerGamestate not working."
+    assert playergamestate_1 != playergamestate_5, \
+        "PlayerGameState == PlayerGameState not working."
+    assert playergamestate_1 != playergamestate_6, \
+        "PlayerGameState == PlayerGameState not working."
+    assert playergamestate_1 != 5, \
+        "PlayerGameState == PlayerGameState not working."
+    

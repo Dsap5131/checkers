@@ -112,4 +112,16 @@ class Rules():
 
         raise NotImplementedError(
             "THIS IS NOT IMPLEMENTED AND SHOULD NEVER BE CALLED.")
+    
 
+    def __eq__(self, obj) -> bool:
+        '''
+        Return whether two Rules are equals
+
+        @param: obj
+
+        @return: bool
+        '''
+
+        raise NotImplementedError(
+            "THIS IS NOT IMPLEMENTED AND SHOULD NEVER BE CALLED.") 

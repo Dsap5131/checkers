@@ -10,6 +10,7 @@ from src.common.leap import Leap
 from src.common.position import Position
 from src.common.move import Move
 from src.common.playerstate import PlayerState
+from src.common.rulesstandard import RulesStandard
 
 def test_constructor() -> None:
     rules = RulesDumb()
@@ -104,3 +105,9 @@ def test_starting_board() -> None:
 
     assert RulesDumb().starting_board() == board, \
         "RulesDumb.default_board() not working correctly."
+    
+
+def test_eq() -> None:
+    assert RulesDumb() == RulesDumb(), "RulesDumb == RulesDumb not working."
+    assert RulesDumb() != RulesStandard(), "RulesDumb == RulesDumb not working."
+    assert RulesDumb() != 5, "Rulesdumb == RulesDumb not working."

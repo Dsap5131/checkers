@@ -10,6 +10,7 @@ from src.common.piece import Piece
 from src.common.position import Position
 from src.common.leap import Leap
 from src.common.playerstate import PlayerState
+from src.common.rulesdumb import RulesDumb
 
 
 def test_constructor() -> None:
@@ -729,3 +730,13 @@ def test_starting_board() -> None:
     
     assert RulesStandard().starting_board() == board, \
         "RulesStandard.starting_board() not working correctly."
+    
+
+def test_eq() -> None:
+    assert RulesStandard() == RulesStandard(), \
+        "RulesStandard.__eq__ not working."
+    assert RulesStandard() != RulesDumb(), \
+        "RulesStandard.__eq__ not working."
+    assert RulesStandard() != 5, \
+        "RulesStandard.__eq__ not working."
+    
