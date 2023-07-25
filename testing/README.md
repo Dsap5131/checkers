@@ -15,6 +15,8 @@ testing file.
 For example
 `python3 -m pytest testing/test_board.py`
 
+The tests in [remote](./remote/README.md) require use of port 12345
+
 # Directory
 | File or Folder | About |
 | ---            | ---   |
@@ -22,3 +24,4 @@ For example
 | [player](./player/README.md) | Tests for [src/player](../src/player/README.md) |
 | [referee](./referee/README.md) | Tests for [src/referee](../src/referee/README.md) |
 | [server](./server/README.md) | Tests for [src/server](../src/server/README.md) |
+| [remote](./remote/README.md) | Tests for [src/remote](../src/remote/README.md) |
