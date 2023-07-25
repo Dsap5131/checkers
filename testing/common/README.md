@@ -16,3 +16,4 @@ Testing for the src/common directory
 | [test_rulesdumb.py](./test_rulesdumb.py) | Tests for [RulesDumb](../../src/common/rulesdumb.py) |
 | [test_gamepiece.py](./test_gamepiece.py) | Tests for [GamePiece](../../src/common/gamepiece.py) |
 | [test_playerstate.py](./test_playerstate.py) | Tests for [PlayerState](../../src/common/playerstate.py) |
+| [test_json_converter.py](./test_json_converter.py) | Tests for [JsonConverter](../../src/common/json_converter.py) |
