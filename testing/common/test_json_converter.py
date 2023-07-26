@@ -49,6 +49,14 @@ def test_move_to_json() -> None:
                             Position(0,0),
                             [Position(1,1)],
                             [Position(0,0)])]))
+    move_2 = Move(deque([Leap(Position(4,4),
+                              Position(2,2),
+                              [Position(3,3)],
+                              []),
+                         Leap(Position(2,2),
+                              Position(0,0),
+                              [Position(1,1)],
+                              [Position(0,0)])]))
 
     leap_1 = {'start_position': {'row':4,'column':4},
               'end_position': {'row':2,'column':2},
@@ -62,6 +70,12 @@ def test_move_to_json() -> None:
 
     assert json_converter.move_to_json(move) == expected, \
         "JsonConverter.move_to_json(move) not working correctly."
+    # Ensure json_converter doesn't mutate move
+    assert move == move_2, \
+        "JsonConverter.move_to_json(move) setup failed."
+    json_converter.move_to_json(move)
+    assert move == move_2, \
+        "JsonConverter.move_to_json(move) failed."
     
 
 def test_json_to_move() -> None:

@@ -107,6 +107,7 @@ class JsonConverter():
         json = []
         while move.leaps_remaining() > 0:
             json.append(self.__leap_to_json(move.get_next_leap()))
+        move.reset()
         return json
     
 
