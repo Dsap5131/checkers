@@ -12,6 +12,7 @@ class PlayerGameState():
     @param: board: Board
     @param: rules: Rules
     @param: players: deque[PlayerState]
+    @param: turn: int
     '''
 
     def __init__(self, 
