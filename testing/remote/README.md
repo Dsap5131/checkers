@@ -9,4 +9,4 @@ These tests require use of port 12345
 |   File or Folder | About |
 |   ---            | ---   |
 | [test_playerproxy.py](./test_playerproxy.py) | Tests for [PlayerProxy](../../src/playerproxy/playerproxy.py) |
-| [test_remoteproxy.py](./test_remoteproxy.py) | Tests for [RemoteProxy](../../src/remoteproxy/remoteproxy.py) |
+| [test_refereeproxy.py](./test_refereeproxy.py) | Tests for [RefereeProxy](../../src/refereeproxy/refereeproxy.py) |

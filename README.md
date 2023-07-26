@@ -12,7 +12,7 @@ responsible code I write.
 
 # TODO
 
-1. Implement JSON converter
+1. playerproxy and refereeproxy
 2. Implement online player
 3. Implement Server and Client
 4. Update diagrams and design pngs

@@ -2,6 +2,7 @@ import time
 import json
 import socket
 
+from multiprocessing import Process, Pipe
 from collections import deque
 
 from src.remote.playerproxy import PlayerProxy
@@ -16,24 +17,32 @@ from src.common.leap import Leap
 from src.common.position import Position
 from src.common.json_converter import JsonConverter
 
+
 HOSTNAME = '127.0.0.1'
-PORT = '12345'
+PORT = 12345
 PACKET_SIZE = 1024
 ENCODING = "utf-8"
+
+def mock_playerproxy_get_move(playerproxy, pgs, pipe):
+    pipe.send(playerproxy.get_move(pgs))
+
 
 def test_constructor() -> None:
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.bind((HOSTNAME, PORT))
     server_socket.listen()
 
-    time.sleep(1)
 
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client_socket.connect((HOSTNAME, PORT))
 
     payload, address = server_socket.accept()
 
-    playerproxy = PlayerProxy(payload, Piece.RED)
+    playerproxy = PlayerProxy(payload)
+
+    payload.close()
+    client_socket.close()
+    server_socket.close()
 
 
 def test_get_move() -> None:
@@ -41,14 +50,13 @@ def test_get_move() -> None:
     server_socket.bind((HOSTNAME, PORT))
     server_socket.listen()
 
-    time.sleep(1)
 
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client_socket.connect((HOSTNAME, PORT))
 
     payload, address = server_socket.accept()
 
-    playerproxy = PlayerProxy(payload, Piece.RED)
+    playerproxy = PlayerProxy(payload)
 
     board_list = [[GamePiece(Piece.BLANK), GamePiece(Piece.BLACK)],
                   [GamePiece(Piece.BLANK), GamePiece(Piece.RED)]]
@@ -67,15 +75,26 @@ def test_get_move() -> None:
                                 [],
                                 [Position(0,0)])]))
     
+    conn1, conn2 = Pipe()
+    server_process = \
+        Process(target=mock_playerproxy_get_move, args=(playerproxy,
+                                               playergamestate,
+                                               conn2))
+    server_process.start()
 
-
-    move = playerproxy.get_move(playergamestate)
-
-    
-    msg = json.loads(client_socket.recv(1000000).decode(ENCODING))
-    pgs_json = jsonconverter.playergamestate_to_json(playergamestate)
+    msg = json.loads(client_socket.recv(PACKET_SIZE).decode(ENCODING))
+    move_json = jsonconverter.move_to_json(expected)
     client_socket.sendall(
-        (json.dumps(pgs_json, ensure_ascii=False) + '\n').encode("utf-8"))
+        (json.dumps(move_json, ensure_ascii=False) + '\n').encode(ENCODING))
+    
+    server_process.join(timeout=5)
+    server_process.terminate()
+
+    move = conn1.recv()
+
+    payload.close()
+    client_socket.close()
+    server_socket.close()
 
     assert msg[0] == 'get_move', \
         "PlayerProxy.get_move(playergamestate) not working correctly."
@@ -85,26 +104,29 @@ def test_get_move() -> None:
         "PlayerProxy.get_move(playergamestate) not working correctly."
     
 
-    playerproxy.get_move(playergamestate) == expected, \
-        "PlayerProxy.get_piece() not working correctly."
-
-
 def test_won() -> None:
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_socket.bind((HOSTNAME, PORT))
     server_socket.listen()
-
-    time.sleep(1)
 
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client_socket.connect((HOSTNAME, PORT))
 
     payload, address = server_socket.accept()
 
-    playerproxy = PlayerProxy(payload, Piece.RED)
+    playerproxy = PlayerProxy(payload)
 
-    playerproxy.won(True)
-    msg = json.loads(client_socket.recv(1000000).decode(ENCODING))
+    server_process = \
+        Process(target=playerproxy.won, args=(True,))
+    server_process.start()
+
+    msg = json.loads(client_socket.recv(PACKET_SIZE).decode(ENCODING))
+
+    server_process.join(timeout=5)
+    server_process.terminate()
+    payload.close()
+    client_socket.close()
+    server_socket.close()
 
     assert msg[0] == 'won', \
         "PlayerProxy.won(bool) not working correctly."
