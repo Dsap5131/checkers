@@ -23,7 +23,7 @@ def test_get_piece() -> None:
     timeoutplayer_process.terminate()
 
     assert timeoutplayer_process.exitcode is None, \
-        "timeoutplayer.get_piece() not working"
+        "TimeoutPlayer.get_piece() not working"
 
 
 def test_get_move() -> None:
@@ -43,7 +43,7 @@ def test_get_move() -> None:
     timeoutplayer_process.terminate()
 
     assert timeoutplayer_process.exitcode is None, \
-        "timeoutplayer.get_move(playergamestate) not working"
+        "TimeoutPlayer.get_move(PlayerGameState) not working"
 
 
 def test_won() -> None:
@@ -56,7 +56,7 @@ def test_won() -> None:
     timeoutplayer_process.terminate()
 
     assert timeoutplayer_process.exitcode is None, \
-        "timeoutplayer.won(bool) not working"
+        "TimeoutPlayer.won(bool) not working"
 
 
 def get_playerstate() -> None:
@@ -68,4 +68,4 @@ def get_playerstate() -> None:
     timeoutplayer_process.terminate()
 
     assert timeoutplayer_process.exitcode is None, \
-        "timeoutplayer.get_playerstate() not working."
+        "TimeoutPlayer.get_playerstate() not working."

@@ -27,6 +27,10 @@ class RefereeProxy():
     def listening(self) -> None:
         '''
         Start the referee proxy to listen for requests from the referee.    
+
+        When a player is informated about if they won or lost that means a game 
+        is over. Therefor the refereeproxy will stop listening once 
+        __won has been called.
         '''
         while self.__game_running:
             try:
