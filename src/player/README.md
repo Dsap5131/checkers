@@ -13,3 +13,4 @@ Above is the design for the player directory.
 | ---            | ---   |
 | [localplayer.py](./localplayer.py) | [LocalPlayer](./localplayer.py) |
 | [strategies](./strategies/README.md) | Contains strategies. |
+| [timeoutplayer.py](./timeoutplayer.py) | [TimeoutPlayer](./timeoutplayer.py) |

@@ -7,3 +7,4 @@ Testing for the src/player
 |   ---            | ---   |
 | [test_localplayer.py](./test_localplayer.py) | Tests for [LocalPlayer](../../src/player/localplayer.py) |
 | [strategies](./strategies/README.md) | Tests for [strategies](../../src/player/strategies/README.md) | 
+| [test_timeoutplayer.py](./test_timeoutplayer.py) | Tests for [TimeoutPlayer](../../src/player/timeoutplayer.py) |
