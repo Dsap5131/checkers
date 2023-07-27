@@ -19,8 +19,8 @@ from src.common.json_converter import JsonConverter
 
 
 HOSTNAME = '127.0.0.1'
-PORT = 12345
 PACKET_SIZE = 1024
+PORT = 12_345
 ENCODING = "utf-8"
 
 def mock_playerproxy_get_move(playerproxy, pgs, pipe):
@@ -28,107 +28,98 @@ def mock_playerproxy_get_move(playerproxy, pgs, pipe):
 
 
 def test_constructor() -> None:
-    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server_socket.bind((HOSTNAME, PORT))
-    server_socket.listen()
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server_socket:
+        server_socket.bind((HOSTNAME, PORT))
+        server_socket.listen()
 
 
-    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    client_socket.connect((HOSTNAME, PORT))
+        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        client_socket.connect((HOSTNAME, PORT))
 
-    payload, address = server_socket.accept()
+        payload, address = server_socket.accept()
 
-    playerproxy = PlayerProxy(payload)
+        playerproxy = PlayerProxy(payload)
 
-    payload.close()
-    client_socket.close()
-    server_socket.close()
 
 
 def test_get_move() -> None:
-    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server_socket.bind((HOSTNAME, PORT))
-    server_socket.listen()
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server_socket:
+        server_socket.bind((HOSTNAME, PORT))
+        server_socket.listen()
 
 
-    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    client_socket.connect((HOSTNAME, PORT))
+        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        client_socket.connect((HOSTNAME, PORT))
 
-    payload, address = server_socket.accept()
+        payload, address = server_socket.accept()
 
-    playerproxy = PlayerProxy(payload)
+        playerproxy = PlayerProxy(payload)
 
-    board_list = [[GamePiece(Piece.BLANK), GamePiece(Piece.BLACK)],
-                  [GamePiece(Piece.BLANK), GamePiece(Piece.RED)]]
-    board = Board(row_size=2, column_size=2, board=board_list)
+        board_list = [[GamePiece(Piece.BLANK), GamePiece(Piece.BLACK)],
+                    [GamePiece(Piece.BLANK), GamePiece(Piece.RED)]]
+        board = Board(row_size=2, column_size=2, board=board_list)
 
-    playergamestate = PlayerGameState(board,
-                                      RulesDumb(),
-                                      [PlayerState(Piece.RED),
-                                       PlayerState(Piece.BLACK)],
-                                      1)
+        playergamestate = PlayerGameState(board,
+                                        RulesDumb(),
+                                        [PlayerState(Piece.RED),
+                                        PlayerState(Piece.BLACK)],
+                                        1)
 
-    jsonconverter = JsonConverter()
-    
-    expected = Move(deque([Leap(Position(1,1),
-                                Position(0,0),
-                                [],
-                                [Position(0,0)])]))
-    
-    conn1, conn2 = Pipe()
-    server_process = \
-        Process(target=mock_playerproxy_get_move, args=(playerproxy,
-                                               playergamestate,
-                                               conn2))
-    server_process.start()
+        jsonconverter = JsonConverter()
+        
+        expected = Move(deque([Leap(Position(1,1),
+                                    Position(0,0),
+                                    [],
+                                    [Position(0,0)])]))
+        
+        conn1, conn2 = Pipe()
+        server_process = \
+            Process(target=mock_playerproxy_get_move, args=(playerproxy,
+                                                playergamestate,
+                                                conn2))
+        server_process.start()
 
-    msg = json.loads(client_socket.recv(PACKET_SIZE).decode(ENCODING))
-    move_json = jsonconverter.move_to_json(expected)
-    client_socket.sendall(
-        (json.dumps(move_json, ensure_ascii=False) + '\n').encode(ENCODING))
-    
-    server_process.join(timeout=5)
-    server_process.terminate()
+        msg = json.loads(client_socket.recv(PACKET_SIZE).decode(ENCODING))
+        move_json = jsonconverter.move_to_json(expected)
+        client_socket.sendall(
+            (json.dumps(move_json, ensure_ascii=False) + '\n').encode(ENCODING))
+        
+        server_process.join(timeout=5)
+        server_process.terminate()
 
-    move = conn1.recv()
+        move = conn1.recv()
 
-    payload.close()
-    client_socket.close()
-    server_socket.close()
 
-    assert msg[0] == 'get_move', \
-        "PlayerProxy.get_move(playergamestate) not working correctly."
-    assert jsonconverter.json_to_playergamestate(msg[1]) == playergamestate, \
-        "PlayerProxy.get_move(playergamestate) not working correctly."
-    assert move == expected, \
-        "PlayerProxy.get_move(playergamestate) not working correctly."
+        assert msg[0] == 'get_move', \
+            "PlayerProxy.get_move(playergamestate) not working correctly."
+        assert jsonconverter.json_to_playergamestate(msg[1]) ==playergamestate,\
+            "PlayerProxy.get_move(playergamestate) not working correctly."
+        assert move == expected, \
+            "PlayerProxy.get_move(playergamestate) not working correctly."
     
 
 def test_won() -> None:
-    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server_socket.bind((HOSTNAME, PORT))
-    server_socket.listen()
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server_socket:
+        server_socket.bind((HOSTNAME, PORT))
+        server_socket.listen()
 
-    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    client_socket.connect((HOSTNAME, PORT))
+        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        client_socket.connect((HOSTNAME, PORT))
 
-    payload, address = server_socket.accept()
+        payload, address = server_socket.accept()
 
-    playerproxy = PlayerProxy(payload)
+        playerproxy = PlayerProxy(payload)
 
-    server_process = \
-        Process(target=playerproxy.won, args=(True,))
-    server_process.start()
+        server_process = \
+            Process(target=playerproxy.won, args=(True,))
+        server_process.start()
 
-    msg = json.loads(client_socket.recv(PACKET_SIZE).decode(ENCODING))
+        msg = json.loads(client_socket.recv(PACKET_SIZE).decode(ENCODING))
 
-    server_process.join(timeout=5)
-    server_process.terminate()
-    payload.close()
-    client_socket.close()
-    server_socket.close()
+        server_process.join(timeout=5)
+        server_process.terminate()
 
-    assert msg[0] == 'won', \
-        "PlayerProxy.won(bool) not working correctly."
-    assert msg[1] == True, \
-        "PlayerProxy.won(bool) not working correctly."
+        assert msg[0] == 'won', \
+            "PlayerProxy.won(bool) not working correctly."
+        assert msg[1] == True, \
+            "PlayerProxy.won(bool) not working correctly."

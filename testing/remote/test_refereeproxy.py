@@ -20,7 +20,7 @@ from src.common.leap import Leap
 from src.common.position import Position
 
 HOSTNAME = '127.0.0.1'
-PORT = 12345
+PORT = 12_345
 PACKET_SIZE = 1024
 ENCODING = "utf-8"
 
@@ -32,87 +32,84 @@ def mock_referee_won(payload, conn) -> None:
 
 
 def test_constructor() -> None:
-    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server_socket.bind((HOSTNAME, PORT))
-    server_socket.listen()
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server_socket:
+        server_socket.bind((HOSTNAME, PORT))
+        server_socket.listen()
 
-    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    client_socket.connect((HOSTNAME, PORT))
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client_socket:
+            client_socket.connect((HOSTNAME, PORT))
 
-    payload, address = server_socket.accept()
+            payload, address = server_socket.accept()
 
-    referee = RefereeProxy(client_socket, 
-                           LocalPlayer(Piece.RED, DumbStrategy()))
-
-    payload.close()
-    client_socket.close()
-    server_socket.close()
+            referee = RefereeProxy(client_socket, 
+                                LocalPlayer(Piece.RED, DumbStrategy()))
 
 
 def test_listening() -> None:
-    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server_socket.bind((HOSTNAME, PORT))
-    server_socket.listen()
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server_socket:
+        server_socket.bind((HOSTNAME, PORT))
+        server_socket.listen()
 
-    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    client_socket.connect((HOSTNAME, PORT))
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client_socket:
+            client_socket.connect((HOSTNAME, PORT))
 
-    payload, address = server_socket.accept()
-    json_converter = JsonConverter()
-    player = LocalPlayer(Piece.RED, DumbStrategy())
-    referee = RefereeProxy(client_socket, player)
-    
-    referee_process = Process(target=referee.listening)
-    referee_process.start()
+            payload, address = server_socket.accept()
+            json_converter = JsonConverter()
+            player = LocalPlayer(Piece.RED, DumbStrategy())
+            referee = RefereeProxy(client_socket, player)
+            
+            referee_process = Process(target=referee.listening)
+            referee_process.start()
 
-    # Test where you are get_piece    
-    payload.send((json.dumps(["get_piece"])).encode(ENCODING))
-    msg_1 = payload.recv(PACKET_SIZE).decode(ENCODING)
-    piece = json_converter.json_to_piece(json.loads(msg_1))
+            # Test where you are get_piece    
+            payload.send((json.dumps(["get_piece"])).encode(ENCODING))
+            msg_1 = payload.recv(PACKET_SIZE).decode(ENCODING)
+            piece = json_converter.json_to_piece(json.loads(msg_1))
 
-    referee_process.join(timeout=2)
-    referee_process.terminate()
+            referee_process.join(timeout=1)
+            referee_process.terminate()
 
-    assert piece == Piece.RED, \
-        "Referee.listening() not working"
-    
-    # Test where you are get_move
-    referee_process = Process(target=referee.listening)
-    referee_process.start()
+            assert piece == Piece.RED, \
+                "Referee.listening() not working"
+            
+            # Test where you are get_move
+            referee_process = Process(target=referee.listening)
+            referee_process.start()
 
-    board_list = [[GamePiece(Piece.BLANK)]]
-    board = Board(row_size=1, column_size=1, board=board_list)
-    playergamestate = PlayerGameState(board,
-                                      RulesDumb(),
-                                      [PlayerState(Piece.RED)],
-                                      1)
+            board_list = [[GamePiece(Piece.BLANK)]]
+            board = Board(row_size=1, column_size=1, board=board_list)
+            playergamestate = PlayerGameState(board,
+                                            RulesDumb(),
+                                            [PlayerState(Piece.RED)],
+                                            1)
 
-    msg_2 = 'get_move'
-    json_obj_2 = json_converter.playergamestate_to_json(playergamestate)
-    payload.send((json.dumps([msg_2, json_obj_2])).encode(ENCODING))
-    response_2 = payload.recv(PACKET_SIZE).decode(ENCODING)
-    move = json_converter.json_to_move(json.loads(response_2))
+            msg_2 = 'get_move'
+            json_obj_2 = json_converter.playergamestate_to_json(playergamestate)
+            payload.send((json.dumps([msg_2, json_obj_2])).encode(ENCODING))
+            response_2 = payload.recv(PACKET_SIZE).decode(ENCODING)
+            move = json_converter.json_to_move(json.loads(response_2))
 
-    referee_process.join(timeout=2)
-    referee_process.terminate()
+            referee_process.join(timeout=1)
+            referee_process.terminate()
 
-    assert move == Move(deque([Leap(Position(0,0), Position(0,0), [], [])])), \
-        "Referee.listening() not working."
-    
-    # Test where you are won
-    conn1, conn2 = Pipe()
-    referee_process = Process(target=mock_referee_won, args=(client_socket,conn2))
-    referee_process.start()
-    payload.send((json.dumps(['won', True])).encode(ENCODING))
-    payload.close()
-    client_socket.close()
-    server_socket.close()
-    
-    referee_process.join(timeout=2)
-    referee_process.terminate()
+            assert move == Move(deque([Leap(Position(0,0), 
+                                            Position(0,0), 
+                                            [], 
+                                            [])])), \
+                "Referee.listening() not working."
+            
+            # Test where you are won
+            conn1, conn2 = Pipe()
+            referee_process = Process(target=mock_referee_won, 
+                                      args=(client_socket,conn2))
+            referee_process.start()
+            payload.send((json.dumps(['won', True])).encode(ENCODING))
 
-    expected = conn1.recv()
+            referee_process.join(timeout=1)
+            referee_process.terminate()
 
-    assert True == expected, \
-        "Referee.listening() not working."
-    
+            expected = conn1.recv()
+
+            assert True == expected, \
+                "Referee.listening() not working."
+            

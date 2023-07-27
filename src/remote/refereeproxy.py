@@ -21,13 +21,14 @@ class RefereeProxy():
         self.__payload = payload
         self.__player = player
         self.__converter = JsonConverter()
+        self.__game_running = True
 
 
     def listening(self) -> None:
         '''
         Start the referee proxy to listen for requests from the referee.    
         '''
-        while True:
+        while self.__game_running:
             try:
                 msg=self.__payload.recv(self.PACKET_SIZE).decode(self.ENCODING)
                 self.__parse_function_call(json.loads(msg))
@@ -64,6 +65,7 @@ class RefereeProxy():
 
     def __won(self, winner: bool) -> None:
         self.__player.won(winner)
+        self.__game_running = False
 
     
     def __send(self, json_obj) -> None:
