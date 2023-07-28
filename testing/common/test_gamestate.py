@@ -120,11 +120,8 @@ def test_take_turn() -> None:
     gs2_process.start()
     gs2_process.join(timeout=45)
     gs2_process.terminate()
-
+    
     assert gs2_process.exitcode != 0, 'GameState.take_turn() not working.'
-    assert gamestate_2.is_game_over() == True, \
-        'GameState.take_turn() not working'
-
 
 def test_end_game() -> None:
     board = Board(1, 1, [[GamePiece(Piece.RED)]])

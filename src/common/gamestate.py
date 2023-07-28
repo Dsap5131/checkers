@@ -50,10 +50,10 @@ class GameState():
 
         playerstates = self.__make_playergamestate()
         current_player = self.__players.popleft()
-        move = self.__player_interaction(current_player.get_move,
-                                         [playerstates])
-        print(move)
-        if self.__rules.check_move(move, self.__board, current_player):
+        intime, move = self.__player_interaction(current_player.get_move,
+                                                 [playerstates])
+        print(intime)
+        if intime and self.__rules.check_move(move,self.__board,current_player):
             self.__board.move_piece(move)
             self.__players.append(current_player)
         elif not self.__rules.kickable():
@@ -61,7 +61,7 @@ class GameState():
         self.__turn += 1
 
 
-    def __player_interaction(self, func, args: list) -> any:
+    def __player_interaction(self, func, args: list) -> tuple[bool, any]:
         '''
         All moments of interactions were the player is communicating to the game
         go through this function. This is to moderate timeouts and errors from 
@@ -70,7 +70,9 @@ class GameState():
         @params: func: function
         @params: args: list
 
-        @return: any
+        @return: tuple[bool, any]: The bool is True if there was a returned 
+                                   value. If bool is false then the returned
+                                   value is None.
         '''
 
         conn1, conn2 = Pipe()
@@ -80,7 +82,10 @@ class GameState():
         process.join(timeout=self.__timeout)
         process.terminate()
 
-        return conn1.recv()
+        if process.exitcode is None:
+            return False, None
+        else:
+            return True, conn1.recv()
 
 
     def __player_interaction_process(self, 
