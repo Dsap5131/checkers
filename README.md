@@ -12,7 +12,6 @@ responsible code I write.
 
 # TODO
 
-2. Implement online player
 3. Implement Server and Client
 4. Update diagrams and design pngs
 5. Instance checking on parameters? What is the best practice

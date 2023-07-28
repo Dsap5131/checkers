@@ -16,6 +16,7 @@ For example
 `python3 -m pytest testing/test_board.py`
 
 The tests in [remote](./remote/README.md) require use of port 12345
+Some tests in [player](./player/README.md) require use of port 12345
 
 # Directory
 | File or Folder | About |
