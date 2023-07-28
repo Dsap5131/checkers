@@ -10,16 +10,6 @@ Practice makes perfect.
 Feel free to leave comments and help improve the professional and socially
 responsible code I write.
 
-# TODO
-
-3. Implement Server and Client
-4. Update diagrams and design pngs
-5. Instance checking on parameters? What is the best practice
-6. Should Move return copies of the Position? Is this a vulnerability if not.
-7. Add makefile, just needs pytest
-8. (Optional) Research and implement optional typing for the use of GamePiece
-9. Should typing be done through strings and not imports (this can help with circular imports?)
-
 
 # Project Design
 
@@ -38,6 +28,31 @@ This will allow for easy expansion and updates to the game. For special verizons
 Proxies will be used to facilitate communicate between the Client and Server. The Player object will be on the server side and have a PlayerProxy object that allows it to communicate to the Client. The Client will use the RefereeProxy to communicate back. 
 
 The Strategy object will be used to determine the next move for the player. I.e whether its user input from the client or an AI. The use of AI will come in handy for automated testing.
+
+
+# Referee-Player Proxy Communications
+
+Player - Referee communication proxies will use JSONs through JsonConverter
+
+There will be 3 things to be send through proxies
+
+A PlayerProxy is a proxy that allows the game to talk to the player.
+A RefereeProxy is a proxy that allows the player to talk to the referee.
+
+JSON Communication Guide
+
+![](./resources/swimlane_diagrams/proxy_communications.png)
+
+
+# TODO
+
+3. Implement Server and Client
+4. Update diagrams and design pngs
+5. Instance checking on parameters? What is the best practice
+6. Should Move return copies of the Position? Is this a vulnerability if not.
+7. Add makefile, just needs pytest
+8. (Optional) Research and implement optional typing for the use of GamePiece
+9. Should typing be done through strings and not imports (this can help with circular imports?)
 
 
 # Directories
