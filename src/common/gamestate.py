@@ -1,5 +1,6 @@
 from collections import deque
 
+from multiprocessing import Process, Pipe
 from src.common.board import Board
 from src.common.rules import Rules
 from src.common.player import Player
@@ -26,6 +27,7 @@ class GameState():
         self.__rules = rules
         self.__players = players
         self.__turn = turn
+        self.__timeout = 30
 
 
     def is_game_over(self) -> bool:
@@ -48,13 +50,55 @@ class GameState():
 
         playerstates = self.__make_playergamestate()
         current_player = self.__players.popleft()
-        move = current_player.get_move(playerstates)
+        move = self.__player_interaction(current_player.get_move,
+                                         [playerstates])
+        print(move)
         if self.__rules.check_move(move, self.__board, current_player):
             self.__board.move_piece(move)
             self.__players.append(current_player)
         elif not self.__rules.kickable():
             self.__players.append(current_player)
         self.__turn += 1
+
+
+    def __player_interaction(self, func, args: list) -> any:
+        '''
+        All moments of interactions were the player is communicating to the game
+        go through this function. This is to moderate timeouts and errors from 
+        player interactions
+
+        @params: func: function
+        @params: args: list
+
+        @return: any
+        '''
+
+        conn1, conn2 = Pipe()
+        process = Process(target=self.__player_interaction_process,
+                          args=[func, args, conn2])
+        process.start()
+        process.join(timeout=self.__timeout)
+        process.terminate()
+
+        return conn1.recv()
+
+
+    def __player_interaction_process(self, 
+                                     func,
+                                     args: list,
+                                     conn) -> None:
+        '''
+        Thread to interact to run func with args and send 
+        the output through conn
+
+        @param: func: function
+        @param: args: list
+        @param: conn: Pipe.connection
+        '''
+
+        conn.send(func(*args))
+
+
 
     def __make_playerstates(self) -> list[PlayerState]:
         '''
@@ -65,7 +109,9 @@ class GameState():
 
         playerstates = []
         for i in range(len(self.__players)):
-            playerstates.append(self.__players[i].get_playerstate())
+            playerstate = self.__player_interaction(
+                self.__players[i].get_playerstate, [])
+            playerstates.append(playerstate)
         return playerstates
 
 
@@ -85,10 +131,9 @@ class GameState():
         '''
 
         for player in self.__players:
-            player.won(
-                self.__rules.is_winner(self.__board, 
-                                       player.get_playerstate(),
-                                       len(self.__players)))
+            player.won(self.__rules.is_winner(self.__board, 
+                                              player.get_playerstate(),
+                                              len(self.__players)))
 
 
 

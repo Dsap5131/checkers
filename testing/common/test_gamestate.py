@@ -1,5 +1,7 @@
 from collections import deque
+from multiprocessing import Process
 
+from src.player.timeoutplayer import TimeoutPlayer
 from src.common.rulesstandard import RulesStandard
 from src.common.rulesdumb import RulesDumb
 from src.common.gamestate import GameState
@@ -85,6 +87,8 @@ def test_is_game_over() -> None:
 
 
 def test_take_turn() -> None:
+
+    #Basic Take Turn and make sure nothing errors
     rules = RulesDumb()
     strategy = DumbStrategy()
     red_piece = GamePiece(Piece.RED, False)
@@ -102,6 +106,24 @@ def test_take_turn() -> None:
 
     gamestate.take_turn()
     gamestate.take_turn()
+
+    #Take Turn where a player times out 
+    board_list_2 = [[GamePiece(Piece.BLANK), GamePiece(Piece.BLACK)],
+                    [GamePiece(Piece.BLANK), GamePiece(Piece.RED)]]
+    board_2 = Board(row_size=2, column_size=2, board=board_list_2)
+    player_2_1 = TimeoutPlayer(Piece.RED, DumbStrategy())
+    players_2 = deque([player_2_1,
+                       LocalPlayer(Piece.BLACK, DumbStrategy())])
+    gamestate_2 = GameState(board_2, RulesDumb(), players_2, 0)
+
+    gs2_process = Process(target=gamestate_2.take_turn)
+    gs2_process.start()
+    gs2_process.join(timeout=45)
+    gs2_process.terminate()
+
+    assert gs2_process.exitcode != 0, 'GameState.take_turn() not working.'
+    assert gamestate_2.is_game_over() == True, \
+        'GameState.take_turn() not working'
 
 
 def test_end_game() -> None:
