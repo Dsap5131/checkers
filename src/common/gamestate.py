@@ -48,11 +48,10 @@ class GameState():
         Go through one turn of the game.
         '''
 
-        playerstates = self.__make_playergamestate()
+        playergamestate = self.__make_playergamestate()
         current_player = self.__players.popleft()
         intime, move = self.__player_interaction(current_player.get_move,
-                                                 [playerstates])
-        print(intime)
+                                                 [playergamestate])
         if intime and self.__rules.check_move(move,self.__board,current_player):
             self.__board.move_piece(move)
             self.__players.append(current_player)
@@ -114,7 +113,7 @@ class GameState():
 
         playerstates = []
         for i in range(len(self.__players)):
-            playerstate = self.__player_interaction(
+            intime, playerstate = self.__player_interaction(
                 self.__players[i].get_playerstate, [])
             playerstates.append(playerstate)
         return playerstates
