@@ -20,7 +20,7 @@ from src.common.leap import Leap
 from src.common.position import Position
 
 HOSTNAME = '127.0.0.1'
-PORT = 12_345
+PORT = 12_347
 PACKET_SIZE = 1024
 ENCODING = "utf-8"
 

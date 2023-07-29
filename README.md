@@ -46,8 +46,7 @@ JSON Communication Guide
 
 # TODO
 
-1a. Ensure a server does not get 2 clients asking for the same piece.
-1b. OR Should clients tell servers their piece or should servers give the piece to the client
+1. Servers should assign pieces to a client.
 2. What happens when a player gives a bad response
 3. GRAPHICS BABY
 4. Should server need to make the rules object before giving it to referee?

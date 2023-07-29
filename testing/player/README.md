@@ -2,7 +2,7 @@
 
 Testing for the src/player
 
-Tests for [test_onlineplayer.py](./test_onlineplayer.py) require use of PORT 12345
+Tests for [test_onlineplayer.py](./test_onlineplayer.py) require use of PORT 12348
 
 # Directory
 |   File or Folder | About |

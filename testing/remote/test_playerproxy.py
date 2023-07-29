@@ -20,7 +20,7 @@ from src.common.json_converter import JsonConverter
 
 HOSTNAME = '127.0.0.1'
 PACKET_SIZE = 1024
-PORT = 12_345
+PORT = 12_347
 ENCODING = "utf-8"
 
 def mock_playerproxy_get_move(playerproxy, pgs, pipe):

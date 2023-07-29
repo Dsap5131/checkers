@@ -1,6 +1,7 @@
 import json
 import socket
 
+from collections import deque
 from multiprocessing import Process, Pipe
 
 from src.common.piece import Piece
@@ -26,6 +27,9 @@ class Server():
         self.__connection_pairs = []
         self.__hostname = '127.0.0.1'
         self.__converter = JsonConverter()
+        self.__rules = RulesStandard()
+        self.__available_pieces = deque([Piece.RED, Piece.BLACK])
+        self.__num_players = len(self.__available_pieces)
         
 
     def run_game(self) -> None:
@@ -42,7 +46,13 @@ class Server():
             self.__search_for_connections(server_socket)
             players = self.__make_players()
             referee = Referee()
-            referee.start_game(RulesStandard(), players)
+            referee.start_game(self.__rules, players)
+            self.__close_connections()
+
+        
+    def __close_connections(self) -> None:
+        for connection, piece in self.__connection_pairs:
+            connection.close()
 
 
     def __make_players(self) -> list[OnlinePlayer]:
@@ -59,8 +69,7 @@ class Server():
         @param: server_socket: socket.socket
         '''
 
-        num_players = 2
-        while len(self.__connection_pairs) < num_players:
+        while len(self.__connection_pairs) < self.__num_players:
             server_socket.listen()
             connection, _ = server_socket.accept()
             validation, piece = self.__validate_connection(connection)
@@ -81,9 +90,11 @@ class Server():
                                      the connection is not valid and there
                                      is no piece.
         '''
+
+        piece = self.__available_pieces.popleft()
         pipe_recv, pipe_send = Pipe()
         valid_connection_process = Process(target=self.__timeout_connection,
-                                           args=[connection, pipe_send])
+                                           args=[connection, pipe_send, piece])
         valid_connection_process.start()
         valid_connection_process.join(timeout=2)
         valid_connection_process.terminate()
@@ -92,16 +103,20 @@ class Server():
             validate, piece = pipe_recv.recv()
             return validate, piece
         else:
+            self.__available_pieces.appendleft(piece)
             return False, None 
 
-    def __timeout_connection(self, connection, pipe_connection) -> None:
-        connection.send((json.dumps(['get_piece'])).encode(self.ENCODING))
+    def __timeout_connection(self, connection, pipe_connection, piece) -> None:
+        piece_json = self.__converter.piece_to_json(piece)
+        connection.send(
+            (json.dumps(['set_piece', piece_json])).encode(self.ENCODING))
         msg = connection.recv(self.PACKET_SIZE).decode(self.ENCODING)
         json_obj = json.loads(msg)
-        piece = self.__converter.json_to_piece(json_obj)
-        if isinstance(piece, Piece):
+        if json_obj == True:
             pipe_connection.send((True, piece))
         else:
+            self.__available_pieces.appendleft(piece)
             pipe_connection.send((False, None))
+            
 
 

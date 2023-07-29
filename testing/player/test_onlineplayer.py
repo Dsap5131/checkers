@@ -20,7 +20,7 @@ from src.common.json_converter import JsonConverter
 
 HOSTNAME = '127.0.0.1'
 PACKET_SIZE = 1024
-PORT = 12_345
+PORT = 12_348
 ENCODING = "utf-8"
 
 

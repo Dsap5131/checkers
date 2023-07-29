@@ -17,6 +17,8 @@ For example
 
 The tests in [remote](./remote/README.md) require use of port 12345
 Some tests in [player](./player/README.md) require use of port 12345
+Tests in [server](./server/README.md) require use of port 12345
+Tests in [Client](./client/README.md) require use of port 12346
 
 # Directory
 | File or Folder | About |
