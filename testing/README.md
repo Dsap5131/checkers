@@ -26,3 +26,4 @@ Some tests in [player](./player/README.md) require use of port 12345
 | [referee](./referee/README.md) | Tests for [src/referee](../src/referee/README.md) |
 | [server](./server/README.md) | Tests for [src/server](../src/server/README.md) |
 | [remote](./remote/README.md) | Tests for [src/remote](../src/remote/README.md) |
+| [client](./client/README.md) | Tests for [src/client](../src/client/README.md) |
