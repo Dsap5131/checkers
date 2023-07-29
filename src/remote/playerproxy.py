@@ -16,7 +16,7 @@ class PlayerProxy():
     PACKET_SIZE = 1024
     ENCODING = "utf-8"
 
-    def __init__(self, payload: socket.socket) -> None:
+    def __init__(self, payload) -> None:
         self.__payload = payload
         self.__converter = JsonConverter()
 
