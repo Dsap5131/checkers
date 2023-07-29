@@ -48,15 +48,16 @@ JSON Communication Guide
 
 1a. Ensure a server does not get 2 clients asking for the same piece.
 1b. OR Should clients tell servers their piece or should servers give the piece to the client
-2. GRAPHICS BABY
-3. Should server need to make the rules object before giving it to referee?
-4a. Improve READMEs, Update diagrams and design pngs (includes making a guide to how a game works)
-4b. Create information as to why online player stores piece locally
-5. Instance checking on parameters? What is the best practice
-6. Should Move return copies of the Position? Is this a vulnerability if not.
-7. Add makefile, just needs pytest
-8. (Optional) Research and implement optional typing for the use of GamePiece
-9. Should typing be done through strings and not imports (this can help with circular imports?)
+2. What happens when a player gives a bad response
+3. GRAPHICS BABY
+4. Should server need to make the rules object before giving it to referee?
+5a. Improve READMEs, Update diagrams and design pngs (includes making a guide to how a game works)
+5b. Create information as to why online player stores piece locally
+6. Instance checking on parameters? What is the best practice
+7. Should Move return copies of the Position? Is this a vulnerability if not.
+8. Add makefile, just needs pytest
+9. (Optional) Research and implement optional typing for the use of GamePiece
+10. Should typing be done through strings and not imports (this can help with circular imports?)
 
 
 # Directories
