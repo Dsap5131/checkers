@@ -50,9 +50,12 @@ class GameState():
 
         playergamestate = self.__make_playergamestate()
         current_player = self.__players.popleft()
-        intime, move = self.__player_interaction(current_player.get_move,
-                                                 [playergamestate])
-        if intime and self.__rules.check_move(move,self.__board,current_player):
+        valid_interaction, move = self.__player_interaction(
+            current_player.get_move,
+            [playergamestate])
+        
+        if (valid_interaction 
+                and self.__rules.check_move(move,self.__board,current_player)):
             self.__board.move_piece(move)
             self.__players.append(current_player)
         elif not self.__rules.kickable():
@@ -81,10 +84,10 @@ class GameState():
         process.join(timeout=self.__timeout)
         process.terminate()
 
-        if process.exitcode is None:
-            return False, None
-        else:
+        if process.exitcode == 0:
             return True, conn1.recv()
+        else:
+            return False, None
 
 
     def __player_interaction_process(self, 
