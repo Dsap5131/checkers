@@ -46,8 +46,12 @@ JSON Communication Guide
 
 # TODO
 
-3. Implement Server and Client
-4. Update diagrams and design pngs
+1a. Ensure a server does not get 2 clients asking for the same piece.
+1b. OR Should clients tell servers their piece or should servers give the piece to the client
+2. GRAPHICS BABY
+3. Should server need to make the rules object before giving it to referee?
+4a. Improve READMEs, Update diagrams and design pngs (includes making a guide to how a game works)
+4b. Create information as to why online player stores piece locally
 5. Instance checking on parameters? What is the best practice
 6. Should Move return copies of the Position? Is this a vulnerability if not.
 7. Add makefile, just needs pytest
