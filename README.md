@@ -12,8 +12,6 @@ responsible code I write.
 
 # Running
 
-The `make` commands currectly only work on linux
-
 From the root directory run \
 `make run_tests`\
 To setup the project if it isn't set up and run all the tests.
