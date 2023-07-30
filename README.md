@@ -10,6 +10,15 @@ Practice makes perfect.
 Feel free to leave comments and help improve the professional and socially
 responsible code I write.
 
+# Running
+
+From the root directory run \
+`make run_tests`\
+To setup the project if it isn't set up and run all the tests.
+
+To clean all caches and environments run\
+`make clean`
+
 
 # Project Design
 
