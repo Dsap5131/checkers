@@ -3,12 +3,10 @@
 Its Checkers :) 
 
 Just a simple project updated every once in awhile as I improve my software development skills.
-The main goals of this project being to improve my Python software development skills.
-This includes using new software, like Flask. 
+The main goals of this project is showcasing my software development skills in Python.
 
 Practice makes perfect.
-Feel free to leave comments and help improve the professional and socially
-responsible code I write.
+Please leave comments on improvements.
 
 # Running
 
@@ -76,3 +74,7 @@ JSON Communication Guide
 | [resources](./resources/README.md) | Represents information about the project.
 | [src](./src/README.md) | source code for the project |
 | [testing](./testing/README.md) | testing for the project |
+| [gitignore](.gitignore) | gitignore |
+| [LICENSE](LICENSE) | MIT License |
+| [Makefile](Makefile) | Makefile |
+| [README.md](README.md) | Project wide README.md |
