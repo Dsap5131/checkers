@@ -11,3 +11,4 @@ TBD.
 | File or Folder | About |
 | ---            | ---   |
 | [client.py](./client.py) | [Client](./client.py) |
+| [displays](./displays/README.md) | Displays
