@@ -18,8 +18,8 @@ class TerminalDisplay(Display):
         @returns: tuple[Hostname: str, Port: int, strategy: Strategy]
         '''
 
-        hostname = input('What is the hostname of the server?')
-        port = int(input('What is the port number to connect to?'))
+        hostname = input('What is the hostname of the server?\n')
+        port = int(input('What is the port number to connect to?\n'))
         strategy = TerminalStrategy()
         return (hostname, port, strategy)
     

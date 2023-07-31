@@ -47,7 +47,7 @@ def mock_output(msg: str) -> str:
 
 
 def mock_start_game_input(msg: str) -> str:
-    if msg == 'What is the hostname of the server?':
+    if msg == 'What is the hostname of the server?\n':
         return '127.0.0.1'
-    elif msg == 'What is the port number to connect to?':
+    elif msg == 'What is the port number to connect to?\n':
         return '12_345'
