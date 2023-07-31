@@ -8,6 +8,7 @@ from src.client.client import Client
 from src.common.piece import Piece
 from src.common.json_converter import JsonConverter
 from src.player.strategies.dumbstrategy import DumbStrategy
+from src.client.displays.dumbdisplay import DumbDisplay
 
 
 HOSTNAME = '127.0.0.1'
@@ -17,12 +18,12 @@ ENCODING = "utf-8"
 
 
 def test_constructor() -> None:
-    client_1 = Client(DumbStrategy())
+    client_1 = Client(DumbDisplay(HOSTNAME, PORT))
 
 
 def mock_client() -> None:
-    client_1 = Client(DumbStrategy())
-    client_1.play_game(HOSTNAME, PORT)
+    client_1 = Client(DumbDisplay(HOSTNAME, PORT))
+    client_1.play_game()
 
 
 def mock_server_connection(pipe_conn) -> None:

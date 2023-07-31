@@ -6,6 +6,7 @@ from src.remote.refereeproxy import RefereeProxy
 from src.player.localplayer import LocalPlayer
 from src.player.strategies.strategy import Strategy
 from src.common.json_converter import JsonConverter
+from src.client.displays.display import Display
 
 
 class Client():
@@ -13,24 +14,26 @@ class Client():
     Clients connect to a server and allow players to remotely play a game 
     of checkers
 
-    @param: strategy: Strategy
+    @param: display: Display
     '''
 
     PACKET_SIZE = 1024
     ENCODING = "utf-8"
 
-    def __init__(self, strategy: Strategy) -> None:
-        self.__strategy = strategy
+    def __init__(self, display: Display) -> None:
+        self.__display = display
         self.__converter = JsonConverter()
 
     
-    def play_game(self, hostname: str, port: int) -> None:
+    def play_game(self) -> None:
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client_socket:
+            hostname, port, strategy = self.__display.start_game()
             client_socket.connect((hostname, port))
             piece = self.__receive_piece(client_socket)
-            local_player = LocalPlayer(piece, self.__strategy)
+            local_player = LocalPlayer(piece, strategy)
             refereeproxy = RefereeProxy(client_socket, local_player)
             refereeproxy.listening()
+            self.__display.end_game(local_player.get_is_winner())
 
     
     def __receive_piece(self, client_socket: socket.socket) -> None:
