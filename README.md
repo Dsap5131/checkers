@@ -65,17 +65,16 @@ JSON Communication Guide
 
 1. GRAPHICS!!!!
 2. Fix makefile to properly remove all _pycache_
-3. Improve makefile to run server and client for easy runnings
-4. Should server need to make the rules object before giving it to referee?
-5a. Improve READMEs, Update diagrams and design pngs (includes making a guide to how a game works)
-5b. Create information as to why online player stores piece locally
-1. Improve the gracefully shutdown off ports throughout the program.
-2. Improve code in server and client.
-3. Instance checking on parameters? What is the best practice
-4. Should Move return copies of the Position? Is this a vulnerability if not.
-5.  Add makefile, just needs pytest
-6.  (Optional) Research and implement optional typing for the use of GamePiece
-7.  Should typing be done through strings and not imports (this can help with circular imports?)
+3. Should server need to make the rules object before giving it to referee?
+4a. Improve READMEs, Update diagrams and design pngs (includes making a guide to how a game works)
+4b. Create information as to why online player stores piece locally
+5. Improve the gracefully shutdown off ports throughout the program.
+6. Improve code in server and client.
+7. Instance checking on parameters? What is the best practice
+8. Should Move return copies of the Position? Is this a vulnerability if not.
+9.  Add makefile, just needs pytest
+10.  (Optional) Research and implement optional typing for the use of GamePiece
+11.  Should typing be done through strings and not imports (this can help with circular imports?)
 
 
 # Directories
