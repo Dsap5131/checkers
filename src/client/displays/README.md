@@ -2,10 +2,6 @@
 
 Display directory represents the code needed interact with a user.
 
-# Design
-
-TBD.
-
 # Directory 
 | File or Folder | About |
 | ---            | ---   |

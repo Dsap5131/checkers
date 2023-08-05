@@ -5,7 +5,8 @@ remote connections.
 
 # Design
 
-TBD.
+
+![Fig remote_directory_design.png](./../../resources/UML_diagrams/remote_directory_design.png)
 
 
 # Referee-Player Proxy Communications

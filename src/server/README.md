@@ -5,7 +5,11 @@ for clients to connect to.
 
 # Design
 
-TBD.
+![Fig server_directory_design.png](./../../resources/UML_diagrams/server_directory_design.png)
+
+# Starting a game
+
+![](./resources/swimlane_diagrams/start_game_communication.png)
 
 # Directory 
 | File or Folder | About |

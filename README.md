@@ -36,6 +36,10 @@ Proxies will be used to facilitate communicate between the Client and Server. Th
 
 The Strategy object will be used to determine the next move for the player. I.e whether its user input from the client or an AI. The use of AI will come in handy for automated testing.
 
+# Starting a game
+
+![](./resources/swimlane_diagrams/start_game_communication.png)
+
 
 # Referee-Player Proxy Communications
 

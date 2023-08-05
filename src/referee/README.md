@@ -6,7 +6,7 @@ player.
 
 # Design
 
-TBD.
+![Fig referee_directory_design.png](./../../resources/UML_diagrams/referee_directory_design.png)
 
 # Directory 
 | File or Folder | About |
