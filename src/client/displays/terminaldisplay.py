@@ -2,6 +2,7 @@ from src.client.displays.display import Display
 from src.common.playergamestate import PlayerGameState
 from src.player.strategies.strategy import Strategy
 from src.player.strategies.terminalstrategy import TerminalStrategy
+from src.player.strategies.minimaxstrategy import MiniMaxStrategy
 
 
 class TerminalDisplay(Display):
@@ -20,7 +21,11 @@ class TerminalDisplay(Display):
 
         hostname = input('What is the hostname of the server?\n')
         port = int(input('What is the port number to connect to?\n'))
+        strategy_str = input('What is the strategy you would like to use?'+\
+                             '\n1) TerminalStrategy\n2) MiniMaxStrategy\n')
         strategy = TerminalStrategy()
+        if strategy_str == 'MiniMaxStrategy':
+            strategy = MiniMaxStrategy()
         return (hostname, port, strategy)
     
 
