@@ -18,11 +18,11 @@ To clean all caches and environments run\
 `make clean`
 
 To run a server use command\
-'make server'\
+`make server`\
 This will run a server out of port 12332. This can be edited in the checkers/server_main.py script
 
 To run a client use command\
-'make client'\
+`make client`
 
 # Project Design
 
