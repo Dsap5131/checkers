@@ -17,6 +17,12 @@ To setup the project if it isn't set up and run all the tests.
 To clean all caches and environments run\
 `make clean`
 
+To run a server use command\
+'make server'\
+This will run a server out of port 12332. This can be edited in the checkers/server_main.py script
+
+To run a client use command\
+'make client'\
 
 # Project Design
 
@@ -83,3 +89,5 @@ JSON Communication Guide
 | [LICENSE](LICENSE) | MIT License |
 | [Makefile](Makefile) | Makefile |
 | [README.md](README.md) | Project wide README.md |
+| [client_main.py](client_main.py) | Script to start a client |
+| [server_main.py](server_main.py) | Script to start a server |

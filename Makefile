@@ -13,5 +13,13 @@ clean:
 	rm -rf ${VENV}/
 
 
+server: setup 
+	${PYTHON} server_main.py
+
+
+client: setup
+	${PYTHON} client_main.py
+
+
 run_tests: setup
 	${PYTHON} -m pytest testing/
