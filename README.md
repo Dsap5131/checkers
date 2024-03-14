@@ -24,6 +24,8 @@ This will run a server out of port 12332. This can be edited in the checkers/ser
 To run a client use command\
 `make client`
 
+To play a game a server must be running, 2 clients must properly connect.
+
 # Project Design
 
 ![Fig project_wide_mock.png](./resources/UML_diagrams/project_wide_mock.png)
